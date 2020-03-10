@@ -7,26 +7,27 @@
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 
 
-char passwordHRO[4] = {'1', '2', '3', '4'};
-String tagHRO = "F6 D0 C2 32";
+char passwordHRO[4] = {'1', '2', '3', '4'}; //Hardcoded password
+String tagHRO = "F6 D0 C2 32";              //Hardcoded tagUID
 
 char passwordOV[4] = {'4', '3', '2', '1'};
 String tagOV = "A1 47 70 00";
 
-char password[4];
+char passwordRood[4];   //Lege array van 4 cijfers, hier komt het ingevoerde cijfer combinatie van de keypad. 
+char passwordGoud[4];
 
 int ledGroen = 6;
 int ledRood = 7;
 
 bool rfidMode = true;
 bool pasHRO = false;
-bool pasOV = false;
+bool pasOV = false;       //Alle booleans om de boel te beheren
 bool loginHRO = false;
 bool loginOV = false;
 
-int attemptCounter = 0;
+int attemptCounter = 0;     //Telt het aantal inlog pogingen
 
-char key_pressed = 0; 
+char key_pressed = 0;     //Telt het aantal ingetoetste knopjes op keypad
 uint8_t i = 0;
 
 
@@ -40,8 +41,8 @@ char hexaKeys[rows][columns] = {
   {'*', '0', '#', 'D'}
 };
 // Initializing pins for keypad
-byte row_pins[rows] = {A0, A1, A2, A3};
-byte column_pins[columns] = {2, 1, 0};
+byte row_pins[rows] = {4, 3, A0, A1};     //De pins waarop de keypad aangesloten moet worden
+byte column_pins[columns] = {A2, A3, A4, A5};
 // Create instance for keypad
 Keypad keypad_key = Keypad( makeKeymap(hexaKeys), row_pins, column_pins, rows, columns);
 
@@ -57,7 +58,7 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-  if (rfidMode == true)
+  if (rfidMode == true)  //Zoekt naar pas mode
   {
     Serial.println("Zoeken naar pas");
     digitalWrite(ledRood, LOW);
@@ -81,45 +82,47 @@ void loop() {
     }
     tag.toUpperCase();
     //Checking the card
-    if (tag.substring(1) == tagHRO)
+    if (tag.substring(1) == tagHRO) //Wanneer de HRO pas gelezen wordt
     {
-      Serial.write("Toets uw pincode in:");
+      Serial.write("Toets uw HRO pincode in:");
       rfidMode = false;
       pasHRO = true;
       
     }
-    else if (tag.substring(1) == tagOV)
+    else if (tag.substring(1) == tagOV) //Wanneer de OV pas gelezen wordt
     {
-      Serial.write("Toets uw pincode in:");
+      Serial.write("Toets uw OV pincode in:");
       rfidMode = false;
       pasOV = true;
     }
     else
     {
-      Serial.write("Verkeerde pas");
+      Serial.write("Verkeerde pas");  //Wanneer een verkeerde pas gelezen wordt.
       rfidMode = true;
       pasOV = false;
       pasHRO = false;
     }
   
   // If RFID mode is false, it will look for keys from keypad
-  if (rfidMode == false) {
+  while (rfidMode == false) {
     key_pressed = keypad_key.getKey(); // Storing keys
     if (key_pressed)
     {
-      password[i++] = key_pressed; // Storing in password variable
+      passwordRood[i++] = key_pressed; // Storing in password variable wat hier in komt is wat hij later vegerlijkt met jouw ingebakken password. 
+      
     }
     if (i == 4) // If 4 keys are completed
     {
       delay(200);
-      if (!(strncmp(password, passwordHRO, 4))) // If password is matched
+      if (!(strncmp(passwordRood, passwordHRO, 4))) // If password is matched
       {
         if ( pasHRO == true)
       {
         Serial.print("Pass Accepted");
         digitalWrite(ledRood, HIGH);
+        break;
       }     
-       if (!(strncmp(password, passwordOV, 4))) // If password is matched
+       else if (!(strncmp(passwordGoud, passwordOV, 4))) // If password is matched
       {
         if ( pasOV == true)
         {
@@ -131,11 +134,12 @@ void loop() {
       else    // If password is not matched
       {
         Serial.print("Wrong Password");
-        attemptCounter++;
+        attemptCounter++;  //Telt ééntje bij de attemptcounter
       }
-      if (attemptCounter = 2)
+      if (attemptCounter == 2)
       {
         rfidMode = true;
+        Serial.print("Jij bent password get");
       }
     }
   }
