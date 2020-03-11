@@ -13,8 +13,7 @@ String tagHRO = "F6 D0 C2 32";              //Hardcoded tagUID
 char passwordOV[4] = {'4', '3', '2', '1'};
 String tagOV = "A1 47 70 00";
 
-char passwordRood[4];   //Lege array van 4 cijfers, hier komt het ingevoerde cijfer combinatie van de keypad. 
-char passwordGoud[4];
+char password[4];   //Lege array van 4 cijfers, hier komt het ingevoerde cijfer combinatie van de keypad. 
 
 int ledGroen = 6;
 int ledRood = 7;
@@ -55,6 +54,17 @@ void setup() {
   pinMode(ledGroen, OUTPUT);
 }
 
+
+/* void clearData()
+{
+  while (password != 0)
+  {
+    password[i--] = 0;
+  }
+  return;
+}
+*/ 
+
 void loop() {
   // put your main code here, to run repeatedly:
 
@@ -84,14 +94,14 @@ void loop() {
     //Checking the card
     if (tag.substring(1) == tagHRO) //Wanneer de HRO pas gelezen wordt
     {
-      Serial.write("Toets uw HRO pincode in:");
+      Serial.print("Toets uw HRO pincode in:");
       rfidMode = false;
       pasHRO = true;
       
     }
     else if (tag.substring(1) == tagOV) //Wanneer de OV pas gelezen wordt
     {
-      Serial.write("Toets uw OV pincode in:");
+      Serial.print("Toets uw OV pincode in:");
       rfidMode = false;
       pasOV = true;
     }
@@ -108,13 +118,13 @@ void loop() {
     key_pressed = keypad_key.getKey(); // Storing keys
     if (key_pressed)
     {
-      passwordRood[i++] = key_pressed; // Storing in password variable wat hier in komt is wat hij later vegerlijkt met jouw ingebakken password. 
+      password[i++] = key_pressed; // Storing in password variable wat hier in komt is wat hij later vegerlijkt met jouw ingebakken password. 
       
     }
     if (i == 4) // If 4 keys are completed
     {
       delay(200);
-      if (!(strncmp(passwordRood, passwordHRO, 4))) // If password is matched
+      if (!(strncmp(password, passwordHRO, 4))) // If password is matched
       {
         if ( pasHRO == true)
       {
@@ -122,7 +132,7 @@ void loop() {
         digitalWrite(ledRood, HIGH);
         break;
       }     
-       else if (!(strncmp(passwordGoud, passwordOV, 4))) // If password is matched
+       else if (!(strncmp(password, passwordOV, 4))) // If password is matched
       {
         if ( pasOV == true)
         {
@@ -134,6 +144,8 @@ void loop() {
       else    // If password is not matched
       {
         Serial.print("Wrong Password");
+        
+        // clearData();
         attemptCounter++;  //Telt ééntje bij de attemptcounter
       }
       if (attemptCounter == 2)
@@ -143,4 +155,5 @@ void loop() {
       }
     }
   }
+  
 }
