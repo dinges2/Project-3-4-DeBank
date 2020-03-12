@@ -92,7 +92,7 @@ public class PinAutomaat{
             // enterPinPanel.add(textField, grid);
 
             passwordField = new JPasswordField(10);
-            passwordField.setActionCommand(command);
+            // passwordField.setActionCommand(command);
             // passwordField.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
             // passwordField.setBounds(100, 100, 100, 50);
             grid.gridx = 4;
