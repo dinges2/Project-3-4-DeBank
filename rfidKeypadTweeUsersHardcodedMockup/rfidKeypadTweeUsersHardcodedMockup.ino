@@ -3,7 +3,7 @@
 #include <Keypad.h>
 
 #define SS_PIN 10
-#define RST_PIN 2
+#define RST_PIN 9
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 
 
@@ -11,7 +11,7 @@ char passwordHRO[4] = {'1', '2', '3', '4'}; //Hardcoded password
 String tagHRO = "F6 D0 C2 32";              //Hardcoded tagUID
 
 char passwordOV[4] = {'4', '3', '2', '1'};
-String tagOV = "A1 47 70 00";
+String tagOV = "91 C3 65 05";
 
 char password[4];   //Lege array van 4 cijfers, hier komt het ingevoerde cijfer combinatie van de keypad. 
 
@@ -55,15 +55,15 @@ void setup() {
 }
 
 
-/* void clearData()
+ void clearData()
 {
-  while (password != 0)
+  while (password != NULL)
   {
-    password[i--] = 0;
+    password[i--] = NULL;
   }
   return;
 }
-*/ 
+
 
 void loop() {
   // put your main code here, to run repeatedly:
@@ -145,8 +145,9 @@ void loop() {
       {
         Serial.print("Wrong Password");
         
-        // clearData();
+        clearData();
         attemptCounter++;  //Telt ééntje bij de attemptcounter
+        rfidMode = true;
       }
       if (attemptCounter == 2)
       {
@@ -154,6 +155,7 @@ void loop() {
         Serial.print("Jij bent password get");
       }
     }
+    
   }
   
 }
