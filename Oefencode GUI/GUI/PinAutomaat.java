@@ -8,6 +8,11 @@ public class PinAutomaat{
     private JPanel startingScreenPanel;
     private JPanel enterPinPanel;
     private JPanel mainMenuPanel;
+    private JPanel withdrawPanel;
+    private JPanel balancePanel;
+    private JPanel billChoicePanel;
+    private JPanel receiptPanel;
+    private JPanel thanksPanel;
     
     private JPasswordField passwordField;
 
@@ -16,11 +21,17 @@ public class PinAutomaat{
     private JButton withdrawButton;
     private JButton balanceButton;
     private JButton quick70Button;
+    private JButton backToMainMenuButton;
     
-    private JLabel startingScreen;
-    private JLabel enterPin;
-    private JLabel mainMenu;
-
+    private JLabel startingScreenLabel;
+    private JLabel enterPinLabel;
+    private JLabel mainMenuLabel;
+    private JLabel withdrawLabel;
+    private JLabel balanceLabel;
+    private JLabel billChoiceLabel;
+    private JLabel receiptLabel;
+    private JLabel thanksLabel;
+    
     private int pincode;
 
     public PinAutomaat(){
@@ -40,20 +51,16 @@ public class PinAutomaat{
             mainFrame.add(startingScreenPanel);
             GridBagConstraints grid = new GridBagConstraints();
             startingScreenPanel.setLayout(new GridBagLayout());
-            // startingScreenPanel.setLayout(null);
 
-            startingScreen = new JLabel();
-            // startingScreen.setHorizontalAlignment(SwingConstants.CENTER);
-            startingScreen.setFont(new Font("Roboto", Font.BOLD, 18));
-            startingScreen.setText("Houd uw pinpas voor de lezer.");
-            // startingScreen.setBounds(100, 100, 300, 50);
+            startingScreenLabel = new JLabel();
+            startingScreenLabel.setFont(new Font("Roboto", Font.BOLD, 18));
+            startingScreenLabel.setText("Houd uw pinpas voor de lezer.");
             grid.gridx = 5;
             grid.gridy = 0;
             grid.anchor = GridBagConstraints.PAGE_START;
-            startingScreenPanel.add(startingScreen, grid);
+            startingScreenPanel.add(startingScreenLabel, grid);
 
             JButton OkButton = new JButton("OK");
-            // OkButton.setBounds(175, 160, 80, 30);
             grid.gridx = 5;
             grid.gridy = 5;
             startingScreenPanel.add(OkButton, grid);
@@ -75,40 +82,28 @@ public class PinAutomaat{
             GridBagConstraints grid = new GridBagConstraints();
             enterPinPanel.setLayout(new GridBagLayout());
 
-            enterPin = new JLabel();
-            // enterPin.setHorizontalAlignment(SwingConstants.CENTER);
-            enterPin.setFont(new Font("Roboto", Font.BOLD, 18));
-            enterPin.setText("Voer uw pincode in.");
-            // enterPin.setBounds(100, 10, 300, 50);
+            enterPinLabel = new JLabel();
+            enterPinLabel.setFont(new Font("Roboto", Font.BOLD, 18));
+            enterPinLabel.setText("Voer uw pincode in.");
             grid.gridx = 5;
             grid.gridy = 0;
             grid.anchor = GridBagConstraints.PAGE_START;
-            enterPinPanel.add(enterPin, grid);
-
-            // JTextField textField = new JTextField(10);
-            // textField.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
-            // grid.gridx = 5;
-            // grid.gridy = 1;
-            // enterPinPanel.add(textField, grid);
+            enterPinPanel.add(enterPinLabel, grid);
 
             passwordField = new JPasswordField(10);
             // passwordField.setActionCommand(command);
-            // passwordField.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
-            // passwordField.setBounds(100, 100, 100, 50);
             grid.gridx = 4;
             grid.gridy = 2;
             grid.gridwidth = 3;
             enterPinPanel.add(passwordField, grid);
 
             enterButton = new JButton("Enter");
-            // enterButton.setBounds(60, 160, 100, 30);
             grid.gridx = 4;
             grid.gridy = 3;
             grid.gridwidth = 1;
             enterPinPanel.add(enterButton, grid);
 
             abortButton = new JButton("Afbreken");
-            // abortButton.setBounds(170, 160, 100, 30);
             grid.gridx = 6;
             grid.gridy = 3;
             grid.gridwidth = 1;
@@ -141,15 +136,13 @@ public class PinAutomaat{
             GridBagConstraints grid = new GridBagConstraints();
             mainMenuPanel.setLayout(new GridBagLayout());
 
-            mainMenu = new JLabel();
-            // mainMenu.setHorizontalAlignment(SwingConstants.CENTER);
-            mainMenu.setFont(new Font("Roboto", Font.BOLD, 18));
-            mainMenu.setText("Kies wat u wil doen.");
-            // mainMenu.setBounds(100, 10, 300, 50);
+            mainMenuLabel = new JLabel();
+            mainMenuLabel.setFont(new Font("Roboto", Font.BOLD, 18));
+            mainMenuLabel.setText("Kies wat u wil doen.");
             grid.gridx = 3;
             grid.gridy = 0;
             grid.anchor = GridBagConstraints.PAGE_START;
-            mainMenuPanel.add(mainMenu, grid);
+            mainMenuPanel.add(mainMenuLabel, grid);
 
             withdrawButton = new JButton("Opnemen");
             grid.gridx = 0;
@@ -182,6 +175,74 @@ public class PinAutomaat{
                     mainFrame.remove(mainMenuPanel);
                     startingScreenPanel = null;
                     startingSCreen();
+                }
+            });
+
+            withdrawButton.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+
+                    mainFrame.remove(mainMenuPanel);
+                    startingScreenPanel = null;
+                    withdraw();
+                }
+            });
+        }
+
+        public void withdraw(){
+
+            withdrawPanel =  new JPanel();
+            mainFrame.add(withdrawPanel);
+            GridBagConstraints grid = new GridBagConstraints();
+            withdrawPanel.setLayout(new GridBagLayout());
+
+            withdrawLabel = new JLabel();
+            withdrawLabel.setFont(new Font("Roboto", Font.BOLD, 18));
+            withdrawLabel.setText("Kies het bedrag dat u wilt pinnen.");
+            grid.gridx = 5;
+            grid.gridy = 0;
+            grid.anchor = GridBagConstraints.PAGE_START;
+            withdrawPanel.add(withdrawLabel, grid);
+            
+            JTextField textField = new JTextField(10);
+            grid.gridx = 4;
+            grid.gridy = 2;
+            // grid.gridwidth = 3;
+            withdrawPanel.add(textField, grid);
+
+            enterButton = new JButton("Enter");
+            grid.gridx = 8;
+            grid.gridy = 2;
+            // grid.gridwidth = 1;
+            withdrawPanel.add(enterButton, grid);
+
+            abortButton = new JButton("Afbreken");
+            grid.gridx = 4;
+            grid.gridy = 3;
+            // grid.gridwidth = 1;
+            withdrawPanel.add(abortButton, grid);
+
+            backToMainMenuButton = new JButton();
+            grid.gridx = 6;
+            grid.gridy = 3;
+            // grid.gridwidth = 1;
+            withdrawPanel.add(backToMainMenuButton, grid);
+            mainFrame.setVisible(true);
+
+            abortButton.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+
+                    mainFrame.remove(withdrawPanel);
+                    startingScreenPanel = null;
+                    startingSCreen();
+                }
+            });
+
+            backToMainMenuButton.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+
+                    mainFrame.remove(withdrawPanel);
+                    mainMenuPanel = null;
+                    mainMenu();
                 }
             });
         }
