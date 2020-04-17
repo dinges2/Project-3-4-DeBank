@@ -11,7 +11,9 @@ public class PinAutomaat{
     private JPanel enterPinPanel;
     private JPanel mainMenuPanel;
     private JPanel withdrawPanel;
+    private JPanel amountPanel;
     private JPanel balancePanel;
+    private JPanel billsPanel;
     private JPanel billChoicePanel;
     private JPanel receiptPanel;
     private JPanel thanksPanel;
@@ -20,14 +22,19 @@ public class PinAutomaat{
     private JFormattedTextField amountField;
     private NumberFormat amountFormat;
     private int amount;
+    private int amountPressed = 0;
     private float accountBalance;
 
     private JButton abortButton;
     private JButton enterButton;
     private JButton withdrawButton;
+    private JButton enterAmountButton;
     private JButton balanceButton;
     private JButton quickSeventyButton;
     private JButton backToMainMenuButton;
+    private JButton optionOneButton;
+    private JButton optionTwoButton;
+    private JButton optionThreeButton;
     
     private JLabel startingScreenLabel;
     private JLabel enterPinLabel;
@@ -36,6 +43,7 @@ public class PinAutomaat{
     private JLabel amountLabel;
     private JLabel balanceLabel;
     private JLabel accountBalanceLabel;
+    private JLabel billsLabel;
     private JLabel billChoiceLabel;
     private JLabel receiptLabel;
     private JLabel thanksLabel;
@@ -49,11 +57,11 @@ public class PinAutomaat{
         mainFrame.setSize(480, 320);
         mainFrame.setResizable(false);
 
-        startingSCreen();
+        startingScreen();
         mainFrame.setVisible(true);
     }
 
-        public void startingSCreen(){
+        public void startingScreen(){
             
             startingScreenPanel = new JPanel();
             mainFrame.add(startingScreenPanel);
@@ -134,7 +142,7 @@ public class PinAutomaat{
 
                     mainFrame.remove(enterPinPanel);
                     startingScreenPanel = null;
-                    startingSCreen();  
+                    startingScreen();  
                 }
             });
         }
@@ -185,7 +193,7 @@ public class PinAutomaat{
 
                     mainFrame.remove(mainMenuPanel);
                     startingScreenPanel = null;
-                    startingSCreen();
+                    startingScreen();
                 }
             });
 
@@ -219,7 +227,7 @@ public class PinAutomaat{
 
         public void withdraw(){
 
-            withdrawPanel =  new JPanel();
+            withdrawPanel = new JPanel();
             mainFrame.add(withdrawPanel);
             GridBagConstraints grid = new GridBagConstraints();
             withdrawPanel.setLayout(new GridBagLayout());
@@ -233,8 +241,125 @@ public class PinAutomaat{
             grid.anchor = GridBagConstraints.PAGE_START;
             withdrawPanel.add(withdrawLabel, grid);
 
-            // amountLabel = new JLabel(String.valueOf('\u20bd'));
-            // withdrawPanel.add(amountLabel);
+            JButton tenButton = new JButton(" \u20BD 10");
+            grid.gridx = 0;
+            grid.gridy = 1;
+            withdrawPanel.add(tenButton, grid);
+
+            JButton twentyButton = new JButton("\u20BD 20");
+            grid.gridx = 0;
+            grid.gridy = 2;
+            withdrawPanel.add(twentyButton, grid);
+
+            JButton fiftyButton = new JButton("\u20BD 50");
+            grid.gridx = 0;
+            grid.gridy = 3;
+            withdrawPanel.add(fiftyButton, grid);
+
+            JButton hundredButton = new JButton("\u20BD 100");
+            grid.gridx = 3;
+            grid.gridy = 1;
+            withdrawPanel.add(hundredButton, grid);
+
+            enterAmountButton = new JButton("Zelf invoeren");
+            grid.gridx = 3;
+            grid.gridy = 2;
+            withdrawPanel.add(enterAmountButton, grid);
+
+            backToMainMenuButton = new JButton("Hoofdmenu");
+            grid.gridx = 0;
+            grid.gridy = 4;
+            withdrawPanel.add(backToMainMenuButton, grid);
+
+            abortButton = new JButton("Afbreken");
+            grid.gridx = 3;
+            grid.gridy = 2 + 2;
+            withdrawPanel.add(abortButton, grid);
+            mainFrame.setVisible(true);
+
+            tenButton.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+
+                    mainFrame.remove(withdrawPanel);
+                    amountPressed = 10;
+                    receiptPanel = null;
+                    receipt();
+                }
+            });
+
+            twentyButton.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+
+                    mainFrame.remove(withdrawPanel);
+                    amountPressed = 20;
+                    billsPanel = null;
+                    bills();
+                }
+            });
+
+            fiftyButton.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+
+                    mainFrame.remove(withdrawPanel);
+                    amountPressed = 50;
+                    billsPanel = null;
+                    bills();
+                }
+            });
+
+            hundredButton.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+
+                    mainFrame.remove(withdrawPanel);
+                    amountPressed = 100;
+                    billsPanel = null;
+                    bills();
+                }
+            });
+
+            enterAmountButton.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+
+                    mainFrame.remove(mainMenuPanel);
+                    amountPanel = null;
+                    enterAmount();
+                }
+            });
+
+            abortButton.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+
+                    mainFrame.remove(withdrawPanel);
+                    startingScreenPanel = null;
+                    startingScreen();
+                }
+            });
+
+            backToMainMenuButton.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+
+                    mainFrame.remove(withdrawPanel);
+                    mainMenuPanel= null;
+                    mainMenu();
+                }
+            });
+        }
+
+        public void enterAmount(){
+
+            amountPanel =  new JPanel();
+            mainFrame.add(amountPanel);
+            GridBagConstraints grid = new GridBagConstraints();
+            amountPanel.setLayout(new GridBagLayout());
+
+            amountLabel = new JLabel();
+            amountLabel.setFont(new Font("Roboto", Font.BOLD, 16));
+            amountLabel.setText("Voer het bedrag in dat u wilt pinnen.");
+            grid.gridx = 1;
+            grid.gridy = 0;
+            grid.weighty = 1.0;
+            grid.anchor = GridBagConstraints.PAGE_START;
+            amountPanel.add(amountLabel, grid);
             
             amountField = new JFormattedTextField(amountFormat);
             amountField.setValue(amount);
@@ -255,32 +380,32 @@ public class PinAutomaat{
             grid.weightx = 1.0;
             // grid.gridwidth = 2;
             grid.weighty = 0.0;
-            withdrawPanel.add(amountField, grid);
+            amountPanel.add(amountField, grid);
 
             enterButton = new JButton("Enter");
             grid.gridx = 2;
             grid.gridy = 1;
             grid.gridwidth = 1;
-            withdrawPanel.add(enterButton, grid);
+            amountPanel.add(enterButton, grid);
 
             abortButton = new JButton("Afbreken");
             grid.gridx = 2;
             grid.gridy = 2;
             grid.gridwidth = 1;
             grid.weighty = 1.0;
-            withdrawPanel.add(abortButton, grid);
+            amountPanel.add(abortButton, grid);
 
             backToMainMenuButton = new JButton("Hoofdmenu");
             grid.gridx = 0;
             grid.gridy = 2;
             grid.gridwidth = 1;
-            withdrawPanel.add(backToMainMenuButton, grid);
+            amountPanel.add(backToMainMenuButton, grid);
             mainFrame.setVisible(true);
 
             enterButton.addMouseListener(new MouseAdapter(){
                 public void mouseClicked(MouseEvent e){
 
-                    mainFrame.remove(withdrawPanel);
+                    mainFrame.remove(amountPanel);
                     billChoicePanel = null;
                     billChoice();
                 }
@@ -289,16 +414,18 @@ public class PinAutomaat{
             abortButton.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
 
-                    mainFrame.remove(withdrawPanel);
+                    mainFrame.remove(amountPanel);
+                    amountField.setValue(0);
                     startingScreenPanel = null;
-                    startingSCreen();
+                    startingScreen();
                 }
             });
 
             backToMainMenuButton.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
 
-                    mainFrame.remove(withdrawPanel);
+                    mainFrame.remove(amountPanel);
+                    amountField.setValue(0);
                     mainMenuPanel = null;
                     mainMenu();
                 }
@@ -356,10 +483,131 @@ public class PinAutomaat{
 
                     mainFrame.remove(balancePanel);
                     startingScreenPanel = null;
-                    startingSCreen();
+                    startingScreen();
                 }
             });
 
+        }
+
+        public void bills(){
+
+            billsPanel = new JPanel();
+            mainFrame.add(billsPanel);
+            GridBagConstraints grid = new GridBagConstraints();
+            billsPanel.setLayout(new GridBagLayout());
+
+            billsLabel = new JLabel();
+            billsLabel.setFont(new Font("Roboto", Font.BOLD, 16));
+            billsLabel.setText("Maak uw biljetkeuze.");
+            grid.gridx = 1;
+            grid.gridy = 0;
+            grid.weighty = 1.0;
+            grid.anchor = GridBagConstraints.PAGE_START;
+            billsPanel.add(billsLabel, grid);
+
+            if(amountPressed == 20){
+                optionOneButton = new JButton("2 x \u20BD 10");
+                grid.gridx = 1;
+                grid.gridy = 1;
+                billsPanel.add(optionOneButton, grid);
+
+                optionTwoButton = new JButton("1 x \u20BD 20");
+                grid.gridx = 1;
+                grid.gridy = 2;
+                billsPanel.add(optionTwoButton, grid);
+            }
+
+            else if(amountPressed == 50){
+                optionOneButton = new JButton("5 x \u20BD 10");
+                grid.gridx = 1;
+                grid.gridy = 1;
+                billsPanel.add(optionOneButton, grid);
+
+                optionTwoButton = new JButton("2 x \20BD 20 + 1 x \u20BD 10");
+                grid.gridx = 1;
+                grid.gridy = 2;
+                billsPanel.add(optionTwoButton, grid);
+
+                optionThreeButton = new JButton("1 x \u20BD 50");
+                grid.gridx = 1;
+                grid.gridy = 3;
+                billsPanel.add(optionThreeButton, grid);
+            }
+
+            else if(amountPressed == 100){
+                optionOneButton = new JButton("3 x \u20BD 20 + 4 x \u20BD 10");
+                grid.gridx = 1;
+                grid.gridy = 1;
+                billsPanel.add(optionOneButton, grid);
+
+                optionTwoButton = new JButton("5 x \u20BD 20");
+                grid.gridx = 1;
+                grid.gridy = 2;
+                billsPanel.add(optionTwoButton, grid);
+
+                optionThreeButton = new JButton("2 x \u20BD 50");
+                grid.gridx = 1;
+                grid.gridy = 3;
+                billsPanel.add(optionThreeButton, grid);
+            }
+
+            backToMainMenuButton = new JButton("Hoofdmenu");
+            grid.gridx = 0;
+            grid.gridy = 4;
+            billsPanel.add(backToMainMenuButton, grid);
+
+            abortButton = new JButton("Afbreken");
+            grid.gridx = 2;
+            grid.gridy = 4;
+            billsPanel.add(abortButton, grid);
+            mainFrame.setVisible(true);
+
+            optionOneButton.addMouseListener(new MouseAdapter(){
+                public void mouseClicked(MouseEvent e){
+
+                    mainFrame.remove(billsPanel);
+                    receiptPanel = null;
+                    receipt();
+                }
+            });
+
+            optionTwoButton.addMouseListener(new MouseAdapter(){
+                public void mouseClicked(MouseEvent e){
+
+                    mainFrame.remove(billsPanel);
+                    receiptPanel = null;
+                    receipt();
+                }
+            });
+
+            optionThreeButton.addMouseListener(new MouseAdapter(){
+                public void mouseClicked(MouseEvent e){
+
+                    mainFrame.remove(billsPanel);
+                    receiptPanel = null;
+                    receipt();
+                }
+            });
+
+            backToMainMenuButton.addMouseListener(new MouseAdapter(){
+                public void mouseClicked(MouseEvent e){
+
+                    mainFrame.remove(billsPanel);
+                    amountPressed = 0;
+                    mainMenuPanel = null;
+                    mainMenu();
+                }
+            });
+
+            abortButton.addMouseListener(new MouseAdapter(){
+                public void mouseClicked(MouseEvent e){
+
+                    mainFrame.remove(billsPanel);
+                    amountPressed = 0;
+                    startingScreenPanel = null;
+                    startingScreen();
+                }
+            });
         }
 
         public void billChoice(){
@@ -371,24 +619,24 @@ public class PinAutomaat{
 
             billChoiceLabel = new JLabel();
             billChoiceLabel.setFont(new Font("Roboto", Font.BOLD, 16));
-            billChoiceLabel.setText("Maak uw biljetkeuze");
+            billChoiceLabel.setText("Maak uw biljetkeuze.");
             grid.gridx = 1;
             grid.gridy = 0;
             grid.weighty = 1.0;
             grid.anchor = GridBagConstraints.PAGE_START;
             billChoicePanel.add(billChoiceLabel, grid);
 
-            JButton optionOneButton = new JButton(optionOne(amount));
+            optionOneButton = new JButton(optionOne(amount));
             grid.gridx = 1;
             grid.gridy = 1;
             billChoicePanel.add(optionOneButton, grid);
 
-            JButton optionTwoButton = new JButton(optionTwo(amount));
+            optionTwoButton = new JButton(optionTwo(amount));
             grid.gridx = 1;
             grid.gridy = 2;
             billChoicePanel.add(optionTwoButton, grid);
 
-            JButton optionThreeButton = new JButton(optionThree(amount));
+            optionThreeButton = new JButton(optionThree(amount));
             grid.gridx = 1;
             grid.gridy = 3;
             billChoicePanel.add(optionThreeButton, grid);
@@ -408,6 +656,7 @@ public class PinAutomaat{
                 public void mouseClicked(MouseEvent e){
 
                     mainFrame.remove(billChoicePanel);
+                    amountField.setValue(0);
                     receiptPanel = null;
                     receipt();
                 }
@@ -417,6 +666,7 @@ public class PinAutomaat{
                 public void mouseClicked(MouseEvent e){
 
                     mainFrame.remove(billChoicePanel);
+                    amountField.setValue(0);
                     receiptPanel = null;
                     receipt();
                 }
@@ -426,6 +676,7 @@ public class PinAutomaat{
                 public void mouseClicked(MouseEvent e){
 
                     mainFrame.remove(billChoicePanel);
+                    amountField.setValue(0);
                     receiptPanel = null;
                     receipt();
                 }
@@ -447,7 +698,7 @@ public class PinAutomaat{
                     mainFrame.remove(billChoicePanel);
                     amountField.setValue(0);
                     startingScreenPanel = null;
-                    startingSCreen();
+                    startingScreen();
                 }
             });
 
@@ -484,6 +735,7 @@ public class PinAutomaat{
                 public void mouseClicked(MouseEvent e){
 
                     mainFrame.remove(receiptPanel);
+                    amountPressed = 0;
                     thanksPanel = null;
                     thanks();
                 }
@@ -493,6 +745,7 @@ public class PinAutomaat{
                 public void mouseClicked(MouseEvent e){
 
                     mainFrame.remove(receiptPanel);
+                    amountPressed = 0;
                     thanksPanel = null;
                     thanks();
                 }
@@ -542,6 +795,19 @@ public class PinAutomaat{
             //     }
             // });
             // timer.start();
+
+            int delay = 5000; //milliseconds
+            ActionListener taskPerformer = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                mainFrame.remove(thanksPanel);
+                startingScreenPanel = null;
+                startingScreen();
+            }
+            };
+            Timer timer = new Timer(delay, taskPerformer);
+            timer.setRepeats(false);
+            timer.start();
+            
         }
 
         public String optionOne(int amount){
