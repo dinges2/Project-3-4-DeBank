@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="GUI met json naar php">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/atm.jar!/" />
+      <root url="jar://$PROJECT_DIR$/json-20190722.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

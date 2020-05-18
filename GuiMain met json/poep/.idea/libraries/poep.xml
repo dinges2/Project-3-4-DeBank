@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="poep">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/json-20190722.jar!/" />
+      <root url="jar://$PROJECT_DIR$/atm.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
