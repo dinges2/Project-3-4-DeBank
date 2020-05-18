@@ -1,2 +1,0 @@
-INDEX VERSION 1.131+/Users/Eki/Desktop/technische informatica/project 3/Project-3-4-DeBank/Oefencode GUI/hoeZietDitEruit/.metadata/.plugins/org.eclipse.jdt.core
-1297439560.index
