@@ -17,14 +17,14 @@ public final class DataProcess {
     
     static List<Character> buf = new ArrayList<>();
     static String dataReceive;
-    static String accountNumber = "SU-GERM-00000001";
+    static String accountNumber;
     static PinAutomaat pinAutomaat = new PinAutomaat();
     static String passBuf = "";
     static StringBuilder s = new StringBuilder();
     static String password = "1234";
     static SerialPort comPort;
     static Random delay = new Random();
-    
+    static PhpCode phpData = new PhpCode();
     
     public DataProcess() {
         this.read();
@@ -70,7 +70,8 @@ public final class DataProcess {
     static void append(char c) {
         if(c == '\u0000') {
             storeBuffer();
-            dataProcess();
+            accountNumber = dataReceive;
+            card();
             buf.clear();
             return;
         }
@@ -108,9 +109,9 @@ public final class DataProcess {
         buf.add(c);
     }
     
-    static void dataProcess() {
+    static void card() {
         
-        if(dataReceive.equals(accountNumber)) {
+        if(dataReceive.equals(phpData.account(dataReceive))) {
             writeBytes("ok");
             dataReceive = "";
             pinAutomaat.enterPin();
@@ -131,7 +132,7 @@ public final class DataProcess {
            pinAutomaat.setPasswordField(removeLastCharacter(pinAutomaat.getPasswordField())); 
         }
         else if(dataReceive.equals("#")) {
-            if(passBuf.equals(password)) {
+            if(passBuf.equals(phpData.pincode(accountNumber, passBuf))) {
                 writeBytes("pinOk");
                 pinAutomaat.mainMenu();
             }

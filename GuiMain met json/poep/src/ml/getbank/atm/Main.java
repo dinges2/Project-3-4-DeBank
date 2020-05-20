@@ -25,7 +25,7 @@ public class Main{
          return stringBuilder.toString();
     }
 
-private static String Naam;
+
     public static void main(String[] args){
 
         try{
@@ -40,12 +40,13 @@ private static String Naam;
             //      System.out.println("Klant naam: " + klant.getString("VOORNAAM"));
 
             String rekeningnummer = "SU-GERM-00000001";
-            fetch("https://getbank.ml/api/saldo.php?reknr="+ rekeningnummer + "");
-            JSONObject root = new JSONObject(fetch("https://getbank.ml/api/saldo.php"));
-            JSONArray saldos = root.getJSONArray("resultaat");
+            String pincode = "1234";
+            JSONObject root = new JSONObject(fetch("https://getbank.ml/api/pincode.php?reknr="+ rekeningnummer +"&pincode="+ pincode));
+            JSONArray saldos = root.getJSONArray("rekeningnummer");
             for (int i = 0; i < saldos.length(); i++) {
                JSONObject saldo = saldos.getJSONObject(i);
-                System.out.println("Saldo is: " + saldo.getString("SALDO"));
+                System.out.println("Rekeningnummer is: " + saldo.getString("REKENINGNUMMER"));
+                System.out.println("PINCODE is: " + saldo.getString("PINCODE"));
             }
         }
 
@@ -56,6 +57,6 @@ private static String Naam;
             e.printStackTrace();
         }
 
-        PinAutomaat pinAutomaat = new PinAutomaat();
+        //PinAutomaat pinAutomaat = new PinAutomaat();
     }
 }
