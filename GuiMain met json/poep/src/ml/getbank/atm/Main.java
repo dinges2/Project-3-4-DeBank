@@ -28,24 +28,31 @@ public class Main{
 private static String Naam;
     public static void main(String[] args){
 
-        try {
+        try{
 
-             JSONObject root = new JSONObject(fetch("https://getbank.ml/api/account.php"));
+            //  JSONObject root = new JSONObject(fetch("https://getbank.ml/api/account.php"));
 
-             //Naam = root.getString("success");
-             //System.out.println(Naam);
+            //  //Naam = root.getString("success");
+            //  //System.out.println(Naam);
+            //  JSONArray klanten = root.getJSONArray("klantgegevens");
+            //  for (int i = 0; i < klanten.length(); i++) {
+            //     JSONObject klant = klanten.getJSONObject(i);
+            //      System.out.println("Klant naam: " + klant.getString("VOORNAAM"));
 
-             JSONArray klanten = root.getJSONArray("klantgegevens");
-             for (int i = 0; i < klanten.length(); i++) {
-                JSONObject klant = klanten.getJSONObject(i);
-                 System.out.println("Klant naam: " + klant.getString("VOORNAAM"));
-             }
+            String rekeningnummer = "SU-GERM-00000001";
+            fetch("https://getbank.ml/api/saldo.php?reknr="+ rekeningnummer + "");
+            JSONObject root = new JSONObject(fetch("https://getbank.ml/api/saldo.php"));
+            JSONArray saldos = root.getJSONArray("resultaat");
+            for (int i = 0; i < saldos.length(); i++) {
+               JSONObject saldo = saldos.getJSONObject(i);
+                System.out.println("Saldo is: " + saldo.getString("SALDO"));
+            }
+        }
 
-             String name = "696969";
-             fetch("https://getbank.ml/api/saldo.php?name="+ name + "&saldo=999");
 
 
-        } catch (Exception e) {
+
+         catch (Exception e) {
             e.printStackTrace();
         }
 
