@@ -135,10 +135,12 @@ public final class DataProcess {
             if(passBuf.equals(phpData.pincode(accountNumber, passBuf))) {
                 writeBytes("pinOk");
                 pinAutomaat.mainMenu();
+                passBuf = "1";
             }
             else {
                 writeBytes("pinWrong");
                 pinAutomaat.startingScreen();
+                passBuf = "1";
             }
         }
         
@@ -163,6 +165,7 @@ public final class DataProcess {
         }
         else if(dataReceive.equals("B")) {
             writeBytes("saldo");
+            PinAutomaat.setBalance(phpData.saldo(accountNumber));
             pinAutomaat.balance();
         }
         else if(dataReceive.equals("C")) {
@@ -208,6 +211,7 @@ public final class DataProcess {
             writeBytes("backToMain");
             pinAutomaat.mainMenu();
         }
+
     }
 
     static void optionTen() {

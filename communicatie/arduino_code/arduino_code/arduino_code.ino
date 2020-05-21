@@ -75,6 +75,7 @@ void loop() {
       digitalWrite(redLed, HIGH);
       delay(2000);
       digitalWrite(redLed, LOW);
+      line = "";
     }
     
     // Look for new cards

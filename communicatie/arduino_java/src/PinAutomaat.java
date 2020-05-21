@@ -23,7 +23,7 @@ public class PinAutomaat{
     private NumberFormat amountFormat;
     private int amount;
     private int amountPressed = 0;
-    private float accountBalance;
+    private static String accountBalance;
 
     private JButton abortButton;
     private JButton enterButton;
@@ -41,7 +41,7 @@ public class PinAutomaat{
     private JLabel mainMenuLabel;
     private JLabel withdrawLabel;
     private JLabel amountLabel;
-    private JLabel balanceLabel;
+    private static JLabel balanceLabel;
     private JLabel accountBalanceLabel;
     private JLabel billsLabel;
     private JLabel billChoiceLabel;
@@ -49,7 +49,7 @@ public class PinAutomaat{
     private JLabel thanksLabel;
     
     private String pincode;
-    
+
 
     public PinAutomaat(){
 
@@ -62,7 +62,11 @@ public class PinAutomaat{
         mainFrame.setVisible(true);
         
     }
-    
+
+    public static void setBalance(String s) {
+        accountBalance = s;
+    }
+
     public void setPasswordField(String s) {
         this.passwordField.setText(s);
     }
@@ -461,7 +465,7 @@ public class PinAutomaat{
             grid.anchor = GridBagConstraints.PAGE_START;
             balancePanel.add(balanceLabel, grid);
 
-            accountBalanceLabel = new JLabel(Float.toString(+accountBalance));
+            accountBalanceLabel = new JLabel(accountBalance);
             grid.gridx = 1;
             grid.gridy = 1;
             grid.weighty = 0.0;
