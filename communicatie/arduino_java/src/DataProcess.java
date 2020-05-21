@@ -43,7 +43,7 @@ public final class DataProcess {
         {
             byte[] newData = event.getReceivedData();
            
-            System.out.println("Received data of size: " + newData.length);
+            //System.out.println("Received data of size: " + newData.length);
             for (int i = 0; i < newData.length; ++i) {
                 append((char) newData[i]);
                 

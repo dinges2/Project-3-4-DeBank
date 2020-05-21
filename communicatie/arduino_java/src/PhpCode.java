@@ -38,11 +38,15 @@ public class PhpCode {
             //String rekeningnummer = "SU-GERM-00000001";
             //String pincode = "1234";
             JSONObject root = new JSONObject(fetch("https://getbank.ml/api/rekeningnummer.php?reknr="+ rekeningnummer));
-            JSONArray saldos = root.getJSONArray("rekeningnummer");
-            for (int i = 0; i < saldos.length(); i++) {
-                nummer = saldos.getJSONObject(i);
+            JSONArray buffer = root.getJSONArray("rekeningnummer");
+            for (int i = 0; i < buffer.length(); i++) {
+                nummer = buffer.getJSONObject(i);
                 System.out.println("Rekeningnummer is: " + nummer.getString("REKENINGNUMMER"));
                 //System.out.println("PINCODE is: " + saldo.getString("PINCODE"));
+            }
+
+            if(nummer.getString("INLOGPOGINGEN").equals("3")) {
+                return "";
             }
 
         }
@@ -60,13 +64,21 @@ public class PhpCode {
 
         try{
 
-
             JSONObject root = new JSONObject(fetch("https://getbank.ml/api/pincode.php?reknr="+ rekeningnummer + "&pincode=" + pincode));
-            JSONArray saldos = root.getJSONArray("rekeningnummer");
-            for (int i = 0; i < saldos.length(); i++) {
-                nummer = saldos.getJSONObject(i);
+            JSONArray buffer = root.getJSONArray("rekeningnummer");
+
+            if(buffer.isEmpty()) {
+                return "";
+            }
+
+            for (int i = 0; i < buffer.length(); i++) {
+                nummer = buffer.getJSONObject(i);
                 System.out.println("pincode is: " + nummer.getString("PINCODE"));
-                //System.out.println("PINCODE is: " + saldo.getString("PINCODE"));
+                System.out.println("inlogpoging is: " + nummer.getString("INLOGPOGINGEN"));
+            }
+
+            if(nummer.getString("INLOGPOGINGEN").equals("3")) {
+                return "";
             }
 
         }
@@ -76,6 +88,5 @@ public class PhpCode {
         }
 
         return nummer.getString("PINCODE");
-
     }
 }
