@@ -130,7 +130,7 @@ public class PhpCode {
 
             for (int i = 0; i < buffer.length(); i++) {
                 nummer = buffer.getJSONObject(i);
-                System.out.println("saldo is: " + nummer.getString("SALDO"));
+                //System.out.println("saldo is: " + nummer.getString("SALDO"));
 
             }
 
