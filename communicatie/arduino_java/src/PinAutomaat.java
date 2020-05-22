@@ -22,7 +22,7 @@ public class PinAutomaat{
     private JFormattedTextField amountField;
     private NumberFormat amountFormat;
     private int amount;
-    private int amountPressed = 0;
+    private static int amountPressed = 0;
     private static String accountBalance;
 
     private JButton abortButton;
@@ -47,8 +47,7 @@ public class PinAutomaat{
     private JLabel billChoiceLabel;
     private JLabel receiptLabel;
     private JLabel thanksLabel;
-    
-    private String pincode;
+
 
 
     public PinAutomaat(){
@@ -62,7 +61,9 @@ public class PinAutomaat{
         mainFrame.setVisible(true);
         
     }
-
+    public static void setAmountPressed(int i) {
+        amountPressed = i;
+    }
     public static void setBalance(String s) {
         accountBalance = s;
     }
@@ -128,16 +129,16 @@ public class PinAutomaat{
             grid.gridy = 2;
             grid.gridwidth = 3;
             enterPinPanel.add(passwordField, grid);
-            passwordField.setText(pincode);
+            //passwordField.setText(pincode);
             
 
-            enterButton = new JButton("Enter");
+            enterButton = new JButton("# - Enter");
             grid.gridx = 0;
             grid.gridy = 3;
             grid.gridwidth = 1;
             enterPinPanel.add(enterButton, grid);
 
-            abortButton = new JButton("Afbreken");
+            abortButton = new JButton("* - Afbreken");
             grid.gridx = 2;
             grid.gridy = 3;
             grid.gridwidth = 1;
@@ -179,25 +180,25 @@ public class PinAutomaat{
             grid.anchor = GridBagConstraints.PAGE_START;
             mainMenuPanel.add(mainMenuLabel, grid);
 
-            withdrawButton = new JButton("Opnemen");
+            withdrawButton = new JButton("A - Opnemen");
             grid.gridx = 0;
             grid.gridy = 1;
             grid.insets = new Insets(5, 5, 5, 0);
             mainMenuPanel.add(withdrawButton, grid);
 
-            balanceButton = new JButton("Saldo");
+            balanceButton = new JButton("B - Saldo");
             grid.gridx = 0;
             grid.gridy = 2;
             grid.insets = new Insets(5, 5, 5, 0);
             mainMenuPanel.add(balanceButton, grid);
 
-            quickSeventyButton = new JButton("Snel 70");
+            quickSeventyButton = new JButton("C - Snel 70");
             grid.gridx = 3;
             grid.gridy = 1;
             grid.insets = new Insets(5, 5, 5, 0);
             mainMenuPanel.add(quickSeventyButton, grid);
 
-            abortButton = new JButton("Afbreken");
+            abortButton = new JButton("# - Afbreken");
             grid.gridx = 3;
             grid.gridy = 2;
             grid.insets = new Insets(5, 5, 5, 0);
@@ -257,22 +258,22 @@ public class PinAutomaat{
             grid.anchor = GridBagConstraints.PAGE_START;
             withdrawPanel.add(withdrawLabel, grid);
 
-            JButton tenButton = new JButton(" \u20BD 10");
+            JButton tenButton = new JButton("1 - \u20BD 10");
             grid.gridx = 0;
             grid.gridy = 1;
             withdrawPanel.add(tenButton, grid);
 
-            JButton twentyButton = new JButton("\u20BD 20");
+            JButton twentyButton = new JButton("2 - \u20BD 20");
             grid.gridx = 0;
             grid.gridy = 2;
             withdrawPanel.add(twentyButton, grid);
 
-            JButton fiftyButton = new JButton("\u20BD 50");
+            JButton fiftyButton = new JButton("3 - \u20BD 50");
             grid.gridx = 0;
             grid.gridy = 3;
             withdrawPanel.add(fiftyButton, grid);
 
-            JButton hundredButton = new JButton("\u20BD 100");
+            JButton hundredButton = new JButton("4 - \u20BD 100");
             grid.gridx = 3;
             grid.gridy = 1;
             withdrawPanel.add(hundredButton, grid);
@@ -282,12 +283,12 @@ public class PinAutomaat{
             grid.gridy = 2;
             withdrawPanel.add(enterAmountButton, grid);
 
-            backToMainMenuButton = new JButton("Hoofdmenu");
+            backToMainMenuButton = new JButton("* - Hoofdmenu");
             grid.gridx = 0;
             grid.gridy = 4;
             withdrawPanel.add(backToMainMenuButton, grid);
 
-            abortButton = new JButton("Afbreken");
+            abortButton = new JButton("# - Afbreken");
             grid.gridx = 3;
             grid.gridy = 2 + 2;
             withdrawPanel.add(abortButton, grid);
@@ -472,13 +473,13 @@ public class PinAutomaat{
             grid.anchor = GridBagConstraints.CENTER;
             balancePanel.add(accountBalanceLabel, grid);
 
-            backToMainMenuButton = new JButton("Hoofdmenu");
+            backToMainMenuButton = new JButton("* - Hoofdmenu");
             grid.gridx = 0;
             grid.gridy = 2;
             grid.weighty = 1.0;            
             balancePanel.add(backToMainMenuButton, grid);
 
-            abortButton = new JButton("Afbreken");
+            abortButton = new JButton("# - Afbreken");
             grid.gridx = 2;
             grid.gridy = 2;
             grid.weighty = 1.0;
@@ -522,57 +523,57 @@ public class PinAutomaat{
             billsPanel.add(billsLabel, grid);
 
             if(amountPressed == 20){
-                optionOneButton = new JButton("2 x \u20BD 10");
+                optionOneButton = new JButton("A - 2 x \u20BD 10");
                 grid.gridx = 1;
                 grid.gridy = 1;
                 billsPanel.add(optionOneButton, grid);
 
-                optionTwoButton = new JButton("1 x \u20BD 20");
+                optionTwoButton = new JButton("B - 1 x \u20BD 20");
                 grid.gridx = 1;
                 grid.gridy = 2;
                 billsPanel.add(optionTwoButton, grid);
             }
 
             else if(amountPressed == 50){
-                optionOneButton = new JButton("5 x \u20BD 10");
+                optionOneButton = new JButton("A - 5 x \u20BD 10");
                 grid.gridx = 1;
                 grid.gridy = 1;
                 billsPanel.add(optionOneButton, grid);
 
-                optionTwoButton = new JButton("2 x \20BD 20 + 1 x \u20BD 10");
+                optionTwoButton = new JButton("B - 2 x \20BD 20 + 1 x \u20BD 10");
                 grid.gridx = 1;
                 grid.gridy = 2;
                 billsPanel.add(optionTwoButton, grid);
 
-                optionThreeButton = new JButton("1 x \u20BD 50");
+                optionThreeButton = new JButton("C - 1 x \u20BD 50");
                 grid.gridx = 1;
                 grid.gridy = 3;
                 billsPanel.add(optionThreeButton, grid);
             }
 
             else if(amountPressed == 100){
-                optionOneButton = new JButton("3 x \u20BD 20 + 4 x \u20BD 10");
+                optionOneButton = new JButton("A - 3 x \u20BD 20 + 4 x \u20BD 10");
                 grid.gridx = 1;
                 grid.gridy = 1;
                 billsPanel.add(optionOneButton, grid);
 
-                optionTwoButton = new JButton("5 x \u20BD 20");
+                optionTwoButton = new JButton("B - 5 x \u20BD 20");
                 grid.gridx = 1;
                 grid.gridy = 2;
                 billsPanel.add(optionTwoButton, grid);
 
-                optionThreeButton = new JButton("2 x \u20BD 50");
+                optionThreeButton = new JButton("C - 2 x \u20BD 50");
                 grid.gridx = 1;
                 grid.gridy = 3;
                 billsPanel.add(optionThreeButton, grid);
             }
 
-            backToMainMenuButton = new JButton("Hoofdmenu");
+            backToMainMenuButton = new JButton("* - Hoofdmenu");
             grid.gridx = 0;
             grid.gridy = 4;
             billsPanel.add(backToMainMenuButton, grid);
 
-            abortButton = new JButton("Afbreken");
+            abortButton = new JButton("# - Afbreken");
             grid.gridx = 2;
             grid.gridy = 4;
             billsPanel.add(abortButton, grid);
@@ -595,7 +596,7 @@ public class PinAutomaat{
                     receipt();
                 }
             });
-
+            /*
             optionThreeButton.addMouseListener(new MouseAdapter(){
                 public void mouseClicked(MouseEvent e){
 
@@ -604,7 +605,7 @@ public class PinAutomaat{
                     receipt();
                 }
             });
-
+            */
             backToMainMenuButton.addMouseListener(new MouseAdapter(){
                 public void mouseClicked(MouseEvent e){
 
@@ -736,12 +737,12 @@ public class PinAutomaat{
             grid.anchor = GridBagConstraints.PAGE_START;
             receiptPanel.add(receiptLabel, grid);
             
-            JButton yesButton = new JButton("Ja");
+            JButton yesButton = new JButton("A - Ja");
             grid.gridx = 0;
             grid.gridy = 1;
             receiptPanel.add(yesButton, grid);
 
-            JButton noButton = new JButton("Nee");
+            JButton noButton = new JButton("B - Nee");
             grid.gridx = 2;
             grid.gridy = 1;
             receiptPanel.add(noButton, grid);

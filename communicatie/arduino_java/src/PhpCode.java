@@ -119,7 +119,7 @@ public class PhpCode {
         }
     }
 
-    public static String saldo(String rekeningnummer) {
+    public static String saldos(String rekeningnummer) {
         JSONObject nummer = null;
 
         try{

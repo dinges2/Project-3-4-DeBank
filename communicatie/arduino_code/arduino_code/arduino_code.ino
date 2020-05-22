@@ -191,10 +191,10 @@ void loop() {
       mode = "optionTwenty";
     }
     else if(line == "fifty") {
-      mode = "optionfifty";
+      mode = "optionFifty";
     }
     else if(line == "hundred") {
-      mode = "optionhundred";
+      mode = "optionHundred";
     }
     
   }
@@ -227,6 +227,111 @@ void loop() {
     if(key_pressed) {
       Serial.print(key_pressed);
       Serial.print('@');
+    }
+
+    if(line == "abort") {
+      mode = "rfid";
+    }
+    else if(line == "backToMain") {
+      mode = "mainMenu";
+    }
+    else if(line == "yes") {
+      mode = "rfid";
+    }
+    else if(line == "no") {
+      mode = "rfid";
+    }
+  }
+
+
+
+
+  else if(mode == "optionTwenty") {
+    key_pressed = keypad_key.getKey();
+
+    if(key_pressed) {
+      Serial.print(key_pressed);
+      Serial.print('+');
+    }
+
+    if(line == "abort") {
+      mode = "rfid";
+    }
+    else if(line == "backToMain") {
+      mode = "mainMenu";
+    }
+    else if(line == "option1") {
+      mode = "receipt";
+    }
+    else if(line == "option2") {
+      mode = "receipt";
+    }
+  }
+
+
+
+
+  else if(mode == "optionFifty") {
+    key_pressed = keypad_key.getKey();
+
+    if(key_pressed) {
+      Serial.print(key_pressed);
+      Serial.print('(');
+    }
+
+    if(line == "abort") {
+      mode = "rfid";
+    }
+    else if(line == "backToMain") {
+      mode = "mainMenu";
+    }
+    else if(line == "option1") {
+      mode = "receipt";
+    }
+    else if(line == "option2") {
+      mode = "receipt";
+    }
+    else if(line == "option3") {
+      mode = "receipt";
+    }
+  }
+
+
+
+
+  else if(mode == "optionHundred") {
+    key_pressed = keypad_key.getKey();
+
+    if(key_pressed) {
+      Serial.print(key_pressed);
+      Serial.print('_');
+    }
+
+    if(line == "abort") {
+      mode = "rfid";
+    }
+    else if(line == "backToMain") {
+      mode = "mainMenu";
+    }
+    else if(line == "option1") {
+      mode = "receipt";
+    }
+    else if(line == "option2") {
+      mode = "receipt";
+    }
+    else if(line == "option3") {
+      mode = "receipt";
+    }
+  }
+
+
+
+  else if(mode == "receipt") {
+    key_pressed = keypad_key.getKey();
+
+    if(key_pressed) {
+      Serial.print(key_pressed);
+      Serial.print(',');
     }
 
     if(line == "abort") {
