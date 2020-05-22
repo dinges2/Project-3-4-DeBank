@@ -143,4 +143,17 @@ public class PhpCode {
 
         return nummer.getString("SALDO");
     }
+
+    public static void collectTwenty(String rekeningNummer, int amount) {
+
+        try{
+
+            JSONObject root = new JSONObject(fetch("https://getbank.ml/api/collect.php?reknr="+ rekeningNummer + "&amount="+ amount));
+
+        }
+
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

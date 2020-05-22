@@ -3,27 +3,20 @@ import com.fazecast.jSerialComm.*;
 
 import java.util.*;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author Eki
- */
 public final class DataProcess {
     
     static List<Character> buf = new ArrayList<>();
     static String dataReceive;
     static String accountNumber;
+    static String saldo;
     static PinAutomaat pinAutomaat = new PinAutomaat();
     static String passBuf = "";
     static StringBuilder s = new StringBuilder();
     static SerialPort comPort;
     static Random delay = new Random();
     static PhpCode phpData = new PhpCode();
+    static withdrawProcess moneyCheck = new withdrawProcess();
     
     public DataProcess() {
         this.read();
@@ -42,7 +35,7 @@ public final class DataProcess {
         {
             byte[] newData = event.getReceivedData();
            
-            System.out.println("Received data of size: " + newData.length);
+            //System.out.println("Received data of size: " + newData.length);
             for (int i = 0; i < newData.length; ++i) {
                 append((char) newData[i]);
                 
@@ -105,7 +98,6 @@ public final class DataProcess {
             return;
         }
         else if(c == '+') {
-            System.out.println("option20");
             storeBuffer();
             optionTwenty();
             buf.clear();
@@ -179,6 +171,8 @@ public final class DataProcess {
     }
     
     static void mainMenu() {
+        saldo = phpData.saldos(accountNumber);
+
         if(dataReceive.equals("#")) {
             writeBytes("abort");
             pinAutomaat.startingScreen();
@@ -189,7 +183,7 @@ public final class DataProcess {
         }
         else if(dataReceive.equals("B")) {
             writeBytes("saldo");
-            PinAutomaat.setBalance(phpData.saldos(accountNumber));
+            PinAutomaat.setBalance(saldo);
             pinAutomaat.balance();
         }
         else if(dataReceive.equals("C")) {
@@ -210,6 +204,7 @@ public final class DataProcess {
        }
        else if(dataReceive.equals("1")) {
            writeBytes("ten");
+
            pinAutomaat.receipt();
        }
        else if(dataReceive.equals("2")) {
@@ -270,8 +265,18 @@ public final class DataProcess {
             pinAutomaat.mainMenu();
         }
         else if(dataReceive.equals("A")) {
-            writeBytes("option1");
-            pinAutomaat.receipt();
+            if(moneyCheck.optionTwenty("option1", saldo).equals("ok")) {
+                writeBytes("option1");
+                phpData.collectTwenty(accountNumber, 20);
+                pinAutomaat.receipt();
+            }
+            else if(moneyCheck.optionTwenty("option1", "saldo").equals("biljet false")) {
+                System.out.println("geen 10 biljetten meer");
+            }
+            else if(moneyCheck.optionTwenty("option1", "saldo").equals("saldo false")) {
+                System.out.println("niet genoeg saldo");
+            }
+
         }
         else if(dataReceive.equals("B")) {
             writeBytes("option2");
