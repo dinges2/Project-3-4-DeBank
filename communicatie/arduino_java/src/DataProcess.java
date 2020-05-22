@@ -40,7 +40,7 @@ public final class DataProcess {
                 append((char) newData[i]);
                 
             }
-            System.out.println("\n");
+            //System.out.println("\n");
             
         }
         });
@@ -54,7 +54,7 @@ public final class DataProcess {
             s.append(buf.get(i));   
         }
         dataReceive = s.toString();
-        System.out.println(dataReceive);
+        //System.out.println(dataReceive);
         s.delete(0, buf.size());
         
     }
@@ -128,6 +128,7 @@ public final class DataProcess {
     static void card() {
         
         if(dataReceive.equals(phpData.account(dataReceive))) {
+            information();
             writeBytes("ok");
             dataReceive = "";
             pinAutomaat.enterPin();
@@ -144,7 +145,6 @@ public final class DataProcess {
     static void pin() {
         
         if(dataReceive.equals("*")) {
-            System.out.println("delete");
            pinAutomaat.setPasswordField(removeLastCharacter(pinAutomaat.getPasswordField())); 
         }
         else if(dataReceive.equals("#")) {
@@ -162,7 +162,7 @@ public final class DataProcess {
         
         else {
             passBuf = pinAutomaat.getPasswordField() + dataReceive;
-            System.out.println(passBuf);
+            //System.out.println(passBuf);
             pinAutomaat.setPasswordField(passBuf);
             
             
@@ -187,8 +187,18 @@ public final class DataProcess {
             pinAutomaat.balance();
         }
         else if(dataReceive.equals("C")) {
-            writeBytes("snel70");
-            pinAutomaat.thanks();
+            if(moneyCheck.optionSeventy(saldo).equals("ok")) {
+                writeBytes("snel70");
+                phpData.collectMoney(accountNumber, 70);
+                pinAutomaat.thanks();
+            }
+            else if(moneyCheck.optionSeventy(saldo).equals("biljet false")) {
+                System.out.println("geen biljetten meer");
+            }
+            else if(moneyCheck.optionSeventy(saldo).equals("saldo false")) {
+                System.out.println("niet genoeg saldo");
+            }
+
         }
         
     }
@@ -246,12 +256,31 @@ public final class DataProcess {
             pinAutomaat.mainMenu();
         }
         else if(dataReceive.equals("A")) {
-            writeBytes("yes");
-            pinAutomaat.thanks();
+            if(moneyCheck.optionTen(saldo).equals("ok")) {
+                writeBytes("yes");
+                phpData.collectMoney(accountNumber, 10);
+                pinAutomaat.thanks();
+            }
+            else if(moneyCheck.optionTen(saldo).equals("biljet false")) {
+                System.out.println("geen 10 biljetten meer");
+            }
+            else if(moneyCheck.optionTen(saldo).equals("saldo false")) {
+                System.out.println("niet genoeg saldo");
+            }
+
         }
         else if(dataReceive.equals("B")) {
-            writeBytes("no");
-            pinAutomaat.thanks();
+            if(moneyCheck.optionTen(saldo).equals("ok")) {
+                writeBytes("no");
+                phpData.collectMoney(accountNumber, 10);
+                pinAutomaat.thanks();
+            }
+            else if(moneyCheck.optionTen(saldo).equals("biljet false")) {
+                System.out.println("geen 10 biljetten meer");
+            }
+            else if(moneyCheck.optionTen(saldo).equals("saldo false")) {
+                System.out.println("niet genoeg saldo");
+            }
         }
     }
 
@@ -267,20 +296,30 @@ public final class DataProcess {
         else if(dataReceive.equals("A")) {
             if(moneyCheck.optionTwenty("option1", saldo).equals("ok")) {
                 writeBytes("option1");
-                phpData.collectTwenty(accountNumber, 20);
+                phpData.collectMoney(accountNumber, 20);
                 pinAutomaat.receipt();
             }
-            else if(moneyCheck.optionTwenty("option1", "saldo").equals("biljet false")) {
+            else if(moneyCheck.optionTwenty("option1", saldo).equals("biljet false")) {
                 System.out.println("geen 10 biljetten meer");
             }
-            else if(moneyCheck.optionTwenty("option1", "saldo").equals("saldo false")) {
+            else if(moneyCheck.optionTwenty("option1", saldo).equals("saldo false")) {
                 System.out.println("niet genoeg saldo");
             }
 
         }
         else if(dataReceive.equals("B")) {
-            writeBytes("option2");
-            pinAutomaat.receipt();
+            if(moneyCheck.optionTwenty("option2", saldo).equals("ok")) {
+                writeBytes("option2");
+                phpData.collectMoney(accountNumber, 20);
+                pinAutomaat.receipt();
+            }
+            else if(moneyCheck.optionTwenty("option2", saldo).equals("biljet false")) {
+                System.out.println("geen 20 biljetten meer");
+            }
+            else if(moneyCheck.optionTwenty("option2", saldo).equals("saldo false")) {
+                System.out.println("niet genoeg saldo");
+            }
+
         }
     }
 
@@ -294,16 +333,46 @@ public final class DataProcess {
             pinAutomaat.mainMenu();
         }
         else if(dataReceive.equals("A")) {
-            writeBytes("option1");
-            pinAutomaat.receipt();
+            if(moneyCheck.optionFifty("option1", saldo).equals("ok")) {
+                writeBytes("option1");
+                phpData.collectMoney(accountNumber, 50);
+                pinAutomaat.receipt();
+            }
+            else if(moneyCheck.optionFifty("option1", saldo).equals("biljet false")) {
+                System.out.println("geen 10 biljetten meer");
+            }
+            else if(moneyCheck.optionFifty("option1", saldo).equals("saldo false")) {
+                System.out.println("niet genoeg saldo");
+            }
+
         }
         else if(dataReceive.equals("B")) {
-            writeBytes("option2");
-            pinAutomaat.receipt();
+            if(moneyCheck.optionFifty("option2", saldo).equals("ok")) {
+                writeBytes("option2");
+                phpData.collectMoney(accountNumber, 50);
+                pinAutomaat.receipt();
+            }
+            else if(moneyCheck.optionFifty("option2", saldo).equals("biljet false")) {
+                System.out.println("geen biljetten meer");
+            }
+            else if(moneyCheck.optionFifty("option2", saldo).equals("saldo false")) {
+                System.out.println("niet genoeg saldo");
+            }
+
         }
         else if(dataReceive.equals("C")) {
-            writeBytes("option3");
-            pinAutomaat.receipt();
+            if(moneyCheck.optionFifty("option3", saldo).equals("ok")) {
+                writeBytes("option3");
+                phpData.collectMoney(accountNumber, 50);
+                pinAutomaat.receipt();
+            }
+            else if(moneyCheck.optionFifty("option3", saldo).equals("biljet false")) {
+                System.out.println("geen biljetten meer");
+            }
+            else if(moneyCheck.optionFifty("option3", saldo).equals("saldo false")) {
+                System.out.println("niet genoeg saldo");
+            }
+
         }
     }
 
@@ -317,16 +386,46 @@ public final class DataProcess {
             pinAutomaat.mainMenu();
         }
         else if(dataReceive.equals("A")) {
-            writeBytes("option1");
-            pinAutomaat.receipt();
+            if(moneyCheck.optionHundred("option1", saldo).equals("ok")) {
+                writeBytes("option1");
+                phpData.collectMoney(accountNumber, 100);
+                pinAutomaat.receipt();
+            }
+            else if(moneyCheck.optionHundred("option1", saldo).equals("biljet false")) {
+                System.out.println("geen biljetten meer");
+            }
+            else if(moneyCheck.optionHundred("option1", saldo).equals("saldo false")) {
+                System.out.println("niet genoeg saldo");
+            }
+
         }
         else if(dataReceive.equals("B")) {
-            writeBytes("option2");
-            pinAutomaat.receipt();
+            if(moneyCheck.optionHundred("option2", saldo).equals("ok")) {
+                writeBytes("option2");
+                phpData.collectMoney(accountNumber, 100);
+                pinAutomaat.receipt();
+            }
+            else if(moneyCheck.optionHundred("option2", saldo).equals("biljet false")) {
+                System.out.println("geen biljetten meer");
+            }
+            else if(moneyCheck.optionHundred("option2", saldo).equals("saldo false")) {
+                System.out.println("niet genoeg saldo");
+            }
+
         }
         else if(dataReceive.equals("C")) {
-            writeBytes("option3");
-            pinAutomaat.receipt();
+            if(moneyCheck.optionHundred("option3", saldo).equals("ok")) {
+                writeBytes("option3");
+                phpData.collectMoney(accountNumber, 100);
+                pinAutomaat.receipt();
+            }
+            else if(moneyCheck.optionHundred("option3", saldo).equals("biljet false")) {
+                System.out.println("geen 50 biljetten meer");
+            }
+            else if(moneyCheck.optionHundred("option3", saldo).equals("saldo false")) {
+                System.out.println("niet genoeg saldo");
+            }
+
         }
     }
 
@@ -363,6 +462,12 @@ public final class DataProcess {
         byte[] bytes = line.getBytes();
         comPort.writeBytes(bytes, bytes.length);
         delay.tijd(1000, 1000);
+    }
+
+    public static void information() {
+        System.out.println("10 biljet: "+ moneyCheck.getTenCounter() +" stuks");
+        System.out.println("20 biljet: "+ moneyCheck.getTwentyCounter() +" stuks");
+        System.out.println("50 biljet: "+ moneyCheck.getFiftyCounter() +" stuks");
     }
     
    

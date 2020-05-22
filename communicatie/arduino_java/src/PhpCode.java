@@ -144,7 +144,7 @@ public class PhpCode {
         return nummer.getString("SALDO");
     }
 
-    public static void collectTwenty(String rekeningNummer, int amount) {
+    public static void collectMoney(String rekeningNummer, int amount) {
 
         try{
 
