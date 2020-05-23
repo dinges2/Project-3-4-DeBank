@@ -1,5 +1,5 @@
 public class withdrawProcess {
-    static int tenCounter = 10;
+    static int tenCounter = 0;
     static int twentyCounter = 10;
     static int fiftyCounter = 10;
 
