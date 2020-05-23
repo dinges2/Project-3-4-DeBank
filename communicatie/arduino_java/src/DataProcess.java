@@ -10,6 +10,7 @@ public final class DataProcess {
     static String dataReceive;
     static String accountNumber;
     static String saldo;
+    static int geldGepind;
     static PinAutomaat pinAutomaat = new PinAutomaat();
     static String passBuf = "";
     static StringBuilder s = new StringBuilder();
@@ -191,6 +192,7 @@ public final class DataProcess {
                 writeBytes("snel70");
                 phpData.collectMoney(accountNumber, 70);
                 pinAutomaat.thanks();
+                bon(accountNumber, "70", Integer.valueOf(saldo) - 70);
             }
             else if(moneyCheck.optionSeventy(saldo).equals("biljet false")) {
                 System.out.println("geen biljetten meer");
@@ -260,6 +262,7 @@ public final class DataProcess {
                 writeBytes("yes");
                 phpData.collectMoney(accountNumber, 10);
                 pinAutomaat.thanks();
+                bon(accountNumber, "10", Integer.valueOf(saldo) - 10);
             }
             else if(moneyCheck.optionTen(saldo).equals("biljet false")) {
                 System.out.println("geen 10 biljetten meer");
@@ -295,6 +298,7 @@ public final class DataProcess {
         }
         else if(dataReceive.equals("A")) {
             if(moneyCheck.optionTwenty("option1", saldo).equals("ok")) {
+                geldGepind = 20;
                 writeBytes("option1");
                 phpData.collectMoney(accountNumber, 20);
                 pinAutomaat.receipt();
@@ -309,6 +313,7 @@ public final class DataProcess {
         }
         else if(dataReceive.equals("B")) {
             if(moneyCheck.optionTwenty("option2", saldo).equals("ok")) {
+                geldGepind = 20;
                 writeBytes("option2");
                 phpData.collectMoney(accountNumber, 20);
                 pinAutomaat.receipt();
@@ -334,6 +339,7 @@ public final class DataProcess {
         }
         else if(dataReceive.equals("A")) {
             if(moneyCheck.optionFifty("option1", saldo).equals("ok")) {
+                geldGepind = 50;
                 writeBytes("option1");
                 phpData.collectMoney(accountNumber, 50);
                 pinAutomaat.receipt();
@@ -348,6 +354,7 @@ public final class DataProcess {
         }
         else if(dataReceive.equals("B")) {
             if(moneyCheck.optionFifty("option2", saldo).equals("ok")) {
+                geldGepind = 50;
                 writeBytes("option2");
                 phpData.collectMoney(accountNumber, 50);
                 pinAutomaat.receipt();
@@ -362,6 +369,7 @@ public final class DataProcess {
         }
         else if(dataReceive.equals("C")) {
             if(moneyCheck.optionFifty("option3", saldo).equals("ok")) {
+                geldGepind = 50;
                 writeBytes("option3");
                 phpData.collectMoney(accountNumber, 50);
                 pinAutomaat.receipt();
@@ -387,6 +395,7 @@ public final class DataProcess {
         }
         else if(dataReceive.equals("A")) {
             if(moneyCheck.optionHundred("option1", saldo).equals("ok")) {
+                geldGepind = 100;
                 writeBytes("option1");
                 phpData.collectMoney(accountNumber, 100);
                 pinAutomaat.receipt();
@@ -401,6 +410,7 @@ public final class DataProcess {
         }
         else if(dataReceive.equals("B")) {
             if(moneyCheck.optionHundred("option2", saldo).equals("ok")) {
+                geldGepind = 100;
                 writeBytes("option2");
                 phpData.collectMoney(accountNumber, 100);
                 pinAutomaat.receipt();
@@ -415,6 +425,7 @@ public final class DataProcess {
         }
         else if(dataReceive.equals("C")) {
             if(moneyCheck.optionHundred("option3", saldo).equals("ok")) {
+                geldGepind = 100;
                 writeBytes("option3");
                 phpData.collectMoney(accountNumber, 100);
                 pinAutomaat.receipt();
@@ -441,6 +452,7 @@ public final class DataProcess {
         else if(dataReceive.equals("A")) {
             writeBytes("yes");
             pinAutomaat.thanks();
+            bon(accountNumber, String.valueOf(geldGepind) , Integer.valueOf(saldo) - geldGepind);
         }
         else if(dataReceive.equals("B")) {
             writeBytes("no");
@@ -469,6 +481,14 @@ public final class DataProcess {
         System.out.println("20 biljet: "+ moneyCheck.getTwentyCounter() +" stuks");
         System.out.println("50 biljet: "+ moneyCheck.getFiftyCounter() +" stuks");
     }
-    
+
+    public static void bon(String bankNummer, String geldGepind, int saldo) {
+        System.out.println("\n");
+        System.out.println("BON:");
+        System.out.println("Banknummer: "+ bankNummer);
+        System.out.println("Gepinde geld: "+ geldGepind);
+        System.out.println("Saldo nu: "+ saldo);
+        System.out.println("\n");
+    }
    
 }
