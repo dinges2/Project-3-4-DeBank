@@ -76,6 +76,7 @@ public class PhpCode {
 
             if(buffer.isEmpty()) {
                 wrongPin(rekeningnummer);
+                inlogPoging = poging(rekeningnummer);
                 return "";
             }
 
@@ -162,4 +163,30 @@ public class PhpCode {
             e.printStackTrace();
         }
     }
+
+    public static String poging(String rekeningnummer) {
+        JSONObject nummer = null;
+
+        try{
+
+            JSONObject root = new JSONObject(fetch("https://getbank.ml/api/inlogPoging.php?reknr="+ rekeningnummer));
+            JSONArray buffer = root.getJSONArray("inlogpoging");
+
+
+            for (int i = 0; i < buffer.length(); i++) {
+                nummer = buffer.getJSONObject(i);
+
+                //System.out.println("inlogpoging is: " + nummer.getString("INLOGPOGINGEN"));
+            }
+
+
+        }
+
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return nummer.getString("INLOGPOGINGEN");
+    }
 }
+

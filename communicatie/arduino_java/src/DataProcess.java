@@ -154,18 +154,15 @@ public final class DataProcess {
                 pinAutomaat.mainMenu();
                 passBuf = "1";
             }
-            /*else if(Integer.valueOf(phpData.getInlogPoging()) < 3) {
-                phpData.wrongPin(accountNumber);
+            else if(Integer.valueOf(phpData.getInlogPoging()) < 3) {
                 writeBytes("pinWrong");
                 System.out.println("wrong");
                 System.out.println("Inlogpoging: "+Integer.valueOf(phpData.getInlogPoging()));
-                //pinAutomaat.enterPin();
                 passBuf = "1";
-            }*/
+            }
             else {
                 writeBytes("block");
-                System.out.println("wrong");
-                //System.out.println(phpData.getInlogPoging());
+                System.out.println("block");
                 pinAutomaat.startingScreen();
                 passBuf = "1";
             }
