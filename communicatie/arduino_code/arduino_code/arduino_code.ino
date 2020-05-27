@@ -203,6 +203,9 @@ void loop() {
     else if(line == "hundred") {
       mode = "optionHundred";
     }
+    else if(line == "enterAmount") {
+      mode = "enterAmount";
+    }
     
   }
 
@@ -339,6 +342,31 @@ void loop() {
     if(key_pressed) {
       Serial.print(key_pressed);
       Serial.print(',');
+    }
+
+    if(line == "abort") {
+      mode = "rfid";
+    }
+    else if(line == "backToMain") {
+      mode = "mainMenu";
+    }
+    else if(line == "yes") {
+      mode = "rfid";
+    }
+    else if(line == "no") {
+      mode = "rfid";
+    }
+  }
+
+
+
+
+  else if(mode == "enterAmount") {
+    key_pressed = keypad_key.getKey();
+
+    if(key_pressed) {
+      Serial.print(key_pressed);
+      Serial.print('?');
     }
 
     if(line == "abort") {

@@ -122,6 +122,12 @@ public final class DataProcess {
             buf.clear();
             return;
         }
+        else if(c == '?') {
+            storeBuffer();
+            amount();
+            buf.clear();
+            return;
+        }
         
         buf.add(c);
     }
@@ -240,6 +246,10 @@ public final class DataProcess {
            writeBytes("hundred");
            PinAutomaat.setAmountPressed(100);
            pinAutomaat.bills();
+       }
+       else if(dataReceive.equals("5")) {
+           writeBytes("enterAmount");
+           pinAutomaat.enterAmount();
        }
     }
     
@@ -444,6 +454,17 @@ public final class DataProcess {
                 System.out.println("niet genoeg saldo");
             }
 
+        }
+    }
+
+    public static void amount() {
+        if(dataReceive.equals("#")) {
+            writeBytes("abort");
+            pinAutomaat.startingScreen();
+        }
+        else if(dataReceive.equals("*")) {
+            writeBytes("backToMain");
+            pinAutomaat.mainMenu();
         }
     }
 
