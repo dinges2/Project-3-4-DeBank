@@ -154,8 +154,18 @@ public final class DataProcess {
                 pinAutomaat.mainMenu();
                 passBuf = "1";
             }
-            else {
+            /*else if(Integer.valueOf(phpData.getInlogPoging()) < 3) {
+                phpData.wrongPin(accountNumber);
                 writeBytes("pinWrong");
+                System.out.println("wrong");
+                System.out.println("Inlogpoging: "+Integer.valueOf(phpData.getInlogPoging()));
+                //pinAutomaat.enterPin();
+                passBuf = "1";
+            }*/
+            else {
+                writeBytes("block");
+                System.out.println("wrong");
+                //System.out.println(phpData.getInlogPoging());
                 pinAutomaat.startingScreen();
                 passBuf = "1";
             }
@@ -486,7 +496,7 @@ public final class DataProcess {
         System.out.println("\n");
         System.out.println("BON:");
         System.out.println("Banknummer: "+ bankNummer);
-        System.out.println("Gepinde geld: "+ geldGepind);
+        System.out.println("Opgenomen bedrag: "+ geldGepind);
         System.out.println("Saldo nu: "+ saldo);
         System.out.println("\n");
     }

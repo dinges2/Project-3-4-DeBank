@@ -7,6 +7,10 @@ import org.json.JSONObject;
 public class PhpCode {
     static String inlogPoging;
 
+    static String getInlogPoging() {
+        return inlogPoging;
+    }
+
     public static String fetch(String url) throws Exception {
         URLConnection connection = new URL(url).openConnection();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -41,6 +45,7 @@ public class PhpCode {
             JSONArray buffer = root.getJSONArray("rekeningnummer");
             for (int i = 0; i < buffer.length(); i++) {
                 nummer = buffer.getJSONObject(i);
+
                 System.out.println("");
                 System.out.println("Rekeningnummer is: " + nummer.getString("REKENINGNUMMER"));
                 System.out.println("inlogpoging is: " + nummer.getString("INLOGPOGINGEN"));

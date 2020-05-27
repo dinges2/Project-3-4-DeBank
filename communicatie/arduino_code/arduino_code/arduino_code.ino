@@ -137,6 +137,13 @@ void loop() {
       digitalWrite(redLed, HIGH);
       delay(2000);
       digitalWrite(redLed, LOW);
+      mode = "pinCheck";
+      line = "";
+    }
+    else if(line == "block") {
+      digitalWrite(redLed, HIGH);
+      delay(2000);
+      digitalWrite(redLed, LOW);
       mode = "rfid";
     }
 
