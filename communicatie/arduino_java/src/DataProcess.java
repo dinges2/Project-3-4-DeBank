@@ -466,6 +466,10 @@ public final class DataProcess {
             writeBytes("backToMain");
             pinAutomaat.mainMenu();
         }
+        else if(dataReceive.equals("A")) {
+            writeBytes("enter");
+            pinAutomaat.billChoice();
+        }
     }
 
     public static void receipt() {

@@ -375,12 +375,36 @@ void loop() {
     else if(line == "backToMain") {
       mode = "mainMenu";
     }
-    else if(line == "yes") {
+    else if(line == "enter") {
+      mode = "billChoice";
+    }
+    
+  }
+
+
+
+
+  else if(mode == "billChoice") {
+    key_pressed = keypad_key.getKey();
+
+    if(key_pressed) {
+      Serial.print(key_pressed);
+      Serial.print('?');
+    }
+
+    if(line == "abort") {
       mode = "rfid";
     }
-    else if(line == "no") {
-      mode = "rfid";
+    else if(line == "backToMain") {
+      mode = "mainMenu";
     }
+    else if(line == "A") {
+      mode = "receipt";
+    }
+    else if(line == "B") {
+      mode = "receipt";
+    }
+    
   }
 
   
