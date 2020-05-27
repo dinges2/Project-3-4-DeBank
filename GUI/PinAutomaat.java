@@ -47,8 +47,6 @@ public class PinAutomaat{
     private JLabel billChoiceLabel;
     private JLabel receiptLabel;
     private JLabel thanksLabel;
-    
-    private int pincode;
 
     public PinAutomaat(){
 
@@ -166,24 +164,28 @@ public class PinAutomaat{
             withdrawButton = new JButton("Opnemen");
             grid.gridx = 0;
             grid.gridy = 1;
+            grid.fill = GridBagConstraints.HORIZONTAL;
             grid.insets = new Insets(5, 5, 5, 0);
             mainMenuPanel.add(withdrawButton, grid);
 
             balanceButton = new JButton("Saldo");
             grid.gridx = 0;
             grid.gridy = 2;
+            grid.fill = GridBagConstraints.HORIZONTAL;
             grid.insets = new Insets(5, 5, 5, 0);
             mainMenuPanel.add(balanceButton, grid);
 
             quickSeventyButton = new JButton("Snel 70");
             grid.gridx = 3;
             grid.gridy = 1;
+            grid.fill = GridBagConstraints.HORIZONTAL;
             grid.insets = new Insets(5, 5, 5, 0);
             mainMenuPanel.add(quickSeventyButton, grid);
 
             abortButton = new JButton("Afbreken");
             grid.gridx = 3;
             grid.gridy = 2;
+            grid.fill = GridBagConstraints.HORIZONTAL;
             grid.insets = new Insets(5, 5, 5, 0);
             mainMenuPanel.add(abortButton, grid);
             mainFrame.setVisible(true);
@@ -233,8 +235,8 @@ public class PinAutomaat{
             withdrawPanel.setLayout(new GridBagLayout());
 
             withdrawLabel = new JLabel();
-            withdrawLabel.setFont(new Font("Roboto", Font.BOLD, 16));
-            withdrawLabel.setText("Kies het bedrag dat u wilt pinnen.");
+            withdrawLabel.setFont(new Font("Helvetica", Font.BOLD, 16));
+            withdrawLabel.setText("Kies het bedrag dat u wil pinnen.");
             grid.gridx = 1;
             grid.gridy = 0;
             grid.weighty = 1.0;
@@ -244,36 +246,54 @@ public class PinAutomaat{
             JButton tenButton = new JButton(" \u20BD 10");
             grid.gridx = 0;
             grid.gridy = 1;
+            grid.fill = GridBagConstraints.HORIZONTAL;
+            grid.fill = GridBagConstraints.VERTICAL;
+            grid.insets = new Insets(5, 5, 5, 0);
             withdrawPanel.add(tenButton, grid);
 
             JButton twentyButton = new JButton("\u20BD 20");
             grid.gridx = 0;
             grid.gridy = 2;
+            grid.fill = GridBagConstraints.HORIZONTAL;
+            grid.fill = GridBagConstraints.VERTICAL;
+            grid.insets = new Insets(5, 5, 5, 0);
             withdrawPanel.add(twentyButton, grid);
 
             JButton fiftyButton = new JButton("\u20BD 50");
             grid.gridx = 0;
             grid.gridy = 3;
+            grid.fill = GridBagConstraints.HORIZONTAL;
+            grid.fill = GridBagConstraints.VERTICAL;
+            grid.insets = new Insets(5, 5, 5, 0);
             withdrawPanel.add(fiftyButton, grid);
+
+            backToMainMenuButton = new JButton("Hoofdmenu");
+            grid.gridx = 0;
+            grid.gridy = 4;
+            grid.fill = GridBagConstraints.HORIZONTAL;
+            grid.fill = GridBagConstraints.VERTICAL;
+            grid.insets = new Insets(5, 5, 5, 0);
+            withdrawPanel.add(backToMainMenuButton, grid);
 
             JButton hundredButton = new JButton("\u20BD 100");
             grid.gridx = 3;
             grid.gridy = 1;
+            grid.fill = GridBagConstraints.HORIZONTAL;
+            //grid.insets = new Insets(5, 0, 5, 5);
             withdrawPanel.add(hundredButton, grid);
 
             enterAmountButton = new JButton("Zelf invoeren");
             grid.gridx = 3;
             grid.gridy = 2;
+            grid.fill = GridBagConstraints.HORIZONTAL;
+            //grid.insets = new Insets(5, 0, 5, 5);
             withdrawPanel.add(enterAmountButton, grid);
-
-            backToMainMenuButton = new JButton("Hoofdmenu");
-            grid.gridx = 0;
-            grid.gridy = 4;
-            withdrawPanel.add(backToMainMenuButton, grid);
 
             abortButton = new JButton("Afbreken");
             grid.gridx = 3;
-            grid.gridy = 2 + 2;
+            grid.gridy = 4;
+            grid.fill = GridBagConstraints.HORIZONTAL;
+            // grid.insets = new Insets(5, 0, 5, 5);
             withdrawPanel.add(abortButton, grid);
             mainFrame.setVisible(true);
 
