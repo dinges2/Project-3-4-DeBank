@@ -84,12 +84,12 @@ public class PinAutomaat{
             startingScreenPanel.setLayout(new GridBagLayout());
 
             startingScreenLabel = new JLabel();
-            startingScreenLabel.setFont(new Font("Roboto", Font.BOLD, 40));
+            startingScreenLabel.setFont(new Font("Roboto", Font.BOLD, 80));
             startingScreenLabel.setText("Houdt uw pinpas voor de lezer.");
             grid.gridx = 1;
-            grid.gridy = 0+1;
+            grid.gridy = 0;
             grid.weighty = 1.0;
-            grid.anchor = GridBagConstraints.PAGE_START;
+            grid.anchor = GridBagConstraints.CENTER;
             startingScreenPanel.add(startingScreenLabel, grid);
 
             JButton OkButton = new JButton("OK");
@@ -115,7 +115,7 @@ public class PinAutomaat{
             enterPinPanel.setLayout(new GridBagLayout());
 
             enterPinLabel = new JLabel();
-            enterPinLabel.setFont(new Font("Roboto", Font.BOLD, 16));
+            enterPinLabel.setFont(new Font("Roboto", Font.BOLD, 60));
             enterPinLabel.setText("Voer uw pincode in.");
             grid.gridx = 1;
             grid.gridy = 0;
@@ -124,24 +124,29 @@ public class PinAutomaat{
             enterPinPanel.add(enterPinLabel, grid);
 
             passwordField = new JPasswordField(4);
-            // passwordField.setActionCommand(command);
+            passwordField.setFont(new Font("Roboto", Font.BOLD, 25));
             grid.gridx = 0;
             grid.gridy = 2;
+            grid.ipadx = 40;
             grid.gridwidth = 3;
             enterPinPanel.add(passwordField, grid);
-            //passwordField.setText(pincode);
             
 
-            enterButton = new JButton("# - Enter");
+            enterButton = new JButton("[*]   Enter");
+            enterButton.setFont(new Font("Roboto", Font.BOLD, 25));
             grid.gridx = 0;
             grid.gridy = 3;
+            grid.ipadx = 0;
             grid.gridwidth = 1;
+            grid.fill = GridBagConstraints.HORIZONTAL;
             enterPinPanel.add(enterButton, grid);
 
-            abortButton = new JButton("* - Afbreken");
+            abortButton = new JButton("[#]   Afbreken");
+            abortButton.setFont(new Font("Roboto", Font.BOLD, 25));
             grid.gridx = 2;
             grid.gridy = 3;
             grid.gridwidth = 1;
+            grid.fill = GridBagConstraints.HORIZONTAL;
             enterPinPanel.add(abortButton, grid);
             mainFrame.setVisible(true);
 
@@ -172,40 +177,53 @@ public class PinAutomaat{
             mainMenuPanel.setLayout(new GridBagLayout());
 
             mainMenuLabel = new JLabel();
-            mainMenuLabel.setFont(new Font("Roboto", Font.BOLD, 16));
+            mainMenuLabel.setFont(new Font("Roboto", Font.BOLD, 80));
             mainMenuLabel.setText("Kies wat u wil doen.");
-            grid.gridx = 1;
+            grid.gridx = 0;
             grid.gridy = 0;
+            grid.gridwidth = 3;
             grid.weighty = 1.0;
             grid.anchor = GridBagConstraints.PAGE_START;
             mainMenuPanel.add(mainMenuLabel, grid);
 
-            withdrawButton = new JButton("A - Opnemen");
+            withdrawButton = new JButton("[A]   Opnemen");
+            withdrawButton.setFont(new Font("Roboto", Font.BOLD, 40));
             grid.gridx = 0;
             grid.gridy = 1;
-            grid.fill = GridBagConstraints.HORIZONTAL;
-            grid.insets = new Insets(5, 5, 5, 0);
+            grid.weightx = 0.5;
+            grid.gridwidth = 1;
+            grid.fill = GridBagConstraints.BOTH;
+            grid.insets = new Insets(5, 50, 5, 100);
             mainMenuPanel.add(withdrawButton, grid);
 
-            balanceButton = new JButton("B - Saldo");
+            balanceButton = new JButton("[B]   Saldo");
+            balanceButton.setFont(new Font("Roboto", Font.BOLD, 40));
             grid.gridx = 0;
             grid.gridy = 2;
-            grid.fill = GridBagConstraints.HORIZONTAL;
-            grid.insets = new Insets(5, 5, 5, 0);
+            grid.weightx = 0.5;
+            grid.gridwidth = 1;
+            grid.fill = GridBagConstraints.BOTH;
+            grid.insets = new Insets(5, 50, 50, 100);
             mainMenuPanel.add(balanceButton, grid);
 
-            quickSeventyButton = new JButton("C - Snel 70");
-            grid.gridx = 3;
+            quickSeventyButton = new JButton("[C]   Snel 70");
+            quickSeventyButton.setFont(new Font("Roboto", Font.BOLD, 40));
+            grid.gridx = 2;
             grid.gridy = 1;
-            grid.fill = GridBagConstraints.HORIZONTAL;
-            grid.insets = new Insets(5, 5, 5, 0);
+            grid.weightx = 0.5;
+            grid.gridwidth = 1;
+            grid.fill = GridBagConstraints.BOTH;
+            grid.insets = new Insets(5, 100, 5, 50);
             mainMenuPanel.add(quickSeventyButton, grid);
 
-            abortButton = new JButton("# - Afbreken");
-            grid.gridx = 3;
+            abortButton = new JButton("[#]   Afbreken");
+            abortButton.setFont(new Font("Roboto", Font.BOLD, 40));
+            grid.gridx = 2;
             grid.gridy = 2;
-            grid.fill = GridBagConstraints.HORIZONTAL;
-            grid.insets = new Insets(5, 5, 5, 0);
+            grid.weightx = 0.5;
+            grid.gridwidth = 1;
+            grid.fill = GridBagConstraints.BOTH;
+            grid.insets = new Insets(5, 100, 50, 50);
             mainMenuPanel.add(abortButton, grid);
             mainFrame.setVisible(true);
 
@@ -254,67 +272,90 @@ public class PinAutomaat{
             withdrawPanel.setLayout(new GridBagLayout());
 
             withdrawLabel = new JLabel();
-            withdrawLabel.setFont(new Font("Roboto", Font.BOLD, 16));
-            withdrawLabel.setText("Kies het bedrag dat u wilt pinnen.");
-            grid.gridx = 2;
+            withdrawLabel.setFont(new Font("Roboto", Font.BOLD, 70));
+            withdrawLabel.setText("Kies het bedrag dat u wil pinnen.");
+            grid.gridx = 0;
             grid.gridy = 0;
+            grid.gridwidth = 3;
             grid.weighty = 1.0;
             grid.anchor = GridBagConstraints.PAGE_START;
             withdrawPanel.add(withdrawLabel, grid);
 
-            JButton tenButton = new JButton("1 - \u20BD 10");
-            tenButton.setFont(new Font("Roboto", Font.BOLD, 10));
-            grid.gridx = 0+1;
+            JLabel filler = new JLabel();
+            grid.gridx = 1;
             grid.gridy = 1;
+            grid.gridwidth = 1;
+            grid.weightx = 0.5;
+            withdrawPanel.add(filler, grid);
+
+            JButton tenButton = new JButton("[1]   \u20BD 10");
+            tenButton.setFont(new Font("Roboto", Font.BOLD, 25));
+            grid.gridx = 0;
+            grid.gridy = 1;
+            grid.gridwidth = 1;
+            grid.weightx = 0.5;
             grid.fill = GridBagConstraints.HORIZONTAL;
-            grid.insets = new Insets(5, 5, 5, 0);
+            grid.insets = new Insets(5, 50, 5, 100);
             withdrawPanel.add(tenButton, grid);
 
-            JButton twentyButton = new JButton("2 - \u20BD 20");
-            twentyButton.setFont(new Font("Roboto", Font.BOLD, 10));
-            grid.gridx = 0+1;
+            JButton twentyButton = new JButton("[2]   \u20BD 20");
+            twentyButton.setFont(new Font("Roboto", Font.BOLD, 25));
+            grid.gridx = 0;
             grid.gridy = 2;
+            grid.gridwidth = 1;
+            grid.weightx = 0.5;
             grid.fill = GridBagConstraints.HORIZONTAL;
-            grid.insets = new Insets(5, 5, 5, 0);
+            grid.insets = new Insets(5, 50, 5, 100);
             withdrawPanel.add(twentyButton, grid);
 
-            JButton fiftyButton = new JButton("3 - \u20BD 50");
-            fiftyButton.setFont(new Font("Roboto", Font.BOLD, 10));
-            grid.gridx = +1;
+            JButton fiftyButton = new JButton("[3]   \u20BD 50");
+            fiftyButton.setFont(new Font("Roboto", Font.BOLD, 25));
+            grid.gridx = 0;
             grid.gridy = 3;
+            grid.gridwidth = 1;
+            grid.weightx = 0.5;
             grid.fill = GridBagConstraints.HORIZONTAL;
-            grid.insets = new Insets(5, 5, 5, 0);
+            grid.insets = new Insets(5, 50, 5, 100);
             withdrawPanel.add(fiftyButton, grid);
 
-            backToMainMenuButton = new JButton("* - Hoofdmenu");
-            backToMainMenuButton.setFont(new Font("Roboto", Font.BOLD, 10));
-            grid.gridx = 0+1;
+            backToMainMenuButton = new JButton("[*]   Hoofdmenu");
+            backToMainMenuButton.setFont(new Font("Roboto", Font.BOLD, 25));
+            grid.gridx = 0;
             grid.gridy = 4;
-            grid.fill = GridBagConstraints.HORIZONTAL;
-            grid.fill = GridBagConstraints.VERTICAL;
-            grid.insets = new Insets(5, 5, 5, 0);
+            grid.gridwidth = 1;
+            grid.weightx = 0.5;
+            grid.fill = GridBagConstraints.BOTH;
+            grid.insets = new Insets(5, 50, 50, 100);
             withdrawPanel.add(backToMainMenuButton, grid);
 
-            JButton hundredButton = new JButton("4 - \u20BD 100");
-            hundredButton.setFont(new Font("Roboto", Font.BOLD, 10));
-            grid.gridx = 4-1;
+            JButton hundredButton = new JButton("[4]   \u20BD 100");
+            hundredButton.setFont(new Font("Roboto", Font.BOLD, 25));
+            grid.gridx = 2;
             grid.gridy = 1;
+            grid.gridwidth = 1;
+            grid.weightx = 0.5;
             grid.fill = GridBagConstraints.HORIZONTAL;
+            grid.insets = new Insets(5, 100, 50, 50);
             withdrawPanel.add(hundredButton, grid);
 
-            enterAmountButton = new JButton("Zelf invoeren");
-            enterAmountButton.setFont(new Font("Roboto", Font.BOLD, 10));
-            grid.gridx = 4-1;
+            enterAmountButton = new JButton("[5]   Zelf invoeren");
+            enterAmountButton.setFont(new Font("Roboto", Font.BOLD, 25));
+            grid.gridx = 2;
             grid.gridy = 2;
+            grid.gridwidth = 1;
+            grid.weightx = 0.5;
             grid.fill = GridBagConstraints.HORIZONTAL;
+            grid.insets = new Insets(5, 100, 50, 50);
             withdrawPanel.add(enterAmountButton, grid);
 
-            abortButton = new JButton("# - Afbreken");
-            abortButton.setFont(new Font("Roboto", Font.BOLD, 10));
-            grid.gridx = 4-1;
-            grid.gridy = 2 + 2;
-            grid.fill = GridBagConstraints.HORIZONTAL;
-            grid.fill = GridBagConstraints.VERTICAL;
+            abortButton = new JButton("[#]   Afbreken");
+            abortButton.setFont(new Font("Roboto", Font.BOLD, 25));
+            grid.gridx = 2;
+            grid.gridy = 4;
+            grid.gridwidth = 1;
+            grid.weightx = 0.5;
+            grid.fill = GridBagConstraints.BOTH;            
+            grid.insets = new Insets(5, 100, 50, 50);
             withdrawPanel.add(abortButton, grid);
             mainFrame.setVisible(true);
 
@@ -361,7 +402,7 @@ public class PinAutomaat{
             enterAmountButton.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
 
-                    mainFrame.remove(mainMenuPanel);
+                    mainFrame.remove(withdrawPanel);
                     amountPanel = null;
                     enterAmount();
                 }
@@ -394,15 +435,17 @@ public class PinAutomaat{
             amountPanel.setLayout(new GridBagLayout());
 
             amountLabel = new JLabel();
-            amountLabel.setFont(new Font("Roboto", Font.BOLD, 16));
+            amountLabel.setFont(new Font("Roboto", Font.BOLD, 70));
             amountLabel.setText("Voer het bedrag in dat u wilt pinnen.");
-            grid.gridx = 1;
+            grid.gridx = 0;
             grid.gridy = 0;
+            grid.gridwidth = 3;
             grid.weighty = 1.0;
             grid.anchor = GridBagConstraints.PAGE_START;
             amountPanel.add(amountLabel, grid);
             
             amountField = new JFormattedTextField(amountFormat);
+            amountField.setFont(new Font("Roboto", Font.BOLD, 25));
             amountField.setValue(amount);
             amountField.setColumns(5);
             amountField.addPropertyChangeListener("value", new PropertyChangeListener(){
@@ -413,34 +456,47 @@ public class PinAutomaat{
                     if (source == amountField) {
                         amount = ((Number)amountField.getValue()).intValue();
                     }
-                }   
+                }
             });
             grid.gridx = 1;
             grid.gridy = 1;
-            grid.anchor = GridBagConstraints.CENTER;
+            grid.ipadx = 40;
             grid.weightx = 1.0;
-            // grid.gridwidth = 2;
             grid.weighty = 0.0;
+            grid.gridwidth = 1;
+            grid.insets = new Insets(5, 50, 250, 50);
             amountPanel.add(amountField, grid);
 
-            enterButton = new JButton("Enter");
+            enterButton = new JButton("[A]   Enter");
+            enterButton.setFont(new Font("Roboto", Font.BOLD, 25));
             grid.gridx = 2;
             grid.gridy = 1;
+            grid.ipadx = 0;
+            grid.weightx = 0.0;
             grid.gridwidth = 1;
-            amountPanel.add(enterButton, grid);
+            grid.fill = GridBagConstraints.HORIZONTAL;
+            grid.insets = new Insets(5, 50, 250, 100);
+            amountPanel.add(enterButton, grid);            
 
-            abortButton = new JButton("Afbreken");
-            grid.gridx = 2;
-            grid.gridy = 2;
-            grid.gridwidth = 1;
-            grid.weighty = 1.0;
-            amountPanel.add(abortButton, grid);
-
-            backToMainMenuButton = new JButton("Hoofdmenu");
+            backToMainMenuButton = new JButton("[*]   Hoofdmenu");
+            backToMainMenuButton.setFont(new Font("Roboto", Font.BOLD, 25));
             grid.gridx = 0;
             grid.gridy = 2;
+            grid.weightx = 0.0;
             grid.gridwidth = 1;
+            grid.fill = GridBagConstraints.BOTH;
+            grid.insets = new Insets(5, 100, 50, 50);
             amountPanel.add(backToMainMenuButton, grid);
+
+            abortButton = new JButton("[#]   Afbreken");
+            abortButton.setFont(new Font("Roboto", Font.BOLD, 25));
+            grid.gridx = 2;
+            grid.gridy = 2;
+            grid.weightx = 0.0;
+            grid.gridwidth = 1;
+            grid.fill = GridBagConstraints.BOTH;
+            grid.insets = new Insets(5, 50, 50, 100);
+            amountPanel.add(abortButton, grid);
             mainFrame.setVisible(true);
 
             enterButton.addMouseListener(new MouseAdapter(){
@@ -482,8 +538,8 @@ public class PinAutomaat{
             balancePanel.setLayout(new GridBagLayout());
 
             balanceLabel = new JLabel();
-            balanceLabel.setFont(new Font("Roboto", Font.BOLD, 16));
-            balanceLabel.setText("Uw saldo is: "/*+saldo*/);
+            balanceLabel.setFont(new Font("Roboto", Font.BOLD, 60));
+            balanceLabel.setText("Uw saldo is: ");
             grid.gridx = 1;
             grid.gridy = 0;
             grid.weighty = 1.0;
@@ -497,15 +553,19 @@ public class PinAutomaat{
             grid.anchor = GridBagConstraints.CENTER;
             balancePanel.add(accountBalanceLabel, grid);
 
-            backToMainMenuButton = new JButton("* - Hoofdmenu");
+            backToMainMenuButton = new JButton("[*]   Hoofdmenu");
+            backToMainMenuButton.setFont(new Font("Roboto", Font.BOLD, 25));
             grid.gridx = 0;
             grid.gridy = 2;
+            grid.fill = GridBagConstraints.HORIZONTAL;
             grid.weighty = 1.0;            
             balancePanel.add(backToMainMenuButton, grid);
 
-            abortButton = new JButton("# - Afbreken");
+            abortButton = new JButton("[#]   Afbreken");
+            abortButton.setFont(new Font("Roboto", Font.BOLD, 25));
             grid.gridx = 2;
             grid.gridy = 2;
+            grid.fill = GridBagConstraints.HORIZONTAL;
             grid.weighty = 1.0;
             balancePanel.add(abortButton, grid);
             mainFrame.setVisible(true);
@@ -538,7 +598,7 @@ public class PinAutomaat{
             billsPanel.setLayout(new GridBagLayout());
 
             billsLabel = new JLabel();
-            billsLabel.setFont(new Font("Roboto", Font.BOLD, 16));
+            billsLabel.setFont(new Font("Roboto", Font.BOLD, 60));
             billsLabel.setText("Maak uw biljetkeuze.");
             grid.gridx = 1;
             grid.gridy = 0;
@@ -547,59 +607,75 @@ public class PinAutomaat{
             billsPanel.add(billsLabel, grid);
 
             if(amountPressed == 20){
-                optionOneButton = new JButton("A - 2 x \u20BD 10");
+                optionOneButton = new JButton("[A]   2 x \u20BD 10");
+                optionOneButton.setFont(new Font("Roboto", Font.BOLD, 25));
                 grid.gridx = 1;
                 grid.gridy = 1;
+                grid.fill = GridBagConstraints.HORIZONTAL;
                 billsPanel.add(optionOneButton, grid);
 
-                optionTwoButton = new JButton("B - 1 x \u20BD 20");
+                optionTwoButton = new JButton("[B]   1 x \u20BD 20");
+                optionTwoButton.setFont(new Font("Roboto", Font.BOLD, 25));
                 grid.gridx = 1;
                 grid.gridy = 2;
+                grid.fill = GridBagConstraints.HORIZONTAL;
                 billsPanel.add(optionTwoButton, grid);
             }
 
             else if(amountPressed == 50){
-                optionOneButton = new JButton("A - 5 x \u20BD 10");
+                optionOneButton = new JButton("[A]   5 x \u20BD 10");
+                optionOneButton.setFont(new Font("Roboto", Font.BOLD, 25));
                 grid.gridx = 1;
                 grid.gridy = 1;
+                grid.fill = GridBagConstraints.HORIZONTAL;
                 billsPanel.add(optionOneButton, grid);
 
-                optionTwoButton = new JButton("B - 2 x \u20BD 20 + 1 x \u20BD 10");
+                optionTwoButton = new JButton("[B]   2 x \u20BD 20 + 1 x \u20BD 10");
+                optionTwoButton.setFont(new Font("Roboto", Font.BOLD, 25));
                 grid.gridx = 1;
                 grid.gridy = 2;
+                grid.fill = GridBagConstraints.HORIZONTAL;
                 billsPanel.add(optionTwoButton, grid);
 
-                optionThreeButton = new JButton("C - 1 x \u20BD 50");
-                grid.gridx = 1;
-                grid.gridy = 3;
-                billsPanel.add(optionThreeButton, grid);
+                // optionThreeButton = new JButton("C - 1 x \u20BD 50");
+                // grid.gridx = 1;
+                // grid.gridy = 3;
+                // billsPanel.add(optionThreeButton, grid);
             }
 
             else if(amountPressed == 100){
-                optionOneButton = new JButton("A - 3 x \u20BD 20 + 4 x \u20BD 10");
+                optionOneButton = new JButton("[A]   3 x \u20BD 20 + 4 x \u20BD 10");
+                optionOneButton.setFont(new Font("Roboto", Font.BOLD, 25));
                 grid.gridx = 1;
                 grid.gridy = 1;
+                grid.fill = GridBagConstraints.HORIZONTAL;
                 billsPanel.add(optionOneButton, grid);
 
-                optionTwoButton = new JButton("B - 5 x \u20BD 20");
+                optionTwoButton = new JButton("[B]   5 x \u20BD 20");
+                optionTwoButton.setFont(new Font("Roboto", Font.BOLD, 25));
                 grid.gridx = 1;
                 grid.gridy = 2;
+                grid.fill = GridBagConstraints.HORIZONTAL;
                 billsPanel.add(optionTwoButton, grid);
 
-                optionThreeButton = new JButton("C - 2 x \u20BD 50");
-                grid.gridx = 1;
-                grid.gridy = 3;
-                billsPanel.add(optionThreeButton, grid);
+                // optionThreeButton = new JButton("C - 2 x \u20BD 50");
+                // grid.gridx = 1;
+                // grid.gridy = 3;
+                // billsPanel.add(optionThreeButton, grid);
             }
 
-            backToMainMenuButton = new JButton("* - Hoofdmenu");
+            backToMainMenuButton = new JButton("[*]   Hoofdmenu");
+            backToMainMenuButton.setFont(new Font("Roboto", Font.BOLD, 25));
             grid.gridx = 0;
             grid.gridy = 4;
+            grid.fill = GridBagConstraints.HORIZONTAL;
             billsPanel.add(backToMainMenuButton, grid);
 
-            abortButton = new JButton("# - Afbreken");
+            abortButton = new JButton("[#]   Afbreken");
+            abortButton.setFont(new Font("Roboto", Font.BOLD, 25));
             grid.gridx = 2;
             grid.gridy = 4;
+            grid.fill = GridBagConstraints.HORIZONTAL;
             billsPanel.add(abortButton, grid);
             mainFrame.setVisible(true);
 
@@ -659,7 +735,7 @@ public class PinAutomaat{
             billChoicePanel.setLayout(new GridBagLayout());
 
             billChoiceLabel = new JLabel();
-            billChoiceLabel.setFont(new Font("Roboto", Font.BOLD, 16));
+            billChoiceLabel.setFont(new Font("Roboto", Font.BOLD, 40));
             billChoiceLabel.setText("Maak uw biljetkeuze.");
             grid.gridx = 1;
             grid.gridy = 0;
@@ -668,28 +744,36 @@ public class PinAutomaat{
             billChoicePanel.add(billChoiceLabel, grid);
 
             optionOneButton = new JButton(optionOne(amount));
+            optionOneButton.setFont(new Font("Roboto", Font.BOLD, 25));
             grid.gridx = 1;
             grid.gridy = 1;
+            grid.fill = GridBagConstraints.HORIZONTAL;
             billChoicePanel.add(optionOneButton, grid);
 
             optionTwoButton = new JButton(optionTwo(amount));
+            optionTwoButton.setFont(new Font("Roboto", Font.BOLD, 25));
             grid.gridx = 1;
             grid.gridy = 2;
+            grid.fill = GridBagConstraints.HORIZONTAL;
             billChoicePanel.add(optionTwoButton, grid);
 
-            optionThreeButton = new JButton(optionThree(amount));
-            grid.gridx = 1;
-            grid.gridy = 3;
-            billChoicePanel.add(optionThreeButton, grid);
+            // optionThreeButton = new JButton(optionThree(amount));
+            // grid.gridx = 1;
+            // grid.gridy = 3;
+            // billChoicePanel.add(optionThreeButton, grid);
 
             backToMainMenuButton = new JButton("Hoofdmenu");
+            backToMainMenuButton.setFont(new Font("Roboto", Font.BOLD, 25));
             grid.gridx = 0;
             grid.gridy = 4;
+            grid.fill = GridBagConstraints.HORIZONTAL;
             billChoicePanel.add(backToMainMenuButton, grid);
 
             abortButton = new JButton("Afbreken");
+            abortButton.setFont(new Font("Roboto", Font.BOLD, 25));
             grid.gridx = 2;
             grid.gridy = 4;
+            grid.fill = GridBagConstraints.HORIZONTAL;
             billChoicePanel.add(abortButton, grid);
             mainFrame.setVisible(true);
 
@@ -713,15 +797,15 @@ public class PinAutomaat{
                 }
             });
 
-            optionThreeButton.addMouseListener(new MouseAdapter(){
-                public void mouseClicked(MouseEvent e){
+            // optionThreeButton.addMouseListener(new MouseAdapter(){
+            //     public void mouseClicked(MouseEvent e){
 
-                    mainFrame.remove(billChoicePanel);
-                    amountField.setValue(0);
-                    receiptPanel = null;
-                    receipt();
-                }
-            });
+            //         mainFrame.remove(billChoicePanel);
+            //         amountField.setValue(0);
+            //         receiptPanel = null;
+            //         receipt();
+            //     }
+            // });
 
             backToMainMenuButton.addMouseListener(new MouseAdapter(){
                 public void mouseClicked(MouseEvent e){
@@ -753,7 +837,7 @@ public class PinAutomaat{
             receiptPanel.setLayout(new GridBagLayout());
 
             receiptLabel = new JLabel();
-            receiptLabel.setFont(new Font("Roboto", Font.BOLD, 16));
+            receiptLabel.setFont(new Font("Roboto", Font.BOLD, 60));
             receiptLabel.setText("Wilt u een bonnetje?");
             grid.gridx = 1;
             grid.gridy = 0;
@@ -761,14 +845,18 @@ public class PinAutomaat{
             grid.anchor = GridBagConstraints.PAGE_START;
             receiptPanel.add(receiptLabel, grid);
             
-            JButton yesButton = new JButton("A - Ja");
+            JButton yesButton = new JButton("[A]   Ja");
+            yesButton.setFont(new Font("Roboto", Font.BOLD, 25));
             grid.gridx = 0;
             grid.gridy = 1;
+            grid.fill = GridBagConstraints.HORIZONTAL;
             receiptPanel.add(yesButton, grid);
 
-            JButton noButton = new JButton("B - Nee");
+            JButton noButton = new JButton("[B]   Nee");
+            noButton.setFont(new Font("Roboto", Font.BOLD, 25));
             grid.gridx = 2;
             grid.gridy = 1;
+            grid.fill = GridBagConstraints.HORIZONTAL;
             receiptPanel.add(noButton, grid);
             mainFrame.setVisible(true);
 
@@ -802,40 +890,13 @@ public class PinAutomaat{
             thanksPanel.setLayout(new GridBagLayout());
 
             thanksLabel = new JLabel();
-            thanksLabel.setFont(new Font("Roboto", Font.BOLD, 16));
+            thanksLabel.setFont(new Font("Roboto", Font.BOLD, 80));
             thanksLabel.setText("Bedankt voor uw transactie.");
-            grid.gridx = 1;
+            grid.gridx = 0;
             grid.gridy = 0;
+            grid.anchor = GridBagConstraints.CENTER;
             thanksPanel.add(thanksLabel, grid);
             mainFrame.setVisible(true);
-
-            /*Functie werkt niet vanwege 'undefined for type' error
-            Verder onderzoek nodig*/
-            // ActionListener taskperformer = new ActionListener(){
-            //     public void actionPerformed(ActionEvent e){
-
-            //         mainFrame.remove(thanksPanel);
-            //         startingScreenPanel = null;
-            //         startingScreen();
-            //     }
-            // };
-
-            // Timer timer = new Timer(5000, taskperformer);
-            // timer.setRepeats(false);
-            // timer.start();
-
-            // Timer timer = new Timer(1000, new ActionListener() {
-            //     @Override
-            //     public void actionPerformed(ActionEvent e) {
-            //         x += 110;
-            //         if (x >= 1000) {
-            //             x = 1000;
-            //             ((Timer)e.getSource()).stop();
-            //         }
-            //         startingScreen();
-            //     }
-            // });
-            // timer.start();
 
             int delay = 5000; //milliseconds
             ActionListener taskPerformer = new ActionListener() {
@@ -909,39 +970,39 @@ public class PinAutomaat{
             return s;
         }
 
-        public String optionThree(int amount){
+        // public String optionThree(int amount){
 
-            String s = "";
-            int[] bills = {50, 20, 10};
-            int[] noOfBills = {0, 0, 0};
+        //     String s = "";
+        //     int[] bills = {50, 20, 10};
+        //     int[] noOfBills = {0, 0, 0};
 
-            if(amount == 50){
-                noOfBills[1] = 2;
-                noOfBills[2] = 1;
-            }
-            else{
-                while(amount > 0){
-                    for(int i = 0; i < 3; i++){
-                        if(amount >= noOfBills[i]){
-                            noOfBills[i]++;
-                            amount = amount - bills[i];
-                        }
-                    }
-                }
-            }
+        //     if(amount == 50){
+        //         noOfBills[1] = 2;
+        //         noOfBills[2] = 1;
+        //     }
+        //     else{
+        //         while(amount > 0){
+        //             for(int i = 0; i < 3; i++){
+        //                 if(amount >= noOfBills[i]){
+        //                     noOfBills[i]++;
+        //                     amount = amount - bills[i];
+        //                 }
+        //             }
+        //         }
+        //     }
 
-            if(noOfBills[0] != 0){
-                s += Integer.toString(noOfBills[0]) + " X \u20BD 50 ";
-            }
-            if(noOfBills[1] != 0){
-                s += Integer.toString(noOfBills[1]) + " X \u20BD 20 ";
-            }
-            if(noOfBills[2] != 0){
-                s += Integer.toString(noOfBills[2]) + " X \u20BD 10 ";
-            }
+        //     if(noOfBills[0] != 0){
+        //         s += Integer.toString(noOfBills[0]) + " X \u20BD 50 ";
+        //     }
+        //     if(noOfBills[1] != 0){
+        //         s += Integer.toString(noOfBills[1]) + " X \u20BD 20 ";
+        //     }
+        //     if(noOfBills[2] != 0){
+        //         s += Integer.toString(noOfBills[2]) + " X \u20BD 10 ";
+        //     }
 
-            return s;
-        }
+        //     return s;
+        // }
         
 }
         
