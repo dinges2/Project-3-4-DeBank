@@ -251,6 +251,9 @@ void loop() {
     else if(line == "no") {
       mode = "rfid";
     }
+    else if(line == "withdraw") {
+      mode = "withdraw";
+    }
   }
 
 
@@ -275,6 +278,9 @@ void loop() {
     }
     else if(line == "option2") {
       mode = "receipt";
+    }
+    else if(line == "withdraw") {
+      mode = "withdraw";
     }
   }
 
@@ -304,6 +310,9 @@ void loop() {
     else if(line == "option3") {
       mode = "receipt";
     }
+    else if(line == "withdraw") {
+      mode = "withdraw";
+    }
   }
 
 
@@ -331,6 +340,9 @@ void loop() {
     }
     else if(line == "option3") {
       mode = "receipt";
+    }
+    else if(line == "withdraw") {
+      mode = "withdraw";
     }
   }
 
@@ -389,7 +401,7 @@ void loop() {
 
     if(key_pressed) {
       Serial.print(key_pressed);
-      Serial.print('?');
+      Serial.print('`');
     }
 
     if(line == "abort") {
@@ -398,11 +410,14 @@ void loop() {
     else if(line == "backToMain") {
       mode = "mainMenu";
     }
-    else if(line == "A") {
+    else if(line == "option1") {
       mode = "receipt";
     }
-    else if(line == "B") {
+    else if(line == "option2") {
       mode = "receipt";
+    }
+    else if(line == "withdraw") {
+      mode = "withdraw";
     }
     
   }
