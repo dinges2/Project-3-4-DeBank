@@ -13,6 +13,7 @@ public final class DataProcess {
     static int geldGepind;
     static PinAutomaat pinAutomaat = new PinAutomaat();
     static String passBuf = "";
+    static String amountBuffer = "";
     static StringBuilder s = new StringBuilder();
     static SerialPort comPort;
     static Random delay = new Random();
@@ -138,7 +139,9 @@ public final class DataProcess {
             information();
             writeBytes("ok");
             dataReceive = "";
+            
             pinAutomaat.enterPin();
+
         }
         else {
             System.out.println("wrong");
@@ -458,6 +461,8 @@ public final class DataProcess {
     }
 
     public static void amount() {
+
+
         if(dataReceive.equals("#")) {
             writeBytes("abort");
             pinAutomaat.startingScreen();
@@ -469,6 +474,14 @@ public final class DataProcess {
         else if(dataReceive.equals("A")) {
             writeBytes("enter");
             pinAutomaat.billChoice();
+        }
+        else if(dataReceive.equals("D")) {
+            pinAutomaat.setAmountField(0);
+            amountBuffer = "";
+        }
+        else {
+            amountBuffer = amountBuffer + dataReceive;
+            pinAutomaat.setAmountField(Integer.valueOf(amountBuffer));
         }
     }
 

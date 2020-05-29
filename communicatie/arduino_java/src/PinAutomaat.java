@@ -61,6 +61,10 @@ public class PinAutomaat{
         mainFrame.setVisible(true);
         
     }
+    public void setAmountField(int keypressed) {
+        amountField.setValue(keypressed);
+    }
+
     public static void setAmountPressed(int i) {
         amountPressed = i;
     }
@@ -264,6 +268,11 @@ public class PinAutomaat{
             });
         }
 
+        public void remove(JPanel a, JPanel b) {
+        mainFrame.remove(a);
+        b = null;
+        }
+
         public void withdraw(){
 
             withdrawPanel = new JPanel();
@@ -446,7 +455,7 @@ public class PinAutomaat{
             
             amountField = new JFormattedTextField(amountFormat);
             amountField.setFont(new Font("Roboto", Font.BOLD, 25));
-            amountField.setValue(amount);
+            //amountField.setValue(amount);
             amountField.setColumns(5);
             amountField.addPropertyChangeListener("value", new PropertyChangeListener(){
             
