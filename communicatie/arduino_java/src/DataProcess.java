@@ -168,12 +168,13 @@ public final class DataProcess {
                 System.out.println("wrong");
                 System.out.println("Inlogpoging: "+Integer.valueOf(phpData.getInlogPoging()));
                 passBuf = "1";
+                pinAutomaat.messagePin();
             }
             else {
                 writeBytes("block");
                 System.out.println("block");
-                pinAutomaat.startingScreen();
                 passBuf = "1";
+                pinAutomaat.messageBlock();
             }
         }
         
