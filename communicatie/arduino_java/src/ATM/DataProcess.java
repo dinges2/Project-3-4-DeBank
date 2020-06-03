@@ -4,14 +4,19 @@ import com.fazecast.jSerialComm.*;
 
 import java.util.*;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 import static ATM.PinAutomaat.noOfBills;
 
 
 public final class DataProcess {
     
     static List<Character> buf = new ArrayList<>();
+    static Date date = new Date();
     static String dataReceive;
     static String accountNumber;
+    static String halfAccountNumber;
     static String saldo;
     static int geldGepind;
     static PinAutomaat pinAutomaat = new PinAutomaat();
@@ -68,6 +73,7 @@ public final class DataProcess {
         if(c == '\u0000') {
             storeBuffer();
             accountNumber = dataReceive;
+            halfAccountNumber = accountNumber.substring(12, 16);
             card();
             buf.clear();
             return;
@@ -218,7 +224,6 @@ public final class DataProcess {
                 writeBytes("snel70");
                 phpData.collectMoney(accountNumber, 70);
                 pinAutomaat.thanks();
-                bon(accountNumber, "70", Integer.valueOf(saldo) - 70);
             }
             else if(moneyCheck.optionSeventy(saldo).equals("biljet false")) {
                 System.out.println("geen biljetten meer");
@@ -292,7 +297,7 @@ public final class DataProcess {
                 writeBytes("yes");
                 phpData.collectMoney(accountNumber, 10);
                 pinAutomaat.thanks();
-                bon(accountNumber, "10", Integer.valueOf(saldo) - 10);
+                writeToFile(halfAccountNumber, "10");
             }
             else if(moneyCheck.optionTen(saldo).equals("biljet false")) {
                 writeBytes("withdraw");
@@ -609,7 +614,7 @@ public final class DataProcess {
         else if(dataReceive.equals("A")) {
             writeBytes("yes");
             pinAutomaat.thanks();
-            bon(accountNumber, String.valueOf(geldGepind) , Integer.valueOf(saldo) - geldGepind);
+            writeToFile(halfAccountNumber, String.valueOf(geldGepind));
         }
         else if(dataReceive.equals("B")) {
             writeBytes("no");
@@ -639,13 +644,43 @@ public final class DataProcess {
         System.out.println("50 biljet: "+ moneyCheck.getFiftyCounter() +" stuks");
     }
 
-    public static void bon(String bankNummer, String geldGepind, int saldo) {
-        System.out.println("\n");
-        System.out.println("BON:");
-        System.out.println("Banknummer: "+ bankNummer);
-        System.out.println("Opgenomen bedrag: "+ geldGepind);
-        System.out.println("Saldo nu: "+ saldo);
-        System.out.println("\n");
+    // public static String bon(String bankNummer, String geldGepind, int saldo) {
+
+    //     String s;
+
+    //     s += "\n";
+    //     s += "BON:";
+    //     s += "Banknummer: "+ bankNummer;
+    //     s += "Opgenomen bedrag: "+ geldGepind;
+    //     s += "Saldo nu: "+ saldo;
+    //     s += "\n";
+
+    //     return s;
+    // }
+
+    public static void writeToFile(String bankNummer, String geldGepind) {
+
+        int var = 1;
+        String s;
+
+        s += "\n";
+        s += "BON:\n";
+        s += "Banknummer: " +bankNummer+ "\n";
+        s += "Opgenomen bedrag: " +geldGepind+ "\n";
+        s += date.toString()+ "\n";
+        s += "\n";
+
+        try {
+            FileWriter myWriter = new FileWriter("receipt" +var+ ".txt");
+            myWriter.write(s);
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        var++;
     }
    
 }
