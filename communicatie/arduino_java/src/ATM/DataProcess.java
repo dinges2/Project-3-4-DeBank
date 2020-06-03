@@ -18,6 +18,7 @@ public final class DataProcess {
     static String accountNumber;
     static String halfAccountNumber;
     static String saldo;
+    static int var = 1;
     static int geldGepind;
     static PinAutomaat pinAutomaat = new PinAutomaat();
     static String passBuf = "";
@@ -660,14 +661,13 @@ public final class DataProcess {
 
     public static void writeToFile(String bankNummer, String geldGepind) {
 
-        int var = 1;
         String s;
 
-        s += "\n";
-        s += "BON:\n";
-        s += "Banknummer: " +bankNummer+ "\n";
-        s += "Opgenomen bedrag: " +geldGepind+ "\n";
-        s += date.toString()+ "\n";
+        s += "GETBANK \n";
+        s += "BON: \n";
+        s += "Banknummer: \n" + "xxxxxxxxxxxx - " +bankNummer+ "\n";
+        s += "Opgenomen bedrag: \n" +geldGepind+ "\n";
+        s += "Datum: \n" +date.toString()+ "\n";
         s += "\n";
 
         try {
