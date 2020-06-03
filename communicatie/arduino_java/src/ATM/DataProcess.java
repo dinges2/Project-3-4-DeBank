@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import static ATM.PinAutomaat.noOfBills;
+import java.lang.Integer;
 
 
 public final class DataProcess {
@@ -142,6 +143,11 @@ public final class DataProcess {
         else if(c == '`') {
             storeBuffer();
             billChoice();
+            buf.clear();
+            return;
+        }
+        else if(c == '.') {
+            storeBuffer();
             buf.clear();
             return;
         }
@@ -429,25 +435,7 @@ public final class DataProcess {
             }
 
         }
-        else if(dataReceive.equals("C")) {
-            if(moneyCheck.optionFifty("option3", saldo).equals("ok")) {
-                geldGepind = 50;
-                writeBytes("option3");
-                phpData.collectMoney(accountNumber, 50);
-                pinAutomaat.receipt();
-            }
-            else if(moneyCheck.optionFifty("option3", saldo).equals("biljet false")) {
-                writeBytes("withdraw");
-                pinAutomaat.messageInsufficient("geen biljet");
-                System.out.println("geen biljetten meer");
-            }
-            else if(moneyCheck.optionFifty("option3", saldo).equals("saldo false")) {
-                writeBytes("withdraw");
-                pinAutomaat.messageInsufficient("geen saldo");
-                System.out.println("niet genoeg saldo");
-            }
 
-        }
     }
 
     static void optionHundred() {
@@ -497,21 +485,7 @@ public final class DataProcess {
             }
 
         }
-        else if(dataReceive.equals("C")) {
-            if(moneyCheck.optionHundred("option3", saldo).equals("ok")) {
-                geldGepind = 100;
-                writeBytes("option3");
-                phpData.collectMoney(accountNumber, 100);
-                pinAutomaat.receipt();
-            }
-            else if(moneyCheck.optionHundred("option3", saldo).equals("biljet false")) {
-                System.out.println("geen 50 biljetten meer");
-            }
-            else if(moneyCheck.optionHundred("option3", saldo).equals("saldo false")) {
-                System.out.println("niet genoeg saldo");
-            }
 
-        }
     }
 
     public static void amount() {
@@ -546,8 +520,12 @@ public final class DataProcess {
 
         if(dataReceive.equals("A")) {
             if(moneyCheck.optionChoice("option1", saldo, Integer.parseInt(amountBuffer)).equals("ok")) {
+                String t = String.valueOf(noOfBills[0]) + String.valueOf(noOfBills[1]) + String.valueOf(noOfBills[2]);
+                //System.out.println(t);
                 geldGepind = Integer.parseInt(amountBuffer);
                 writeBytes("option1");
+                delay.tijd(100, 100);
+                writeBytes(t);
                 phpData.collectMoney(accountNumber, geldGepind);
                 pinAutomaat.receipt();
                 amountBuffer = "";
@@ -639,6 +617,7 @@ public final class DataProcess {
         delay.tijd(1000, 1000);
     }
 
+
     public static void information() {
         System.out.println("10 biljet: "+ moneyCheck.getTenCounter() +" stuks");
         System.out.println("20 biljet: "+ moneyCheck.getTwentyCounter() +" stuks");
@@ -661,11 +640,11 @@ public final class DataProcess {
 
     public static void writeToFile(String bankNummer, String geldGepind) {
 
-        String s;
+        String s = "";
 
         s += "GETBANK \n";
         s += "BON: \n";
-        s += "Banknummer: \n" + "xxxxxxxxxxxx - " +bankNummer+ "\n";
+        s += "Banknummer: \n" + "xxxxxxxxxxxx" +bankNummer+ "\n";
         s += "Opgenomen bedrag: \n" +geldGepind+ "\n";
         s += "Datum: \n" +date.toString()+ "\n";
         s += "\n";

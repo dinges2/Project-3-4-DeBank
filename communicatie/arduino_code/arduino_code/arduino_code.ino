@@ -58,6 +58,7 @@ void loop() {
   
   if(Serial.available() > 0) {
     line = Serial.readString();
+    
   }
   
   
@@ -192,6 +193,7 @@ void loop() {
       mode = "mainMenu";
     }
     else if(line == "ten") {
+      motor10(1000);
       mode = "optionTen";
     }
     else if(line == "twenty") {
@@ -274,9 +276,11 @@ void loop() {
       mode = "mainMenu";
     }
     else if(line == "option1") {
+      motor10(2000);
       mode = "receipt";
     }
     else if(line == "option2") {
+      motor20(1000);
       mode = "receipt";
     }
     else if(line == "withdraw") {
@@ -302,12 +306,12 @@ void loop() {
       mode = "mainMenu";
     }
     else if(line == "option1") {
+      motor10(5000);
       mode = "receipt";
     }
     else if(line == "option2") {
-      mode = "receipt";
-    }
-    else if(line == "option3") {
+      motor20(2000);
+      motor10(1000);
       mode = "receipt";
     }
     else if(line == "withdraw") {
@@ -333,12 +337,12 @@ void loop() {
       mode = "mainMenu";
     }
     else if(line == "option1") {
+      motor20(2000);
+      motor10(4000);
       mode = "receipt";
     }
     else if(line == "option2") {
-      mode = "receipt";
-    }
-    else if(line == "option3") {
+      motor20(5000);
       mode = "receipt";
     }
     else if(line == "withdraw") {
@@ -411,18 +415,45 @@ void loop() {
       mode = "mainMenu";
     }
     else if(line == "option1") {
-      mode = "receipt";
+      mode = "check";
     }
     else if(line == "option2") {
-      mode = "receipt";
+      mode = "check";
     }
     else if(line == "withdraw") {
       mode = "withdraw";
     }
     
+    
   }
 
-  
 
-  
+
+  else if(mode == "check") {
+    if(line.length() == 3) {
+      
+      motorProcess((line.charAt(2) - '0')*1000, (line.charAt(1) - '0')*1000, (line.charAt(0) - '0')*1000);
+      mode = "receipt";
+    }
+
+  }
+}
+
+void motor10(int tijd) {
+  digitalWrite(greenLed, HIGH);
+  delay(tijd);
+  digitalWrite(greenLed, LOW);
+}
+void motor20(int tijd) {
+  digitalWrite(redLed, HIGH);
+  delay(tijd);
+  digitalWrite(redLed, LOW);
+}
+void motor50(int tijd) {
+  delay(tijd);
+}
+void motorProcess(int tijd1, int tijd2, int tijd3) {
+  motor10(tijd1);
+  motor20(tijd2);
+  motor50(tijd3);
 }

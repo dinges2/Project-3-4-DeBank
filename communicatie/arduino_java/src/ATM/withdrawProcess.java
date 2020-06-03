@@ -76,16 +76,7 @@ public class withdrawProcess {
             }
             return "biljet false";
         }
-        else if(option.equals("option3")) {
-            if(fiftyCounter - 1 >= 0) {
-                if(Integer.valueOf(saldo) - 50 >= 0) {
-                    fiftyCounter = fiftyCounter - 1;
-                    return "ok";
-                }
-                return "saldo false";
-            }
-            return "biljet false";
-        }
+
         return "";
     }
 
@@ -111,16 +102,7 @@ public class withdrawProcess {
             }
             return "biljet false";
         }
-        else if(option.equals("option3")) {
-            if(fiftyCounter - 2 >= 0) {
-                if(Integer.valueOf(saldo) - 100 >= 0) {
-                    fiftyCounter = fiftyCounter - 2;
-                    return "ok";
-                }
-                return "saldo false";
-            }
-            return "biljet false";
-        }
+
         return "";
     }
 
