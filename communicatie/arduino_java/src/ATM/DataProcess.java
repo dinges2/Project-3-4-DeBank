@@ -521,7 +521,6 @@ public final class DataProcess {
         if(dataReceive.equals("A")) {
             if(moneyCheck.optionChoice("option1", saldo, Integer.parseInt(amountBuffer)).equals("ok")) {
                 String t = String.valueOf(noOfBills[0]) + String.valueOf(noOfBills[1]) + String.valueOf(noOfBills[2]);
-                //System.out.println(t);
                 geldGepind = Integer.parseInt(amountBuffer);
                 writeBytes("option1");
                 delay.tijd(100, 100);
@@ -546,8 +545,11 @@ public final class DataProcess {
         }
         else if(dataReceive.equals("B")) {
             if(moneyCheck.optionChoice("option2", saldo, Integer.parseInt(amountBuffer)).equals("ok")) {
+                String t = String.valueOf(noOfBills[0]) + String.valueOf(noOfBills[1]) + String.valueOf(noOfBills[2]);
                 geldGepind = Integer.parseInt(amountBuffer);
                 writeBytes("option2");
+                delay.tijd(100, 100);
+                writeBytes(t);
                 phpData.collectMoney(accountNumber, geldGepind);
                 pinAutomaat.receipt();
                 amountBuffer = "";
