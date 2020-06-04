@@ -56,9 +56,9 @@ public class withdrawProcess {
 
     public static String optionFifty(String option, String saldo) {
         if(option.equals("option1")) {
-            if(tenCounter - 5 >= 0) {
+            if(fiftyCounter - 1 >= 0) {
                 if(Integer.valueOf(saldo) - 50 >= 0) {
-                    tenCounter = tenCounter - 5;
+                    fiftyCounter = fiftyCounter - 1;
                     return "ok";
                 }
                 return "saldo false";
@@ -93,9 +93,9 @@ public class withdrawProcess {
             return "biljet false";
         }
         else if(option.equals("option2")) {
-            if(twentyCounter - 5 >= 0) {
+            if(fiftyCounter - 2 >= 0) {
                 if(Integer.valueOf(saldo) - 100 >= 0) {
-                    twentyCounter = twentyCounter - 5;
+                    fiftyCounter = fiftyCounter - 2;
                     return "ok";
                 }
                 return "saldo false";

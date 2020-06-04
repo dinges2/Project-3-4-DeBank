@@ -2,6 +2,9 @@
 #include <Keypad.h>
 #include <SPI.h>
 
+#define motorLed10 2
+#define motorLed20 5
+#define motorLed50 8
 #define redLed 6
 #define greenLed 7
 #define RST_PIN 9
@@ -47,6 +50,9 @@ void setup() {
 
   pinMode(redLed, OUTPUT);
   pinMode(greenLed, OUTPUT);
+  pinMode(motorLed10, OUTPUT);
+  pinMode(motorLed20, OUTPUT);
+  pinMode(motorLed50, OUTPUT);
 
   for (byte i = 0; i < 6; i++) {
     key.keyByte[i] = 0xFF;  //keyByte is defined in the "MIFARE_Key" 'struct' definition in the .h file of the library
@@ -306,7 +312,7 @@ void loop() {
       mode = "mainMenu";
     }
     else if(line == "option1") {
-      motor10(5000);
+      motor50(1000);
       mode = "receipt";
     }
     else if(line == "option2") {
@@ -337,12 +343,12 @@ void loop() {
       mode = "mainMenu";
     }
     else if(line == "option1") {
-      motor20(2000);
+      motor20(3000);
       motor10(4000);
       mode = "receipt";
     }
     else if(line == "option2") {
-      motor20(5000);
+      motor50(2000);
       mode = "receipt";
     }
     else if(line == "withdraw") {
@@ -440,17 +446,19 @@ void loop() {
 }
 
 void motor10(int tijd) {
-  digitalWrite(greenLed, HIGH);
+  digitalWrite(motorLed10, HIGH);
   delay(tijd);
-  digitalWrite(greenLed, LOW);
+  digitalWrite(motorLed10, LOW);
 }
 void motor20(int tijd) {
-  digitalWrite(redLed, HIGH);
+  digitalWrite(motorLed20, HIGH);
   delay(tijd);
-  digitalWrite(redLed, LOW);
+  digitalWrite(motorLed20, LOW);
 }
 void motor50(int tijd) {
+  digitalWrite(motorLed50, HIGH);
   delay(tijd);
+  digitalWrite(motorLed50, LOW);
 }
 void motorProcess(int tijd1, int tijd2, int tijd3) {
   motor10(tijd1);

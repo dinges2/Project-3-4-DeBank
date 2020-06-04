@@ -358,12 +358,10 @@ public final class DataProcess {
             else if(moneyCheck.optionTwenty("option1", saldo).equals("biljet false")) {
                 writeBytes("withdraw");
                 pinAutomaat.messageInsufficient("geen biljet");
-                System.out.println("geen 10 biljetten meer");
             }
             else if(moneyCheck.optionTwenty("option1", saldo).equals("saldo false")) {
                 writeBytes("withdraw");
                 pinAutomaat.messageInsufficient("geen saldo");
-                System.out.println("niet genoeg saldo");
             }
 
         }
@@ -377,12 +375,10 @@ public final class DataProcess {
             else if(moneyCheck.optionTwenty("option2", saldo).equals("biljet false")) {
                 writeBytes("withdraw");
                 pinAutomaat.messageInsufficient("geen biljet");
-                System.out.println("geen 20 biljetten meer");
             }
             else if(moneyCheck.optionTwenty("option2", saldo).equals("saldo false")) {
                 writeBytes("withdraw");
                 pinAutomaat.messageInsufficient("geen saldo");
-                System.out.println("niet genoeg saldo");
             }
 
         }
@@ -407,12 +403,10 @@ public final class DataProcess {
             else if(moneyCheck.optionFifty("option1", saldo).equals("biljet false")) {
                 writeBytes("withdraw");
                 pinAutomaat.messageInsufficient("geen biljet");
-                System.out.println("geen 10 biljetten meer");
             }
             else if(moneyCheck.optionFifty("option1", saldo).equals("saldo false")) {
                 writeBytes("withdraw");
                 pinAutomaat.messageInsufficient("geen saldo");
-                System.out.println("niet genoeg saldo");
             }
 
         }
@@ -426,12 +420,10 @@ public final class DataProcess {
             else if(moneyCheck.optionFifty("option2", saldo).equals("biljet false")) {
                 writeBytes("withdraw");
                 pinAutomaat.messageInsufficient("geen biljet");
-                System.out.println("geen biljetten meer");
             }
             else if(moneyCheck.optionFifty("option2", saldo).equals("saldo false")) {
                 writeBytes("withdraw");
                 pinAutomaat.messageInsufficient("geen saldo");
-                System.out.println("niet genoeg saldo");
             }
 
         }
@@ -457,12 +449,10 @@ public final class DataProcess {
             else if(moneyCheck.optionHundred("option1", saldo).equals("biljet false")) {
                 writeBytes("withdraw");
                 pinAutomaat.messageInsufficient("geen biljet");
-                System.out.println("geen biljetten meer");
             }
             else if(moneyCheck.optionHundred("option1", saldo).equals("saldo false")) {
                 writeBytes("withdraw");
                 pinAutomaat.messageInsufficient("geen saldo");
-                System.out.println("niet genoeg saldo");
             }
 
         }
@@ -476,12 +466,10 @@ public final class DataProcess {
             else if(moneyCheck.optionHundred("option2", saldo).equals("biljet false")) {
                 writeBytes("withdraw");
                 pinAutomaat.messageInsufficient("geen biljet");
-                System.out.println("geen biljetten meer");
             }
             else if(moneyCheck.optionHundred("option2", saldo).equals("saldo false")) {
                 writeBytes("withdraw");
                 pinAutomaat.messageInsufficient("geen saldo");
-                System.out.println("niet genoeg saldo");
             }
 
         }
