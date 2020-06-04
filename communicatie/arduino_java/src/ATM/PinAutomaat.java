@@ -37,7 +37,6 @@ public class PinAutomaat{
     private JButton backToMainMenuButton;
     private JButton optionOneButton;
     private JButton optionTwoButton;
-    private JButton optionThreeButton;
     
     private JLabel startingScreenLabel;
     private JLabel enterPinLabel;
@@ -73,9 +72,7 @@ public class PinAutomaat{
                 enterPin();
             }
         });
-        timer.setRepeats(false);//the timer should only go off once
-    
-        //start timer to close JDialog as dialog modal we must start the timer before its visible
+        timer.setRepeats(false);
         timer.start();
     }
 
@@ -101,9 +98,7 @@ public class PinAutomaat{
                 startingScreen();
             }
         });
-        timer.setRepeats(false);//the timer should only go off once
-    
-        //start timer to close JDialog as dialog modal we must start the timer before its visible
+        timer.setRepeats(false);
         timer.start();
     }
 
@@ -129,9 +124,7 @@ public class PinAutomaat{
                 withdraw();
             }
         });
-        timer.setRepeats(false);//the timer should only go off once
-    
-        //start timer to close JDialog as dialog modal we must start the timer before its visible
+        timer.setRepeats(false);
         timer.start();
     }
 
@@ -542,7 +535,6 @@ public class PinAutomaat{
         
         amountField = new JFormattedTextField(amountFormat);
         amountField.setFont(new Font("Roboto", Font.BOLD, 25));
-        //amountField.setValue(amount);
         amountField.setColumns(5);
         amountField.addPropertyChangeListener("value", new PropertyChangeListener(){
         
@@ -732,11 +724,6 @@ public class PinAutomaat{
             grid.gridy = 2;
             grid.fill = GridBagConstraints.HORIZONTAL;
             billsPanel.add(optionTwoButton, grid);
-
-            // optionThreeButton = new JButton("C - 1 x \u20BD 50");
-            // grid.gridx = 1;
-            // grid.gridy = 3;
-            // billsPanel.add(optionThreeButton, grid);
         }
 
         else if(amountPressed == 100){
@@ -753,11 +740,6 @@ public class PinAutomaat{
             grid.gridy = 2;
             grid.fill = GridBagConstraints.HORIZONTAL;
             billsPanel.add(optionTwoButton, grid);
-
-            // optionThreeButton = new JButton("C - 2 x \u20BD 50");
-            // grid.gridx = 1;
-            // grid.gridy = 3;
-            // billsPanel.add(optionThreeButton, grid);
         }
 
         backToMainMenuButton = new JButton("[*]   Hoofdmenu");
@@ -792,16 +774,7 @@ public class PinAutomaat{
                 receipt();
             }
         });
-        /*
-        optionThreeButton.addMouseListener(new MouseAdapter(){
-            public void mouseClicked(MouseEvent e){
 
-                mainFrame.remove(billsPanel);
-                receiptPanel = null;
-                receipt();
-            }
-        });
-        */
         backToMainMenuButton.addMouseListener(new MouseAdapter(){
             public void mouseClicked(MouseEvent e){
 
@@ -839,33 +812,28 @@ public class PinAutomaat{
         grid.anchor = GridBagConstraints.PAGE_START;
         billChoicePanel.add(billChoiceLabel, grid);
 
-        optionOneButton = new JButton(optionOne(amount));
+        optionOneButton = new JButton("[A]   " +optionOne(amount));
         optionOneButton.setFont(new Font("Roboto", Font.BOLD, 25));
         grid.gridx = 1;
         grid.gridy = 1;
         grid.fill = GridBagConstraints.HORIZONTAL;
         billChoicePanel.add(optionOneButton, grid);
 
-        optionTwoButton = new JButton(optionTwo(amount));
+        optionTwoButton = new JButton("[B]   " +optionTwo(amount));
         optionTwoButton.setFont(new Font("Roboto", Font.BOLD, 25));
         grid.gridx = 1;
         grid.gridy = 2;
         grid.fill = GridBagConstraints.HORIZONTAL;
         billChoicePanel.add(optionTwoButton, grid);
 
-        // optionThreeButton = new JButton(optionThree(amount));
-        // grid.gridx = 1;
-        // grid.gridy = 3;
-        // billChoicePanel.add(optionThreeButton, grid);
-
-        backToMainMenuButton = new JButton("Hoofdmenu");
+        backToMainMenuButton = new JButton("[*]   Hoofdmenu");
         backToMainMenuButton.setFont(new Font("Roboto", Font.BOLD, 25));
         grid.gridx = 0;
         grid.gridy = 4;
         grid.fill = GridBagConstraints.HORIZONTAL;
         billChoicePanel.add(backToMainMenuButton, grid);
 
-        abortButton = new JButton("Afbreken");
+        abortButton = new JButton("[#]   Afbreken");
         abortButton.setFont(new Font("Roboto", Font.BOLD, 25));
         grid.gridx = 2;
         grid.gridy = 4;
@@ -892,16 +860,6 @@ public class PinAutomaat{
                 receipt();
             }
         });
-
-        // optionThreeButton.addMouseListener(new MouseAdapter(){
-        //     public void mouseClicked(MouseEvent e){
-
-        //         mainFrame.remove(billChoicePanel);
-        //         amountField.setValue(0);
-        //         receiptPanel = null;
-        //         receipt();
-        //     }
-        // });
 
         backToMainMenuButton.addMouseListener(new MouseAdapter(){
             public void mouseClicked(MouseEvent e){
@@ -994,7 +952,8 @@ public class PinAutomaat{
         thanksPanel.add(thanksLabel, grid);
         mainFrame.setVisible(true);
 
-        int delay = 5000; //milliseconds
+        int delay = 5000;
+
         ActionListener taskPerformer = new ActionListener() {
         public void actionPerformed(ActionEvent evt) {
             mainFrame.remove(thanksPanel);
@@ -1064,41 +1023,5 @@ public class PinAutomaat{
         }
 
         return s;
-    }
-
-    // public String optionThree(int amount){
-
-    //     String s = "";
-    //     int[] bills = {50, 20, 10};
-    //     int[] noOfBills = {0, 0, 0};
-
-    //     if(amount == 50){
-    //         noOfBills[1] = 2;
-    //         noOfBills[2] = 1;
-    //     }
-    //     else{
-    //         while(amount > 0){
-    //             for(int i = 0; i < 3; i++){
-    //                 if(amount >= noOfBills[i]){
-    //                     noOfBills[i]++;
-    //                     amount = amount - bills[i];
-    //                 }
-    //             }
-    //         }
-    //     }
-
-    //     if(noOfBills[0] != 0){
-    //         s += Integer.toString(noOfBills[0]) + " X \u20BD 50 ";
-    //     }
-    //     if(noOfBills[1] != 0){
-    //         s += Integer.toString(noOfBills[1]) + " X \u20BD 20 ";
-    //     }
-    //     if(noOfBills[2] != 0){
-    //         s += Integer.toString(noOfBills[2]) + " X \u20BD 10 ";
-    //     }
-
-    //     return s;
-    // }
-        
+    }        
 }
-        
