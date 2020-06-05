@@ -10,7 +10,7 @@ MFRC522::MIFARE_Key key;          //create a MIFARE_Key struct named 'key', whic
 //this is the block number we will write into and then read.
 int block=1;  
 
-byte blockcontent[16] = {"SU-GERM-00000001"};  //an array with 16 bytes to be written into one of the 64 card blocks is defined
+byte blockcontent[16] = {"SO-GERM-00000001"};  //an array with 16 bytes to be written into one of the 64 card blocks is defined
 //byte blockcontent[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};  //all zeros. This can be used to delete a block.
 
 //This array is used for reading out a block.
