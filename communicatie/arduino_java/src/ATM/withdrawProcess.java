@@ -76,7 +76,6 @@ public class withdrawProcess {
             }
             return "biljet false";
         }
-
         return "";
     }
 
@@ -102,7 +101,6 @@ public class withdrawProcess {
             }
             return "biljet false";
         }
-
         return "";
     }
 
@@ -143,7 +141,6 @@ public class withdrawProcess {
             }
             return "biljet false";
         }
-
         return "";
     }
 }

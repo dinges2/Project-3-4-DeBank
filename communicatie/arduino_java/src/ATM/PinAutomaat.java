@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.*;
-import java.beans.*; 
+import java.beans.*;
 
 public class PinAutomaat{
 
@@ -59,7 +59,7 @@ public class PinAutomaat{
 
         JLabel errorMessage = new JLabel();
         errorMessage.setFont(new Font("Roboto", Font.BOLD, 40));
-        errorMessage.setText("Uw pincode is get");
+        errorMessage.setText("Uw heeft niet de juiste pincode ingetoetst.");
         grid.anchor = GridBagConstraints.CENTER;
         warning.add(errorMessage, grid);
         mainFrame.setVisible(true);
@@ -74,6 +74,7 @@ public class PinAutomaat{
         });
         timer.setRepeats(false);
         timer.start();
+
     }
 
     public void messageBlock(){
@@ -85,7 +86,7 @@ public class PinAutomaat{
 
         JLabel errorMessage = new JLabel();
         errorMessage.setFont(new Font("Roboto", Font.BOLD, 40));
-        errorMessage.setText("Uw pas is get");
+        errorMessage.setText("Uw pas is geblokkeerd.");
         grid.anchor = GridBagConstraints.CENTER;
         warning.add(errorMessage, grid);
         mainFrame.setVisible(true);
@@ -100,6 +101,7 @@ public class PinAutomaat{
         });
         timer.setRepeats(false);
         timer.start();
+
     }
 
     public void messageInsufficient(String message){
@@ -126,7 +128,13 @@ public class PinAutomaat{
         });
         timer.setRepeats(false);
         timer.start();
+
     }
+
+    public void remove(JPanel a, JPanel b) {
+        mainFrame.remove(a);
+        b = null;
+        }
 
     public PinAutomaat(){
 
@@ -183,13 +191,6 @@ public class PinAutomaat{
         startingScreenPanel.add(OkButton, grid);
         mainFrame.setVisible(true);
 
-        OkButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent evt) {
-                mainFrame.remove(startingScreenPanel);          
-                enterPinPanel = null;
-                enterPin();
-            }
-        });
     }
 
     public void enterPin(){
@@ -235,22 +236,6 @@ public class PinAutomaat{
         enterPinPanel.add(abortButton, grid);
         mainFrame.setVisible(true);
 
-        enterButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                
-                    mainFrame.remove(enterPinPanel);
-                    messagePin();
-            }
-        });
-
-        abortButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-
-                mainFrame.remove(enterPinPanel);
-                startingScreenPanel = null;
-                startingScreen();  
-            }
-        });
     }
 
     public void mainMenu(){
@@ -311,46 +296,6 @@ public class PinAutomaat{
         mainMenuPanel.add(abortButton, grid);
         mainFrame.setVisible(true);
 
-        abortButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-
-                mainFrame.remove(mainMenuPanel);
-                startingScreenPanel = null;
-                startingScreen();
-            }
-        });
-
-        withdrawButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-
-                mainFrame.remove(mainMenuPanel);
-                withdrawPanel = null;
-                withdraw();
-            }
-        });
-
-        balanceButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-
-                mainFrame.remove(mainMenuPanel);
-                balancePanel = null;
-                balance();
-            }
-        });
-
-        quickSeventyButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-
-                mainFrame.remove(mainMenuPanel);
-                thanksPanel = null;
-                thanks();
-            }
-        });
-    }
-
-    public void remove(JPanel a, JPanel b) {
-    mainFrame.remove(a);
-    b = null;
     }
 
     public void withdraw(){
@@ -448,72 +393,6 @@ public class PinAutomaat{
         withdrawPanel.add(abortButton, grid);
         mainFrame.setVisible(true);
 
-        tenButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-
-                mainFrame.remove(withdrawPanel);
-                amountPressed = 10;
-                receiptPanel = null;
-                receipt();
-            }
-        });
-
-        twentyButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-
-                mainFrame.remove(withdrawPanel);
-                amountPressed = 20;
-                billsPanel = null;
-                bills();
-            }
-        });
-
-        fiftyButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-
-                mainFrame.remove(withdrawPanel);
-                amountPressed = 50;
-                billsPanel = null;
-                bills();
-            }
-        });
-
-        hundredButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-
-                mainFrame.remove(withdrawPanel);
-                amountPressed = 100;
-                billsPanel = null;
-                bills();
-            }
-        });
-
-        enterAmountButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-
-                mainFrame.remove(withdrawPanel);
-                amountPanel = null;
-                enterAmount();
-            }
-        });
-
-        abortButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-
-                mainFrame.remove(withdrawPanel);
-                startingScreenPanel = null;
-                startingScreen();
-            }
-        });
-
-        backToMainMenuButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-
-                mainFrame.remove(withdrawPanel);
-                mainMenuPanel= null;
-                mainMenu();
-            }
-        });
     }
 
     public void enterAmount(){
@@ -587,35 +466,6 @@ public class PinAutomaat{
         amountPanel.add(abortButton, grid);
         mainFrame.setVisible(true);
 
-        enterButton.addMouseListener(new MouseAdapter(){
-            public void mouseClicked(MouseEvent e){
-
-                mainFrame.remove(amountPanel);
-                billChoicePanel = null;
-                billChoice();
-            }
-        });
-
-        abortButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-
-                mainFrame.remove(amountPanel);
-                amountField.setValue(0);
-                startingScreenPanel = null;
-                startingScreen();
-            }
-        });
-
-        backToMainMenuButton.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-
-                mainFrame.remove(amountPanel);
-                amountField.setValue(0);
-                mainMenuPanel = null;
-                mainMenu();
-            }
-        });
-        
     }
 
     public void balance(){
@@ -658,24 +508,6 @@ public class PinAutomaat{
         balancePanel.add(abortButton, grid);
         mainFrame.setVisible(true);
 
-        backToMainMenuButton.addMouseListener(new MouseAdapter(){
-            public void mouseClicked(MouseEvent e){
-
-                mainFrame.remove(balancePanel);
-                mainMenuPanel = null;
-                mainMenu();
-            }
-        });
-
-        abortButton.addMouseListener(new MouseAdapter(){
-            public void mouseClicked(MouseEvent e){
-
-                mainFrame.remove(balancePanel);
-                startingScreenPanel = null;
-                startingScreen();
-            }
-        });
-
     }
 
     public void bills(){
@@ -711,7 +543,7 @@ public class PinAutomaat{
         }
 
         else if(amountPressed == 50){
-            optionOneButton = new JButton("[A]   5 x \u20BD 10");
+            optionOneButton = new JButton("[A]   1 x \u20BD 50");
             optionOneButton.setFont(new Font("Roboto", Font.BOLD, 25));
             grid.gridx = 1;
             grid.gridy = 1;
@@ -734,7 +566,7 @@ public class PinAutomaat{
             grid.fill = GridBagConstraints.HORIZONTAL;
             billsPanel.add(optionOneButton, grid);
 
-            optionTwoButton = new JButton("[B]   5 x \u20BD 20");
+            optionTwoButton = new JButton("[B]   2 x \u20BD 50");
             optionTwoButton.setFont(new Font("Roboto", Font.BOLD, 25));
             grid.gridx = 1;
             grid.gridy = 2;
@@ -757,43 +589,6 @@ public class PinAutomaat{
         billsPanel.add(abortButton, grid);
         mainFrame.setVisible(true);
 
-        optionOneButton.addMouseListener(new MouseAdapter(){
-            public void mouseClicked(MouseEvent e){
-
-                mainFrame.remove(billsPanel);
-                receiptPanel = null;
-                receipt();
-            }
-        });
-
-        optionTwoButton.addMouseListener(new MouseAdapter(){
-            public void mouseClicked(MouseEvent e){
-
-                mainFrame.remove(billsPanel);
-                receiptPanel = null;
-                receipt();
-            }
-        });
-
-        backToMainMenuButton.addMouseListener(new MouseAdapter(){
-            public void mouseClicked(MouseEvent e){
-
-                mainFrame.remove(billsPanel);
-                amountPressed = 0;
-                mainMenuPanel = null;
-                mainMenu();
-            }
-        });
-
-        abortButton.addMouseListener(new MouseAdapter(){
-            public void mouseClicked(MouseEvent e){
-
-                mainFrame.remove(billsPanel);
-                amountPressed = 0;
-                startingScreenPanel = null;
-                startingScreen();
-            }
-        });
     }
 
     public void billChoice(){
@@ -841,46 +636,6 @@ public class PinAutomaat{
         billChoicePanel.add(abortButton, grid);
         mainFrame.setVisible(true);
 
-        optionOneButton.addMouseListener(new MouseAdapter(){
-            public void mouseClicked(MouseEvent e){
-
-                mainFrame.remove(billChoicePanel);
-                amountField.setValue(0);
-                receiptPanel = null;
-                receipt();
-            }
-        });
-
-        optionTwoButton.addMouseListener(new MouseAdapter(){
-            public void mouseClicked(MouseEvent e){
-
-                mainFrame.remove(billChoicePanel);
-                amountField.setValue(0);
-                receiptPanel = null;
-                receipt();
-            }
-        });
-
-        backToMainMenuButton.addMouseListener(new MouseAdapter(){
-            public void mouseClicked(MouseEvent e){
-
-                mainFrame.remove(billChoicePanel);
-                amountField.setValue(0);
-                mainMenuPanel = null;
-                mainMenu();
-            }
-        });
-
-        abortButton.addMouseListener(new MouseAdapter(){
-            public void mouseClicked(MouseEvent e){
-
-                mainFrame.remove(billChoicePanel);
-                amountField.setValue(0);
-                startingScreenPanel = null;
-                startingScreen();
-            }
-        });
-
     }
 
     public void receipt(){
@@ -913,26 +668,6 @@ public class PinAutomaat{
         grid.fill = GridBagConstraints.HORIZONTAL;
         receiptPanel.add(noButton, grid);
         mainFrame.setVisible(true);
-
-        yesButton.addMouseListener(new MouseAdapter(){
-            public void mouseClicked(MouseEvent e){
-
-                mainFrame.remove(receiptPanel);
-                amountPressed = 0;
-                thanksPanel = null;
-                thanks();
-            }
-        });
-
-        noButton.addMouseListener(new MouseAdapter(){
-            public void mouseClicked(MouseEvent e){
-
-                mainFrame.remove(receiptPanel);
-                amountPressed = 0;
-                thanksPanel = null;
-                thanks();
-            }
-        });
 
     }
 
