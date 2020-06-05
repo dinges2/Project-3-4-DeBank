@@ -1,19 +1,17 @@
+//Onderbrengen in de overkoepelende package
 package ATM;
 
+//De benodigde libraries importeren
 import com.fazecast.jSerialComm.*;
-
 import java.util.*;
-
 import java.io.FileWriter;
 import java.io.IOException;
-
 import static ATM.PinAutomaat.noOfBills;
 import java.lang.Integer;
-import ATM.PinAutomaat.*;
-
 
 public final class DataProcess {
     
+    //De benodigde globale variabelen aanmaken
     static List<Character> buf = new ArrayList<>();
     static Date date = new Date();
     static String dataReceive;
@@ -31,6 +29,7 @@ public final class DataProcess {
     static PhpCode phpData = new PhpCode();
     static withdrawProcess moneyCheck = new withdrawProcess();
     
+    //De constructor van de Dataprocess class
     public DataProcess() {
 
         this.read();
@@ -154,46 +153,56 @@ public final class DataProcess {
         buf.add(c);
     }
     
+    //Methode die de GUI aanstuurt op basis van de RFID
     static void card() {
         
+        //Controleert met de database of de gescande pas er in voorkomt
         if(dataReceive.equals(phpData.account(dataReceive))) {
+            //Gaat naar het volgende scherm als de pas herkend wordt
             information();
             writeBytes("ok");
-            dataReceive = "";
-            
+            dataReceive = "";            
             pinAutomaat.remove(pinAutomaat.startingScreenPanel, pinAutomaat.enterPinPanel);
             pinAutomaat.enterPin();
 
         }
         else {
+            //Krijgt een melding als de pas geblokkeerd is en blijft op het startscherm
             writeBytes("wrong");
             pinAutomaat.messageBlock();
         }
     }
     
+    //Methode die de GUI aanstuurt op basis van de ingevoerde pincode
     static void pin() {
         
+        //Als er een hekje wordt ingevoerd kan men het invoerveld weer leegmaken
         if(dataReceive.equals("#")) {
            pinAutomaat.setPasswordField(removeLastCharacter(pinAutomaat.getPasswordField())); 
         }
+        //Als er een sterretje wordt ingevoerd, wordt gecontroleerd of de pincode overeenkomt met de database
         else if(dataReceive.equals("*")) {
             if(passBuf.equals(phpData.pincode(accountNumber, passBuf))) {
+                //Gaat naar het volgende scherm als de pincode klopt
                 writeBytes("pinOk");
                 pinAutomaat.remove(pinAutomaat.enterPinPanel, pinAutomaat.mainMenuPanel);
                 pinAutomaat.mainMenu();
                 passBuf = "1";
             }
             else if(Integer.valueOf(phpData.getInlogPoging()) < 3) {
+                //Geeft een melding dat de pincode verkeerd is
                 writeBytes("pinWrong");
                 passBuf = "1";
                 pinAutomaat.messagePin();
             }
             else {
+                //Geeft een melding als de pincode te vaak verkeerd ingevoerd is, dat de pas geblokkeerd is
                 writeBytes("block");
                 passBuf = "1";
                 pinAutomaat.messageBlock();
             }
         }
+        //Pakt de input van de keypad en stopt dit in een variabel
         else {
             passBuf = pinAutomaat.getPasswordField() + dataReceive;
             //System.out.println(passBuf);
@@ -202,10 +211,13 @@ public final class DataProcess {
         }  
     }
     
+    //Methode die de GUI verder aanstuurt op basis van de gekozen knop op de keypad
     static void mainMenu() {
 
+        //Het saldo van de betreffende rekening wordt van de database gehaald en in een variabel gestopt
         saldo = phpData.saldos(accountNumber);
 
+        //D.m.v. verschillende knoppen op de keypad gaat de GUI verder naar een ander scherm, of wordt de transactie afgebroken
         if(dataReceive.equals("#")) {
             writeBytes("abort");
             pinAutomaat.remove(pinAutomaat.mainMenuPanel, pinAutomaat.startingScreenPanel);
@@ -224,20 +236,25 @@ public final class DataProcess {
         }
         else if(dataReceive.equals("C")) {
             if(moneyCheck.optionSeventy(saldo).equals("ok")) {
+                //Als de "C" wordt ingedrukt, pint de gebruiker gelijk 70 Roebel zonder naar een ander scherm te gaan. 
+                //Mits het saldo toereikend is en de gebruikte biljetten aanwezig
                 writeBytes("snel70");
                 phpData.collectMoney(accountNumber, 70);
                 pinAutomaat.remove(pinAutomaat.mainMenuPanel, pinAutomaat.thanksPanel);
                 pinAutomaat.thanks();
             }
             else if(moneyCheck.optionSeventy(saldo).equals("biljet false")) {
+                //Als de biljetten niet aanwezig zijn, wordt deze melding op het scherm weergegeven
                 pinAutomaat.messageInsufficient("Er zijn niet genoeg biljetten aanwezig voor deze keuze.");
             }
             else if(moneyCheck.optionSeventy(saldo).equals("saldo false")) {
+                //Als het saldo neit toereikend is, wordt deze melding op het scherm weergegeven
                 pinAutomaat.messageInsufficient("U heeft niet genoeg saldo voor deze keuze.");
             }
         }
     }
     
+    //Methode die de GUI aanstuurt op basis van de geselecteerde optie in het "Geld opnemen"-scherm
     static void withdraw() {
 
        if(dataReceive.equals("#")) {
@@ -280,6 +297,7 @@ public final class DataProcess {
        }
     }
     
+    //Methode die de gebruiker zijn saldo laat zien in de GUI
     static void balance() {
 
         if(dataReceive.equals("#")) {
@@ -294,6 +312,8 @@ public final class DataProcess {
         }
     }
 
+    //Methode die controleert of de gebruiker genoeg saldo heeft en of de betreffende biljetten aanwezig zijn
+    //als de gebruiker gekozen heeft om de voorgestelde 10 Roebels te pinnen
     static void optionTen() {
 
         if(dataReceive.equals("#")) {
@@ -339,6 +359,9 @@ public final class DataProcess {
         }
     }
 
+    // Methode die controleert of de gebruiker genoeg saldo heeft en of de betreffende biljetten aanwezig zijn
+    // als de gebruiker gekozen heeft om de voorgestelde 20 Roebels te pinnen.
+    //Ook krijgt de gebruiker hier 2 opties van verschillende biljetkeuzes
     static void optionTwenty() {
         if(dataReceive.equals("#")) {
             writeBytes("abort");
@@ -387,6 +410,9 @@ public final class DataProcess {
         }
     }
 
+    // Methode die controleert of de gebruiker genoeg saldo heeft en of de betreffende biljetten aanwezig zijn
+    // als de gebruiker gekozen heeft om de voorgestelde 50 Roebels te pinnen.
+    //Ook krijgt de gebruiker hier 2 opties van verschillende biljetkeuzes
     static void optionFifty() {
 
         if(dataReceive.equals("#")) {
@@ -435,6 +461,9 @@ public final class DataProcess {
         }
     }
 
+    // Methode die controleert of de gebruiker genoeg saldo heeft en of de betreffende biljetten aanwezig zijn
+    // als de gebruiker gekozen heeft om de voorgestelde 100 Roebels te pinnen.
+    //Ook krijgt de gebruiker hier 2 opties van verschillende biljetkeuzes
     static void optionHundred() {
 
         if(dataReceive.equals("#")) {
@@ -483,6 +512,7 @@ public final class DataProcess {
         }
     }
 
+    //Methode die de GUI aanstuurt vanuit het "zelf invoeren"-scherm
     public static void amount() {
 
         if(dataReceive.equals("#")) {
@@ -508,11 +538,15 @@ public final class DataProcess {
             amountBuffer = "";
         }
         else {
+            //Hier wordt de invoer in het invoerveld in een variabel gestopt
             amountBuffer = amountBuffer + dataReceive;
             pinAutomaat.setAmountField(Integer.valueOf(amountBuffer));
         }
     }
 
+    //Methode die controleert of de gebruiker genoeg saldo heeft en of de betreffende biljetten aanwezig zijn
+    //als de gebruiker op enter heeft gedrukt na het invoeren van een eigen bedrag.
+    //Ook krijgt de gebruiker hier 2 opties van verschillende biljetkeuzes
     public static void billChoice() {
 
         if(dataReceive.equals("A")) {
@@ -580,6 +614,7 @@ public final class DataProcess {
         }
     }
 
+    //Methode die de gebruiker vraagt of deze een bonnetje wil en gaat verder op basis van het ingevoerde antwoord
     public static void receipt() {
         if(dataReceive.equals("A")) {
             writeBytes("yes");
@@ -594,6 +629,7 @@ public final class DataProcess {
         }
     }    
     
+    //Methode die zorgt dat de laatste character te verwijderen is uit een String
     public static String removeLastCharacter(String str) {
         String result = null;
         if ((str != null) && (str.length() > 0)) {
@@ -602,18 +638,21 @@ public final class DataProcess {
         return result;
     }
     
+    //Methode die informatie terugstuurd naar de Arduino op basis van voorafingestelde modi in de Arduino code
     public static void writeBytes(String line) {
         byte[] bytes = line.getBytes();
         comPort.writeBytes(bytes, bytes.length);
         delay.tijd(1000, 1000);
     }
 
+    //Methode die uitprint in de terminal hoeveel biljetten aanwezig zijn in de pinautomaat
     public static void information() {
         System.out.println("10 biljet: "+ moneyCheck.getTenCounter() +" stuks");
         System.out.println("20 biljet: "+ moneyCheck.getTwentyCounter() +" stuks");
         System.out.println("50 biljet: "+ moneyCheck.getFiftyCounter() +" stuks");
     }
 
+    //Methode die de bon wegschrijft naar een .txt bestand
     public static void writeToFile(String bankNummer, String geldGepind) {
 
         String s = "";

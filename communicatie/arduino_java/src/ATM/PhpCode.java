@@ -1,5 +1,7 @@
+//Onderbrengen in de overkoepelende package
 package ATM;
 
+//De benodigde libraries importeren
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.*;
@@ -7,12 +9,16 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class PhpCode {
+
+    //De benodigde globale variabel aanmaken
     static String inlogPoging;
 
+    //De 'getter' voor de variabel
     static String getInlogPoging() {
         return inlogPoging;
     }
 
+    //Methode die m.b.v. een URL 
     public static String fetch(String url) throws Exception {
 
         URLConnection connection = new URL(url).openConnection();

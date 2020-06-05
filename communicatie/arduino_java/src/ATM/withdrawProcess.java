@@ -1,12 +1,16 @@
+//Onderbrengen in de overkoepelende package
 package ATM;
 
+//De benodigde libraries importeren
 import static ATM.PinAutomaat.noOfBills;
 
 public class withdrawProcess {
+    //Globale variabelen aanmaken
     static int tenCounter = 5;
     static int twentyCounter = 10;
     static int fiftyCounter = 10;
 
+    //Benodigde 'getters'
     public static int getTenCounter() {
         return tenCounter;
     }
@@ -19,6 +23,8 @@ public class withdrawProcess {
         return fiftyCounter;
     }
 
+    //Methodes die het saldo en de gebruikte biljetten checken als de gebruiker een voorgesteld bedrag kiest bij het geldopnemen
+    //en de bijbehorende boodschap teruggeeft aan de Dataprocess class
     public static String optionTen(String saldo) {
         if(tenCounter - 1 >= 0) {
             if(Integer.valueOf(saldo) - 10 >= 0) {
@@ -104,6 +110,8 @@ public class withdrawProcess {
         return "";
     }
 
+    //Methode die het saldo en de gebruikte biljetten checked als de gebruiker de optie "snel 70" kiest op het hoofdmenu
+    //en de bijbehorende boodschap teruggeeft aan de Dataprocess class
     public static String optionSeventy(String saldo) {
         if(fiftyCounter - 1 >= 0 && twentyCounter - 1 >= 0) {
             if(Integer.valueOf(saldo) - 70 >= 0) {
@@ -116,6 +124,8 @@ public class withdrawProcess {
         return "biljet false";
     }
 
+    //Methode die het saldo en de gebruikte biljetten checked als de gebruiker "zelf invoeren" kiest bij het geldopnemen
+    //en de bijbehorende boodschap teruggeeft aan de Dataprocess class
     public static String optionChoice(String option, String saldo, int amount) {
         if(option.equals("option1")) {
             if(twentyCounter - noOfBills[1] >= 0 && tenCounter - noOfBills[2] >= 0 && fiftyCounter - noOfBills[0] >= 0) {

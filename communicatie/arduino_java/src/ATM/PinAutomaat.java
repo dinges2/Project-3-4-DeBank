@@ -1,5 +1,7 @@
+//Onderbrengen in de overkoepelende package
 package ATM;
 
+//De benodigde libraries importeren
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -8,6 +10,7 @@ import java.beans.*;
 
 public class PinAutomaat{
 
+    //De benodigde globale variabelen aanmaken
     JFrame mainFrame;
     JPanel startingScreenPanel;
     JPanel enterPinPanel;
@@ -50,13 +53,16 @@ public class PinAutomaat{
     private JLabel receiptLabel;
     private JLabel thanksLabel;
 
+    //Methode voor de melding van een verkeerde pincode
     public void messagePin(){
 
+        //Hier wordt de panel aangemaakt en aan de mainframe toegevoegd
         JPanel warning = new JPanel();
         mainFrame.add(warning);
         GridBagConstraints grid = new GridBagConstraints();
         warning.setLayout(new GridBagLayout());
 
+        //Hier wordt het label aangemaakt en de bijbehorende tekst er aan toegevoegd
         JLabel errorMessage = new JLabel();
         errorMessage.setFont(new Font("Roboto", Font.BOLD, 40));
         errorMessage.setText("Uw heeft niet de juiste pincode ingetoetst.");
@@ -64,6 +70,7 @@ public class PinAutomaat{
         warning.add(errorMessage, grid);
         mainFrame.setVisible(true);
 
+        //Timer aangemaakt die bepaald hoe lang de melding te zien is
         Timer timer = new Timer(2000, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -77,6 +84,7 @@ public class PinAutomaat{
 
     }
 
+    //Methode voor de melding van een geblokkeerde pas
     public void messageBlock(){
 
         JPanel warning = new JPanel();
@@ -104,6 +112,7 @@ public class PinAutomaat{
 
     }
 
+    //Mehode voor de melding van een tekort aan biljetten of te weinig saldo
     public void messageInsufficient(String message){
 
         JPanel warning = new JPanel();
@@ -131,25 +140,17 @@ public class PinAutomaat{
 
     }
 
+    //Methode om aan te roepen in een andere class om de huidige panel te verwijderen van de mainframe en de nieuwe panel voor te bereiden
     public void remove(JPanel a, JPanel b) {
         mainFrame.remove(a);
         b = null;
         }
-
-    public PinAutomaat(){
-
-        mainFrame = new JFrame("Pinautomaat GUI");
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setSize(1280, 720);
-        mainFrame.setResizable(true);
-
-        startingScreen();
-        mainFrame.setVisible(true);
-        
-    }
+    
+    //Verscheidene 'setters' en 'getters' voor enkele variabelen
     public void setAmount(int amount) {
         this.amount = amount;
     }
+
     public void setAmountField(int keypressed) {
         amountField.setValue(keypressed);
     }
@@ -157,6 +158,7 @@ public class PinAutomaat{
     public static void setAmountPressed(int i) {
         amountPressed = i;
     }
+
     public static void setBalance(String s) {
         accountBalance = s;
     }
@@ -169,26 +171,40 @@ public class PinAutomaat{
         return this.passwordField.getText();
     }
 
+    //De constructor van de PinAutomaat class
+    public PinAutomaat(){
+
+        //Hier wordt de frame van de GUI aangemaakt en de afmetingen vastgesteld
+        mainFrame = new JFrame("Pinautomaat GUI");
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setSize(1280, 720);
+        mainFrame.setResizable(true);
+
+        startingScreen();
+        mainFrame.setVisible(true);
+        
+    }
+
     public void startingScreen(){
         
         startingScreenPanel = new JPanel();
         mainFrame.add(startingScreenPanel);
+        //Hier wordt de layout van het panel vastgesteld. Gridbaglayout is een layout die het scherm verdeelt in cellen
         GridBagConstraints grid = new GridBagConstraints();
         startingScreenPanel.setLayout(new GridBagLayout());
 
         startingScreenLabel = new JLabel();
         startingScreenLabel.setFont(new Font("Roboto", Font.BOLD, 80));
         startingScreenLabel.setText("Houdt uw pinpas voor de lezer.");
+
+        //De commando's achter "grid" geven aan waar in de gridbaglayout dit element komt te staan en wat de afmetingen worden
         grid.gridx = 1;
         grid.gridy = 0;
         grid.weighty = 1.0;
         grid.anchor = GridBagConstraints.CENTER;
         startingScreenPanel.add(startingScreenLabel, grid);
 
-        JButton OkButton = new JButton("OK");
-        grid.gridx = 1;
-        grid.gridy = 2;
-        startingScreenPanel.add(OkButton, grid);
+        //setVisible zorgt er voor dat de toevoegingen weergegeven worden
         mainFrame.setVisible(true);
 
     }
@@ -208,7 +224,7 @@ public class PinAutomaat{
         grid.weighty = 1.0;
         grid.anchor = GridBagConstraints.PAGE_START;
         enterPinPanel.add(enterPinLabel, grid);
-
+        
         passwordField = new JPasswordField(4);
         passwordField.setFont(new Font("Roboto", Font.BOLD, 25));
         grid.gridx = 0;
@@ -216,8 +232,8 @@ public class PinAutomaat{
         grid.ipadx = 40;
         grid.gridwidth = 3;
         enterPinPanel.add(passwordField, grid);
-        
 
+        //Hier wordt een button aangemaakt, de tekst die er in staat bepaald, de plek in de layout bepaald en de afmeting vastgesteld
         enterButton = new JButton("[*]   Enter");
         enterButton.setFont(new Font("Roboto", Font.BOLD, 25));
         grid.gridx = 0;
@@ -315,6 +331,7 @@ public class PinAutomaat{
         grid.anchor = GridBagConstraints.PAGE_START;
         withdrawPanel.add(withdrawLabel, grid);
 
+        //Filler is alleen aangemaakt om ruimte op te vullen zodat de GUI er goed uitziet
         JLabel filler = new JLabel();
         grid.gridx = 1;
         grid.gridy = 1;
@@ -416,7 +433,8 @@ public class PinAutomaat{
         amountField.setFont(new Font("Roboto", Font.BOLD, 25));
         amountField.setColumns(5);
         amountField.addPropertyChangeListener("value", new PropertyChangeListener(){
-        
+            
+            //Deze method wordt gebruikt om de waarde van de textfield aan te passen en override zodat zeker is dat deze interpretatie wordt gebruikt
             @Override
             public void propertyChange(PropertyChangeEvent e) {
                 Object source = e.getSource();
@@ -526,6 +544,9 @@ public class PinAutomaat{
         grid.anchor = GridBagConstraints.PAGE_START;
         billsPanel.add(billsLabel, grid);
 
+        //Bij het scherm om geld op te nemen kan de gebruiker een keuze maken tussen vooraf bepaalde bedragen.
+        //Op basis van deze keuze krijgt de gebruiker verschillende biljetopties te zien.
+        //Deze worden vastgesteld in deze if-statements
         if(amountPressed == 20){
             optionOneButton = new JButton("[A]   2 x \u20BD 10");
             optionOneButton.setFont(new Font("Roboto", Font.BOLD, 25));
@@ -687,8 +708,7 @@ public class PinAutomaat{
         thanksPanel.add(thanksLabel, grid);
         mainFrame.setVisible(true);
 
-        int delay = 5000;
-
+        //Deze timer wordt gebruikt om een bepaalde tijd de laatste panel te laten zien
         ActionListener taskPerformer = new ActionListener() {
         public void actionPerformed(ActionEvent evt) {
             mainFrame.remove(thanksPanel);
@@ -696,18 +716,20 @@ public class PinAutomaat{
             startingScreen();
         }
         };
-        Timer timer = new Timer(delay, taskPerformer);
+        Timer timer = new Timer(5000, taskPerformer);
         timer.setRepeats(false);
         timer.start();
         
     }
 
+    //Methode die bij de eerste biljetkeuze voor een zelfingevoerd bedrag d.m.v. onderstaande formule
+    //bepaald wat de keuze is met de minste biljetten
     public String optionOne(int amount){
 
         String s = "";
         int[] bills = {50, 20, 10};
 
-
+        
         for(int i = 0; i < 3; i++){
                 if(amount >= bills[i]){
                     noOfBills[i] = Math.floorDiv(amount, bills[i]);
@@ -728,6 +750,8 @@ public class PinAutomaat{
         return s;
     }
 
+    //Methode die bij de tweede biljetkeuze voor een zelfingevoerd bedrag d.m.v. onderstaande formule
+    //bepaald wat de keuze is met de meeste biljetten
     public String optionTwo(int amount){
         
         String s = "";
