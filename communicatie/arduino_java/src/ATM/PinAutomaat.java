@@ -75,8 +75,8 @@ public class PinAutomaat{
             @Override
             public void actionPerformed(ActionEvent ae) {
                 mainFrame.remove(warning);
-                enterPinPanel = null;
                 enterPin();
+                mainFrame.revalidate();
             }
         });
         timer.setRepeats(false);
@@ -103,8 +103,8 @@ public class PinAutomaat{
             @Override
             public void actionPerformed(ActionEvent ae) {
                 mainFrame.remove(warning);
-                startingScreenPanel = null;
                 startingScreen();
+                mainFrame.revalidate();
             }
         });
         timer.setRepeats(false);
@@ -131,8 +131,8 @@ public class PinAutomaat{
             @Override
             public void actionPerformed(ActionEvent ae) {
                 mainFrame.remove(warning);
-                withdrawPanel = null;
-                withdraw();
+                mainMenu();
+                mainFrame.revalidate();
             }
         });
         timer.setRepeats(false);
@@ -140,35 +140,53 @@ public class PinAutomaat{
 
     }
 
+    public void revalidate(){
+
+        mainFrame.revalidate();
+
+    }
     //Methode om aan te roepen in een andere class om de huidige panel te verwijderen van de mainframe en de nieuwe panel voor te bereiden
-    public void remove(JPanel a, JPanel b) {
+    public void remove(JPanel a) {
+
         mainFrame.remove(a);
-        b = null;
-        }
+
+    }
     
     //Verscheidene 'setters' en 'getters' voor enkele variabelen
     public void setAmount(int amount) {
+
         this.amount = amount;
+
     }
 
     public void setAmountField(int keypressed) {
+
         amountField.setValue(keypressed);
+
     }
 
     public static void setAmountPressed(int i) {
+
         amountPressed = i;
+
     }
 
     public static void setBalance(String s) {
+
         accountBalance = s;
+
     }
 
     public void setPasswordField(String s) {
+
         this.passwordField.setText(s);
+
     }
     
     public String getPasswordField() {
+
         return this.passwordField.getText();
+
     }
 
     //De constructor van de PinAutomaat class
@@ -224,6 +242,13 @@ public class PinAutomaat{
         grid.weighty = 1.0;
         grid.anchor = GridBagConstraints.PAGE_START;
         enterPinPanel.add(enterPinLabel, grid);
+
+        JButton removeButton = new JButton();
+        removeButton.setFont(new Font("Roboto", Font.BOLD, 25));
+        removeButton.setText("Gebruik [D] om uw laatste invoer te verwijderen.");
+        grid.gridx = 1;
+        grid.gridy = 1;
+        enterPinPanel.add(removeButton, grid);
         
         passwordField = new JPasswordField(4);
         passwordField.setFont(new Font("Roboto", Font.BOLD, 25));
@@ -241,7 +266,7 @@ public class PinAutomaat{
         grid.ipadx = 0;
         grid.gridwidth = 1;
         grid.fill = GridBagConstraints.HORIZONTAL;
-        enterPinPanel.add(enterButton, grid);
+        enterPinPanel.add(enterButton, grid);        
 
         abortButton = new JButton("[#]   Afbreken");
         abortButton.setFont(new Font("Roboto", Font.BOLD, 25));

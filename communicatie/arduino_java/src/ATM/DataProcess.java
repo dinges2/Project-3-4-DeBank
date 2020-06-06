@@ -162,14 +162,17 @@ public final class DataProcess {
             information();
             writeBytes("ok");
             dataReceive = "";            
-            pinAutomaat.remove(pinAutomaat.startingScreenPanel, pinAutomaat.enterPinPanel);
+            pinAutomaat.remove(pinAutomaat.startingScreenPanel);
             pinAutomaat.enterPin();
+            pinAutomaat.revalidate();
 
         }
         else {
             //Krijgt een melding als de pas geblokkeerd is en blijft op het startscherm
             writeBytes("wrong");
+            pinAutomaat.remove(pinAutomaat.startingScreenPanel);
             pinAutomaat.messageBlock();
+            pinAutomaat.revalidate();
         }
     }
     
@@ -185,27 +188,34 @@ public final class DataProcess {
             if(passBuf.equals(phpData.pincode(accountNumber, passBuf))) {
                 //Gaat naar het volgende scherm als de pincode klopt
                 writeBytes("pinOk");
-                pinAutomaat.remove(pinAutomaat.enterPinPanel, pinAutomaat.mainMenuPanel);
+                pinAutomaat.remove(pinAutomaat.enterPinPanel);
                 pinAutomaat.mainMenu();
+                pinAutomaat.revalidate();
                 passBuf = "1";
             }
             else if(Integer.valueOf(phpData.getInlogPoging()) < 3) {
                 //Geeft een melding dat de pincode verkeerd is
                 writeBytes("pinWrong");
                 passBuf = "1";
+                pinAutomaat.remove(pinAutomaat.enterPinPanel);
                 pinAutomaat.messagePin();
+                pinAutomaat.revalidate();
             }
             else {
                 //Geeft een melding als de pincode te vaak verkeerd ingevoerd is, dat de pas geblokkeerd is
                 writeBytes("block");
                 passBuf = "1";
+                pinAutomaat.remove(pinAutomaat.enterPinPanel);
                 pinAutomaat.messageBlock();
+                pinAutomaat.revalidate();
             }
         }
         //Pakt de input van de keypad en stopt dit in een variabel
         else if(dataReceive.equals("#")) {
             writeBytes("abort");
+            pinAutomaat.remove(pinAutomaat.enterPinPanel);
             pinAutomaat.startingScreen();
+            pinAutomaat.revalidate();
         }
         else {
             passBuf = pinAutomaat.getPasswordField() + dataReceive;
@@ -224,19 +234,22 @@ public final class DataProcess {
         //D.m.v. verschillende knoppen op de keypad gaat de GUI verder naar een ander scherm, of wordt de transactie afgebroken
         if(dataReceive.equals("#")) {
             writeBytes("abort");
-            pinAutomaat.remove(pinAutomaat.mainMenuPanel, pinAutomaat.startingScreenPanel);
+            pinAutomaat.remove(pinAutomaat.mainMenuPanel);
             pinAutomaat.startingScreen();
+            pinAutomaat.revalidate();
         }
         else if(dataReceive.equals("A")) {
             writeBytes("opnemen");
-            pinAutomaat.remove(pinAutomaat.mainMenuPanel, pinAutomaat.withdrawPanel);
+            pinAutomaat.remove(pinAutomaat.mainMenuPanel);
             pinAutomaat.withdraw();
+            pinAutomaat.revalidate();
         }
         else if(dataReceive.equals("B")) {
             writeBytes("saldo");
             PinAutomaat.setBalance(saldo);
-            pinAutomaat.remove(pinAutomaat.mainMenuPanel, pinAutomaat.balancePanel);
+            pinAutomaat.remove(pinAutomaat.mainMenuPanel);
             pinAutomaat.balance();
+            pinAutomaat.revalidate();
         }
         else if(dataReceive.equals("C")) {
             if(moneyCheck.optionSeventy(saldo).equals("ok")) {
@@ -244,16 +257,21 @@ public final class DataProcess {
                 //Mits het saldo toereikend is en de gebruikte biljetten aanwezig
                 writeBytes("snel70");
                 phpData.collectMoney(accountNumber, 70);
-                pinAutomaat.remove(pinAutomaat.mainMenuPanel, pinAutomaat.thanksPanel);
+                pinAutomaat.remove(pinAutomaat.mainMenuPanel);
                 pinAutomaat.thanks();
+                pinAutomaat.revalidate();
             }
             else if(moneyCheck.optionSeventy(saldo).equals("biljet false")) {
                 //Als de biljetten niet aanwezig zijn, wordt deze melding op het scherm weergegeven
+                pinAutomaat.remove(pinAutomaat.mainMenuPanel);
                 pinAutomaat.messageInsufficient("Er zijn niet genoeg biljetten aanwezig voor deze keuze.");
+                pinAutomaat.revalidate();
             }
             else if(moneyCheck.optionSeventy(saldo).equals("saldo false")) {
                 //Als het saldo neit toereikend is, wordt deze melding op het scherm weergegeven
+                pinAutomaat.remove(pinAutomaat.mainMenuPanel);
                 pinAutomaat.messageInsufficient("U heeft niet genoeg saldo voor deze keuze.");
+                pinAutomaat.revalidate();
             }
         }
     }
@@ -263,41 +281,48 @@ public final class DataProcess {
 
        if(dataReceive.equals("#")) {
            writeBytes("abort");
-           pinAutomaat.remove(pinAutomaat.withdrawPanel, pinAutomaat.startingScreenPanel);
+           pinAutomaat.remove(pinAutomaat.withdrawPanel);
            pinAutomaat.startingScreen();
+           pinAutomaat.revalidate();
        }
        else if(dataReceive.equals("*")) {
            writeBytes("backToMain");
-           pinAutomaat.remove(pinAutomaat.withdrawPanel, pinAutomaat.mainMenuPanel);
+           pinAutomaat.remove(pinAutomaat.withdrawPanel);
            pinAutomaat.mainMenu();
+           pinAutomaat.revalidate();
        }
        else if(dataReceive.equals("1")) {
            writeBytes("ten");
-           pinAutomaat.remove(pinAutomaat.withdrawPanel, pinAutomaat.receiptPanel);
+           pinAutomaat.remove(pinAutomaat.withdrawPanel);
            pinAutomaat.receipt();
+           pinAutomaat.revalidate();
        }
        else if(dataReceive.equals("2")) {
            writeBytes("twenty");
            PinAutomaat.setAmountPressed(20);
-           pinAutomaat.remove(pinAutomaat.withdrawPanel, pinAutomaat.billsPanel);
+           pinAutomaat.remove(pinAutomaat.withdrawPanel);
            pinAutomaat.bills();
+           pinAutomaat.revalidate();
        }
        else if(dataReceive.equals("3")) {
            writeBytes("fifty");
            PinAutomaat.setAmountPressed(50);
-           pinAutomaat.remove(pinAutomaat.withdrawPanel, pinAutomaat.billsPanel);
+           pinAutomaat.remove(pinAutomaat.withdrawPanel);
            pinAutomaat.bills();
+           pinAutomaat.revalidate();
        }
        else if(dataReceive.equals("4")) {
            writeBytes("hundred");
            PinAutomaat.setAmountPressed(100);
-           pinAutomaat.remove(pinAutomaat.withdrawPanel, pinAutomaat.billsPanel);
+           pinAutomaat.remove(pinAutomaat.withdrawPanel);
            pinAutomaat.bills();
+           pinAutomaat.revalidate();
        }
        else if(dataReceive.equals("5")) {
            writeBytes("enterAmount");
-           pinAutomaat.remove(pinAutomaat.withdrawPanel, pinAutomaat.amountPanel);
+           pinAutomaat.remove(pinAutomaat.withdrawPanel);
            pinAutomaat.enterAmount();
+           pinAutomaat.revalidate();
        }
     }
     
@@ -306,13 +331,15 @@ public final class DataProcess {
 
         if(dataReceive.equals("#")) {
             writeBytes("abort");
-            pinAutomaat.remove(pinAutomaat.balancePanel, pinAutomaat.startingScreenPanel);
+            pinAutomaat.remove(pinAutomaat.balancePanel);
             pinAutomaat.startingScreen();
+            pinAutomaat.revalidate();
         }
         else if(dataReceive.equals("*")) {
             writeBytes("backToMain");
-            pinAutomaat.remove(pinAutomaat.balancePanel, pinAutomaat.mainMenuPanel);
+            pinAutomaat.remove(pinAutomaat.balancePanel);
             pinAutomaat.mainMenu();
+            pinAutomaat.revalidate();
         }
     }
 
@@ -320,78 +347,89 @@ public final class DataProcess {
     //als de gebruiker gekozen heeft om de voorgestelde 10 Roebels te pinnen
     static void optionTen() {
 
-        if(dataReceive.equals("#")) {
-            writeBytes("abort");
-            pinAutomaat.startingScreen();
-        }
-        else if(dataReceive.equals("*")) {
-            writeBytes("backToMain");
-            pinAutomaat.mainMenu();
-        }
-        else if(dataReceive.equals("A")) {
+        if(dataReceive.equals("A")) {
             if(moneyCheck.optionTen(saldo).equals("ok")) {
                 writeBytes("yes");
                 phpData.collectMoney(accountNumber, 10);
+                pinAutomaat.remove(pinAutomaat.receiptPanel);
                 pinAutomaat.thanks();
+                pinAutomaat.revalidate();
                 writeToFile(halfAccountNumber, "10");
             }
             else if(moneyCheck.optionTen(saldo).equals("biljet false")) {
                 writeBytes("withdraw");
+                pinAutomaat.remove(pinAutomaat.receiptPanel);
                 pinAutomaat.messageInsufficient("Er zijn niet genoeg biljetten aanwezig voor deze keuze.");
+                pinAutomaat.revalidate();
 
             }
             else if(moneyCheck.optionTen(saldo).equals("saldo false")) {
                 writeBytes("withdraw");
+                pinAutomaat.remove(pinAutomaat.receiptPanel);
                 pinAutomaat.messageInsufficient("U heeft niet genoeg saldo voor deze transactie.");
+                pinAutomaat.revalidate();
             }
         }
         else if(dataReceive.equals("B")) {
             if(moneyCheck.optionTen(saldo).equals("ok")) {
                 writeBytes("no");
                 phpData.collectMoney(accountNumber, 10);
+                pinAutomaat.remove(pinAutomaat.receiptPanel);
                 pinAutomaat.thanks();
+                pinAutomaat.revalidate();
             }
             else if(moneyCheck.optionTen(saldo).equals("biljet false")) {
                 writeBytes("withdraw");
+                pinAutomaat.remove(pinAutomaat.receiptPanel);
                 pinAutomaat.messageInsufficient("Er zijn niet genoeg biljetten aanwezig voor deze keuze.");
+                pinAutomaat.revalidate();
 
             }
             else if(moneyCheck.optionTen(saldo).equals("saldo false")) {
                 writeBytes("withdraw");
+                pinAutomaat.remove(pinAutomaat.receiptPanel);
                 pinAutomaat.messageInsufficient("U heeft niet genoeg saldo voor deze transactie.");
+                pinAutomaat.revalidate();
             }
         }
     }
 
-    // Methode die controleert of de gebruiker genoeg saldo heeft en of de betreffende biljetten aanwezig zijn
-    // als de gebruiker gekozen heeft om de voorgestelde 20 Roebels te pinnen.
+    //Methode die controleert of de gebruiker genoeg saldo heeft en of de betreffende biljetten aanwezig zijn
+    //als de gebruiker gekozen heeft om de voorgestelde 20 Roebels te pinnen.
     //Ook krijgt de gebruiker hier 2 opties van verschillende biljetkeuzes
     static void optionTwenty() {
         if(dataReceive.equals("#")) {
             writeBytes("abort");
-            pinAutomaat.remove(pinAutomaat.billsPanel, pinAutomaat.startingScreenPanel);
+            pinAutomaat.remove(pinAutomaat.billsPanel);
             pinAutomaat.startingScreen();
+            pinAutomaat.revalidate();
         }
         else if(dataReceive.equals("*")) {
             writeBytes("backToMain");
-            pinAutomaat.remove(pinAutomaat.billsPanel, pinAutomaat.mainMenuPanel);
+            pinAutomaat.remove(pinAutomaat.billsPanel);
             pinAutomaat.mainMenu();
+            pinAutomaat.revalidate();
         }
         else if(dataReceive.equals("A")) {
             if(moneyCheck.optionTwenty("option1", saldo).equals("ok")) {
                 geldGepind = 20;
                 writeBytes("option1");
                 phpData.collectMoney(accountNumber, 20);
-                pinAutomaat.remove(pinAutomaat.billsPanel, pinAutomaat.receiptPanel);
+                pinAutomaat.remove(pinAutomaat.billsPanel);
                 pinAutomaat.receipt();
+                pinAutomaat.revalidate();
             }
             else if(moneyCheck.optionTwenty("option1", saldo).equals("biljet false")) {
                 writeBytes("withdraw");
+                pinAutomaat.remove(pinAutomaat.billsPanel);
                 pinAutomaat.messageInsufficient("Er zijn niet genoeg biljetten aanwezig voor deze keuze.");
+                pinAutomaat.revalidate();
             }
             else if(moneyCheck.optionTwenty("option1", saldo).equals("saldo false")) {
                 writeBytes("withdraw");
+                pinAutomaat.remove(pinAutomaat.billsPanel);
                 pinAutomaat.messageInsufficient("U heeft niet genoeg saldo voor deze transactie.");
+                pinAutomaat.revalidate();
             }
 
         }
@@ -400,16 +438,21 @@ public final class DataProcess {
                 geldGepind = 20;
                 writeBytes("option2");
                 phpData.collectMoney(accountNumber, 20);
-                pinAutomaat.remove(pinAutomaat.billsPanel, pinAutomaat.receiptPanel);
+                pinAutomaat.remove(pinAutomaat.billsPanel);
                 pinAutomaat.receipt();
+                pinAutomaat.revalidate();
             }
             else if(moneyCheck.optionTwenty("option2", saldo).equals("biljet false")) {
                 writeBytes("withdraw");
+                pinAutomaat.remove(pinAutomaat.billsPanel);
                 pinAutomaat.messageInsufficient("Er zijn niet genoeg biljetten aanwezig voor deze keuze.");
+                pinAutomaat.revalidate();
             }
             else if(moneyCheck.optionTwenty("option2", saldo).equals("saldo false")) {
                 writeBytes("withdraw");
+                pinAutomaat.remove(pinAutomaat.billsPanel);
                 pinAutomaat.messageInsufficient("U heeft niet genoeg saldo voor deze transactie.");
+                pinAutomaat.revalidate();
             }
         }
     }
@@ -421,29 +464,36 @@ public final class DataProcess {
 
         if(dataReceive.equals("#")) {
             writeBytes("abort");
-            pinAutomaat.remove(pinAutomaat.billsPanel, pinAutomaat.startingScreenPanel);
+            pinAutomaat.remove(pinAutomaat.billsPanel);
             pinAutomaat.startingScreen();
+            pinAutomaat.revalidate();
         }
         else if(dataReceive.equals("*")) {
             writeBytes("backToMain");
-            pinAutomaat.remove(pinAutomaat.billsPanel, pinAutomaat.mainMenuPanel);
+            pinAutomaat.remove(pinAutomaat.billsPanel);
             pinAutomaat.mainMenu();
+            pinAutomaat.revalidate();
         }
         else if(dataReceive.equals("A")) {
             if(moneyCheck.optionFifty("option1", saldo).equals("ok")) {
                 geldGepind = 50;
                 writeBytes("option1");
                 phpData.collectMoney(accountNumber, 50);
-                pinAutomaat.remove(pinAutomaat.billsPanel, pinAutomaat.receiptPanel);
+                pinAutomaat.remove(pinAutomaat.billsPanel);
                 pinAutomaat.receipt();
+                pinAutomaat.revalidate();
             }
             else if(moneyCheck.optionFifty("option1", saldo).equals("biljet false")) {
                 writeBytes("withdraw");
+                pinAutomaat.remove(pinAutomaat.billsPanel);
                 pinAutomaat.messageInsufficient("Er zijn niet genoeg biljetten aanwezig voor deze keuze.");
+                pinAutomaat.revalidate();
             }
             else if(moneyCheck.optionFifty("option1", saldo).equals("saldo false")) {
                 writeBytes("withdraw");
+                pinAutomaat.remove(pinAutomaat.billsPanel);
                 pinAutomaat.messageInsufficient("U heeft niet genoeg saldo voor deze transactie.");
+                pinAutomaat.revalidate();
             }
         }
         else if(dataReceive.equals("B")) {
@@ -451,16 +501,21 @@ public final class DataProcess {
                 geldGepind = 50;
                 writeBytes("option2");
                 phpData.collectMoney(accountNumber, 50);
-                pinAutomaat.remove(pinAutomaat.billsPanel, pinAutomaat.receiptPanel);
+                pinAutomaat.remove(pinAutomaat.billsPanel);
                 pinAutomaat.receipt();
+                pinAutomaat.revalidate();
             }
             else if(moneyCheck.optionFifty("option2", saldo).equals("biljet false")) {
                 writeBytes("withdraw");
+                pinAutomaat.remove(pinAutomaat.billsPanel);
                 pinAutomaat.messageInsufficient("Er zijn niet genoeg biljetten aanwezig voor deze keuze.");
+                pinAutomaat.revalidate();
             }
             else if(moneyCheck.optionFifty("option2", saldo).equals("saldo false")) {
                 writeBytes("withdraw");
+                pinAutomaat.remove(pinAutomaat.billsPanel);
                 pinAutomaat.messageInsufficient("U heeft niet genoeg saldo voor deze transactie.");
+                pinAutomaat.revalidate();
             }
         }
     }
@@ -472,29 +527,36 @@ public final class DataProcess {
 
         if(dataReceive.equals("#")) {
             writeBytes("abort");
-            pinAutomaat.remove(pinAutomaat.billsPanel, pinAutomaat.startingScreenPanel);
+            pinAutomaat.remove(pinAutomaat.billsPanel);
             pinAutomaat.startingScreen();
+            pinAutomaat.revalidate();
         }
         else if(dataReceive.equals("*")) {
             writeBytes("backToMain");
-            pinAutomaat.remove(pinAutomaat.billsPanel, pinAutomaat.mainMenuPanel);
+            pinAutomaat.remove(pinAutomaat.billsPanel);
             pinAutomaat.mainMenu();
+            pinAutomaat.revalidate();
         }
         else if(dataReceive.equals("A")) {
             if(moneyCheck.optionHundred("option1", saldo).equals("ok")) {
                 geldGepind = 100;
                 writeBytes("option1");
                 phpData.collectMoney(accountNumber, 100);
-                pinAutomaat.remove(pinAutomaat.billsPanel, pinAutomaat.receiptPanel);
+                pinAutomaat.remove(pinAutomaat.billsPanel);
                 pinAutomaat.receipt();
+                pinAutomaat.revalidate();
             }
             else if(moneyCheck.optionHundred("option1", saldo).equals("biljet false")) {
                 writeBytes("withdraw");
+                pinAutomaat.remove(pinAutomaat.billsPanel);
                 pinAutomaat.messageInsufficient("Er zijn niet genoeg biljetten aanwezig voor deze keuze.");
+                pinAutomaat.revalidate();
             }
             else if(moneyCheck.optionHundred("option1", saldo).equals("saldo false")) {
                 writeBytes("withdraw");
+                pinAutomaat.remove(pinAutomaat.billsPanel);
                 pinAutomaat.messageInsufficient("U heeft niet genoeg saldo voor deze transactie.");
+                pinAutomaat.revalidate();
             }
         }
         else if(dataReceive.equals("B")) {
@@ -502,16 +564,21 @@ public final class DataProcess {
                 geldGepind = 100;
                 writeBytes("option2");
                 phpData.collectMoney(accountNumber, 100);
-                pinAutomaat.remove(pinAutomaat.billsPanel, pinAutomaat.receiptPanel);
+                pinAutomaat.remove(pinAutomaat.billsPanel);
                 pinAutomaat.receipt();
+                pinAutomaat.revalidate();
             }
             else if(moneyCheck.optionHundred("option2", saldo).equals("biljet false")) {
                 writeBytes("withdraw");
+                pinAutomaat.remove(pinAutomaat.billsPanel);
                 pinAutomaat.messageInsufficient("Er zijn niet genoeg biljetten aanwezig voor deze keuze.");
+                pinAutomaat.revalidate();
             }
             else if(moneyCheck.optionHundred("option2", saldo).equals("saldo false")) {
                 writeBytes("withdraw");
+                pinAutomaat.remove(pinAutomaat.billsPanel);
                 pinAutomaat.messageInsufficient("U heeft niet genoeg saldo voor deze transactie.");
+                pinAutomaat.revalidate();
             }
         }
     }
@@ -521,21 +588,24 @@ public final class DataProcess {
 
         if(dataReceive.equals("#")) {
             writeBytes("abort");
-            pinAutomaat.remove(pinAutomaat.amountPanel, pinAutomaat.startingScreenPanel);
+            pinAutomaat.remove(pinAutomaat.amountPanel);
             pinAutomaat.startingScreen();
+            pinAutomaat.revalidate();
             amountBuffer = "";
         }
         else if(dataReceive.equals("*")) {
             writeBytes("backToMain");
-            pinAutomaat.remove(pinAutomaat.amountPanel, pinAutomaat.mainMenuPanel);
+            pinAutomaat.remove(pinAutomaat.amountPanel);
             pinAutomaat.mainMenu();
+            pinAutomaat.revalidate();
             amountBuffer = "";
         }
         else if(dataReceive.equals("A")) {
             writeBytes("enter");
             pinAutomaat.setAmount(Integer.valueOf(amountBuffer));
-            pinAutomaat.remove(pinAutomaat.amountPanel, pinAutomaat.billChoicePanel);
+            pinAutomaat.remove(pinAutomaat.amountPanel);
             pinAutomaat.billChoice();
+            pinAutomaat.revalidate();
         }
         else if(dataReceive.equals("D")) {
             pinAutomaat.setAmountField(0);
@@ -561,18 +631,23 @@ public final class DataProcess {
                 delay.tijd(100, 100);
                 writeBytes(t);
                 phpData.collectMoney(accountNumber, geldGepind);
-                pinAutomaat.remove(pinAutomaat.billChoicePanel, pinAutomaat.receiptPanel);
+                pinAutomaat.remove(pinAutomaat.billChoicePanel);
                 pinAutomaat.receipt();
+                pinAutomaat.revalidate();
                 amountBuffer = "";
             }
             else if(moneyCheck.optionChoice("option1", saldo, Integer.parseInt(amountBuffer)).equals("biljet false")) {
                 writeBytes("withdraw");
+                pinAutomaat.remove(pinAutomaat.billChoicePanel);
                 pinAutomaat.messageInsufficient("Er zijn niet genoeg biljetten aanwezig voor deze keuze.");
+                pinAutomaat.revalidate();
                 amountBuffer = "";
             }
             else if(moneyCheck.optionChoice("option1", saldo, Integer.parseInt(amountBuffer)).equals("saldo false")) {
                 writeBytes("withdraw");
+                pinAutomaat.remove(pinAutomaat.billChoicePanel);
                 pinAutomaat.messageInsufficient("U heeft niet genoeg saldo voor deze transactie.");
+                pinAutomaat.revalidate();
                 amountBuffer = "";
             }
 
@@ -585,31 +660,38 @@ public final class DataProcess {
                 delay.tijd(100, 100);
                 writeBytes(t);
                 phpData.collectMoney(accountNumber, geldGepind);
-                pinAutomaat.remove(pinAutomaat.billChoicePanel, pinAutomaat.receiptPanel);
+                pinAutomaat.remove(pinAutomaat.billChoicePanel);
                 pinAutomaat.receipt();
+                pinAutomaat.revalidate();
                 amountBuffer = "";
             }
             else if(moneyCheck.optionChoice("option2", saldo, Integer.parseInt(amountBuffer)).equals("biljet false")) {
                 writeBytes("withdraw");
+                pinAutomaat.remove(pinAutomaat.billChoicePanel);
                 pinAutomaat.messageInsufficient("Er zijn niet genoeg biljetten aanwezig voor deze keuze.");
+                pinAutomaat.revalidate();
                 amountBuffer = "";
             }
             else if(moneyCheck.optionChoice("option2", saldo, Integer.parseInt(amountBuffer)).equals("saldo false")) {
                 writeBytes("withdraw");
+                pinAutomaat.remove(pinAutomaat.billChoicePanel);
                 pinAutomaat.messageInsufficient("U heeft niet genoeg saldo voor deze transactie.");
+                pinAutomaat.revalidate();
                 amountBuffer = "";
             }
         }
         else if(dataReceive.equals("#")) {
             writeBytes("abort");
-            pinAutomaat.remove(pinAutomaat.billChoicePanel, pinAutomaat.startingScreenPanel);
+            pinAutomaat.remove(pinAutomaat.billChoicePanel);
             pinAutomaat.startingScreen();
+            pinAutomaat.revalidate();
             amountBuffer = "";
         }
         else if(dataReceive.equals("*")) {
             writeBytes("backToMain");
-            pinAutomaat.remove(pinAutomaat.billChoicePanel, pinAutomaat.mainMenuPanel);
+            pinAutomaat.remove(pinAutomaat.billChoicePanel);
             pinAutomaat.mainMenu();
+            pinAutomaat.revalidate();
             amountBuffer = "";
         }
 
@@ -622,14 +704,16 @@ public final class DataProcess {
     public static void receipt() {
         if(dataReceive.equals("A")) {
             writeBytes("yes");
-            pinAutomaat.remove(pinAutomaat.receiptPanel, pinAutomaat.thanksPanel);
+            pinAutomaat.remove(pinAutomaat.receiptPanel);
             pinAutomaat.thanks();
+            pinAutomaat.revalidate();
             writeToFile(halfAccountNumber, String.valueOf(geldGepind));
         }
         else if(dataReceive.equals("B")) {
             writeBytes("no");
-            pinAutomaat.remove(pinAutomaat.receiptPanel, pinAutomaat.thanksPanel);
+            pinAutomaat.remove(pinAutomaat.receiptPanel);
             pinAutomaat.thanks();
+            pinAutomaat.revalidate();
         }
     }    
     
