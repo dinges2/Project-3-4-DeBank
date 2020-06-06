@@ -676,5 +676,5 @@ public final class DataProcess {
         }
         var++;
     }
-   
+
 }
