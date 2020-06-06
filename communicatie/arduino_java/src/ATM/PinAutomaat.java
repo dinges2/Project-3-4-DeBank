@@ -65,7 +65,7 @@ public class PinAutomaat{
         //Hier wordt het label aangemaakt en de bijbehorende tekst er aan toegevoegd
         JLabel errorMessage = new JLabel();
         errorMessage.setFont(new Font("Roboto", Font.BOLD, 40));
-        errorMessage.setText("Uw heeft niet de juiste pincode ingetoetst.");
+        errorMessage.setText("U heeft niet de juiste pincode ingetoetst.");
         grid.anchor = GridBagConstraints.CENTER;
         warning.add(errorMessage, grid);
         mainFrame.setVisible(true);
