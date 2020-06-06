@@ -6,7 +6,7 @@ import static ATM.PinAutomaat.noOfBills;
 
 public class withdrawProcess {
     //Globale variabelen aanmaken
-    static int tenCounter = 5;
+    static int tenCounter = 10;
     static int twentyCounter = 10;
     static int fiftyCounter = 10;
 
