@@ -153,6 +153,9 @@ void loop() {
       digitalWrite(redLed, LOW);
       mode = "rfid";
     }
+    else if(line == "abort") {
+      mode = "rfid";
+    }
 
   }
 
@@ -178,6 +181,8 @@ void loop() {
     }
     else if(line == "snel70") {
       mode = "rfid";
+      motor50(1000);
+      motor20(1000);
     }
   }
 

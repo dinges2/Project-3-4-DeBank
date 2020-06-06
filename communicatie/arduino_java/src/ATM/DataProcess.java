@@ -177,7 +177,7 @@ public final class DataProcess {
     static void pin() {
         
         //Als er een hekje wordt ingevoerd kan men het invoerveld weer leegmaken
-        if(dataReceive.equals("#")) {
+        if(dataReceive.equals("D")) {
            pinAutomaat.setPasswordField(removeLastCharacter(pinAutomaat.getPasswordField())); 
         }
         //Als er een sterretje wordt ingevoerd, wordt gecontroleerd of de pincode overeenkomt met de database
@@ -203,6 +203,10 @@ public final class DataProcess {
             }
         }
         //Pakt de input van de keypad en stopt dit in een variabel
+        else if(dataReceive.equals("#")) {
+            writeBytes("abort");
+            pinAutomaat.startingScreen();
+        }
         else {
             passBuf = pinAutomaat.getPasswordField() + dataReceive;
             //System.out.println(passBuf);
