@@ -187,6 +187,9 @@ void loop() {
       motor50(1000);
       motor20(1000);
     }
+    else if(line == "withdraw") {
+      mode = "mainMenu";
+    }
   }
 
 
@@ -268,7 +271,7 @@ void loop() {
       mode = "rfid";
     }
     else if(line == "withdraw") {
-      mode = "withdraw";
+      mode = "mainMenu";
     }
   }
 
@@ -298,7 +301,7 @@ void loop() {
       mode = "receipt";
     }
     else if(line == "withdraw") {
-      mode = "withdraw";
+      mode = "mainMenu";
     }
   }
 
@@ -329,7 +332,7 @@ void loop() {
       mode = "receipt";
     }
     else if(line == "withdraw") {
-      mode = "withdraw";
+      mode = "mainMenu";
     }
   }
 
@@ -360,7 +363,7 @@ void loop() {
       mode = "receipt";
     }
     else if(line == "withdraw") {
-      mode = "withdraw";
+      mode = "mainMenu";
     }
   }
 
@@ -435,7 +438,7 @@ void loop() {
       mode = "check";
     }
     else if(line == "withdraw") {
-      mode = "withdraw";
+      mode = "mainMenu";
     }
     
     
