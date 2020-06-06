@@ -1,9 +1,13 @@
-#define CW 8
+#define motorPin10 2 
+#define motorPin20 5
+#define motorPin50 8
 
 
 void setup() {
   Serial.begin(9600);
-  pinMode(CW, OUTPUT);
+  pinMode(motorPin10, OUTPUT);
+  pinMode(motorPin20, OUTPUT);
+  pinMode(motorPin50, OUTPUT);
 }
 
 void loop() {
@@ -18,23 +22,23 @@ void loop() {
     if(msg == "10")
     {
       Serial.println("Er wordt nu 1 "+msg+" biljet geprint");
-      digitalWrite(CW,HIGH);
+      digitalWrite(motorPin10,HIGH);
       delay(1000);
-      digitalWrite(CW, LOW);
+      digitalWrite(motorPin10, LOW);
     }
     if(msg == "20")
     {
       Serial.println("Er wordt nu 1 "+msg+" biljet geprint");      
-      digitalWrite(CW,HIGH);
+      digitalWrite(motorPin20,HIGH);
       delay(1000);
-      digitalWrite(CW, LOW);
+      digitalWrite(motorPin20, LOW);
     }
     if(msg == "50")
     {
       Serial.println("Er wordt nu 1 "+msg+" biljet geprint");
-      digitalWrite(CW,HIGH);
+      digitalWrite(motorPin50,HIGH);
       delay(1000);
-      digitalWrite(CW, LOW);
+      digitalWrite(motorPin50, LOW);
     }
     else
     {
