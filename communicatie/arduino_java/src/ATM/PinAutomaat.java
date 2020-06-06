@@ -243,12 +243,12 @@ public class PinAutomaat{
         grid.anchor = GridBagConstraints.PAGE_START;
         enterPinPanel.add(enterPinLabel, grid);
 
-        JButton removeButton = new JButton();
-        removeButton.setFont(new Font("Roboto", Font.BOLD, 25));
-        removeButton.setText("Gebruik [D] om uw laatste invoer te verwijderen.");
+        JLabel removeLabel = new JLabel();
+        removeLabel.setFont(new Font("Roboto", Font.BOLD, 25));
+        removeLabel.setText("Gebruik [D] om uw laatste invoer te verwijderen.");
         grid.gridx = 1;
         grid.gridy = 1;
-        enterPinPanel.add(removeButton, grid);
+        enterPinPanel.add(removeLabel, grid);
         
         passwordField = new JPasswordField(4);
         passwordField.setFont(new Font("Roboto", Font.BOLD, 25));
@@ -468,6 +468,7 @@ public class PinAutomaat{
                 }
             }
         });
+
         grid.gridx = 1;
         grid.gridy = 1;
         grid.ipadx = 40;
@@ -486,7 +487,7 @@ public class PinAutomaat{
         grid.gridwidth = 1;
         grid.fill = GridBagConstraints.HORIZONTAL;
         grid.insets = new Insets(5, 50, 250, 100);
-        amountPanel.add(enterButton, grid);            
+        amountPanel.add(enterButton, grid);
 
         backToMainMenuButton = new JButton("[*]   Hoofdmenu");
         backToMainMenuButton.setFont(new Font("Roboto", Font.BOLD, 25));
@@ -528,6 +529,7 @@ public class PinAutomaat{
         balancePanel.add(balanceLabel, grid);
 
         accountBalanceLabel = new JLabel(accountBalance);
+        accountBalanceLabel.setFont(new Font("Roboto", Font.BOLD, 25));
         grid.gridx = 1;
         grid.gridy = 1;
         grid.weighty = 0.0;
