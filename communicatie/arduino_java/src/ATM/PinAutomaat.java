@@ -528,7 +528,7 @@ public class PinAutomaat{
         grid.anchor = GridBagConstraints.PAGE_START;
         balancePanel.add(balanceLabel, grid);
 
-        accountBalanceLabel = new JLabel(accountBalance);
+        accountBalanceLabel = new JLabel("\u20BD " +accountBalance);
         accountBalanceLabel.setFont(new Font("Roboto", Font.BOLD, 25));
         grid.gridx = 1;
         grid.gridy = 1;
