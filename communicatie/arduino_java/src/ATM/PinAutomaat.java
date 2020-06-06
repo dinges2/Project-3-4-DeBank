@@ -756,7 +756,6 @@ public class PinAutomaat{
         
         String s = "";
         int[] bills = {50, 20, 10};
-        int[] noOfBills = {0, 0, 0};
 
         if(amount > 150){
             noOfBills[0] = (int) Math.ceil((amount - 150) / bills[0]);
