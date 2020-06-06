@@ -262,12 +262,14 @@ public final class DataProcess {
                 pinAutomaat.revalidate();
             }
             else if(moneyCheck.optionSeventy(saldo).equals("biljet false")) {
+                writeBytes("withdraw");
                 //Als de biljetten niet aanwezig zijn, wordt deze melding op het scherm weergegeven
                 pinAutomaat.remove(pinAutomaat.mainMenuPanel);
                 pinAutomaat.messageInsufficient("Er zijn niet genoeg biljetten aanwezig voor deze keuze.");
                 pinAutomaat.revalidate();
             }
             else if(moneyCheck.optionSeventy(saldo).equals("saldo false")) {
+                writeBytes("withdraw");
                 //Als het saldo neit toereikend is, wordt deze melding op het scherm weergegeven
                 pinAutomaat.remove(pinAutomaat.mainMenuPanel);
                 pinAutomaat.messageInsufficient("U heeft niet genoeg saldo voor deze keuze.");
