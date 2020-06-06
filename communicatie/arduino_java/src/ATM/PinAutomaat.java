@@ -739,8 +739,8 @@ public class PinAutomaat{
         ActionListener taskPerformer = new ActionListener() {
         public void actionPerformed(ActionEvent evt) {
             mainFrame.remove(thanksPanel);
-            startingScreenPanel = null;
             startingScreen();
+            mainFrame.revalidate();
         }
         };
         Timer timer = new Timer(5000, taskPerformer);
