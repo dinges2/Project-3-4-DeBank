@@ -13,7 +13,6 @@ public final class DataProcess {
     
     //De benodigde globale variabelen aanmaken
     static List<Character> buf = new ArrayList<>();
-    static Date date = new Date();
     static String dataReceive;
     static String accountNumber;
     static String halfAccountNumber;
@@ -745,6 +744,7 @@ public final class DataProcess {
     //Methode die de bon wegschrijft naar een .txt bestand
     public static void writeToFile(String bankNummer, String geldGepind) {
 
+        Date date = new Date();
         String s = "";
 
         s += "GETBANK \n";
