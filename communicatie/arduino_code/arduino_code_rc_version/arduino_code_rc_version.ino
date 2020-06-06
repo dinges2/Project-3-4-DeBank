@@ -98,8 +98,11 @@ void loop() {
     //reading the rfid at block 1
     status = mfrc522.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, 3, &key, &(mfrc522.uid)); //line 834 of MFRC522.cpp file
     if (status != MFRC522::STATUS_OK) {
-      Serial.print(F("Authentication failed: "));
-      Serial.println(mfrc522.GetStatusCodeName(status));
+      //Serial.print(F("Authentication failed: "));
+      //Serial.println(mfrc522.GetStatusCodeName(status));
+      digitalWrite(redLed, HIGH);
+      delay(2000);
+      digitalWrite(redLed, LOW);
       return;
     }
 
