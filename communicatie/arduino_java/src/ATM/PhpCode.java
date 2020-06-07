@@ -36,7 +36,7 @@ public class PhpCode {
         return stringBuilder.toString();
     }
 
-
+    //Methode die de rekeningnummer naar de php toestuurd
     public static String account(String rekeningnummer) {
 
         JSONObject nummer = null;
@@ -66,6 +66,7 @@ public class PhpCode {
 
     }
 
+    //Methode die de inloggegevens naar de php stuurt
     public static String pincode(String rekeningnummer, String pincode ) {
 
         JSONObject nummer = null;
@@ -99,6 +100,7 @@ public class PhpCode {
         return nummer.getString("PINCODE");
     }
 
+    //Methode die ervoor zorg dat de inlogpoging in de database met 1 wordt verhoogd
     public static void wrongPin(String rekeningNummer) {
 
         try{
@@ -112,6 +114,7 @@ public class PhpCode {
 
     }
 
+    //Methode die ervoor zorg dat de inlogpoging gereset wordt
     public static void rightPin(String rekeningNummer) {
 
         try{
@@ -123,6 +126,7 @@ public class PhpCode {
         }
     }
 
+    //Methode die de saldo opvraagd van de database
     public static String saldos(String rekeningnummer) {
 
         JSONObject nummer = null;
@@ -144,6 +148,7 @@ public class PhpCode {
         return nummer.getString("SALDO");
     }
 
+    //Methode die een bepaalde bedrag van een bepaalde rekening afschrijft
     public static void collectMoney(String rekeningNummer, int amount) {
 
         try{
@@ -155,6 +160,7 @@ public class PhpCode {
         }
     }
 
+    //Methode die de inlogpoging opvraagd van de database
     public static String poging(String rekeningnummer) {
         
         JSONObject nummer = null;

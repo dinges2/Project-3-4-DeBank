@@ -55,21 +55,24 @@ void setup() {
   pinMode(motor3, OUTPUT);
 
   for (byte i = 0; i < 6; i++) {
-    key.keyByte[i] = 0xFF;  //keyByte is defined in the "MIFARE_Key" 'struct' definition in the .h file of the library
+    key.keyByte[i] = 0xFF;  
   }
 
 }
 
 void loop() {
-  
+
+  //check if data is available
   if(Serial.available() > 0) {
     line = Serial.readString();
     
   }
   
   
+  //if and if-else statement with different "mode" depends what it gets from java
+
   
-  
+  //mode when checking the rfid
   if(mode == "rfid") {
 
     if(line == "ok") {
@@ -96,7 +99,7 @@ void loop() {
     }
         
     //reading the rfid at block 1
-    status = mfrc522.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, 3, &key, &(mfrc522.uid)); //line 834 of MFRC522.cpp file
+    status = mfrc522.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, 3, &key, &(mfrc522.uid)); 
     if (status != MFRC522::STATUS_OK) {
       //Serial.print(F("Authentication failed: "));
       //Serial.println(mfrc522.GetStatusCodeName(status));
@@ -106,6 +109,7 @@ void loop() {
       return;
     }
 
+    //gives reading failed if something is wrong
     status = mfrc522.MIFARE_Read(block, rfid_buffer, &len);
     if (status != MFRC522::STATUS_OK) {
       Serial.print(F("Reading failed: "));
@@ -113,6 +117,7 @@ void loop() {
       return;
     }
 
+    //save the reading data in a buffer
     for (uint8_t i = 0; i < 16; i++) {
       Serial.write(rfid_buffer[i]);
       
@@ -127,7 +132,7 @@ void loop() {
   
 
   
-  
+  //mode that check the pin
   else if(mode == "pinCheck") {
 
     key_pressed = keypad_key.getKey();
@@ -164,7 +169,7 @@ void loop() {
 
   
   
-  
+  //mode for the mainMenu
   else if(mode == "mainMenu") {
     key_pressed = keypad_key.getKey();
 
@@ -194,7 +199,7 @@ void loop() {
 
 
 
-
+  //mode for the withdraw process
   else if(mode == "withdraw") {
     key_pressed = keypad_key.getKey();
 
@@ -230,7 +235,7 @@ void loop() {
 
 
 
-
+  //mode for the balance process
   else if(mode == "balance") {
     key_pressed = keypad_key.getKey();
 
@@ -249,7 +254,7 @@ void loop() {
 
 
 
-
+  //mode when you choose the option 10
   else if(mode == "optionTen") {
     key_pressed = keypad_key.getKey();
 
@@ -277,7 +282,7 @@ void loop() {
 
 
 
-
+  //mode when you choose option 20
   else if(mode == "optionTwenty") {
     key_pressed = keypad_key.getKey();
 
@@ -307,7 +312,7 @@ void loop() {
 
 
 
-
+  //mode when you choose the option 50
   else if(mode == "optionFifty") {
     key_pressed = keypad_key.getKey();
 
@@ -338,7 +343,7 @@ void loop() {
 
 
 
-
+  //mode when you choose the option 100
   else if(mode == "optionHundred") {
     key_pressed = keypad_key.getKey();
 
@@ -368,7 +373,7 @@ void loop() {
   }
 
 
-
+  //mode for the receipt process
   else if(mode == "receipt") {
     key_pressed = keypad_key.getKey();
 
@@ -393,7 +398,7 @@ void loop() {
 
 
 
-
+  
   else if(mode == "enterAmount") {
     key_pressed = keypad_key.getKey();
 
@@ -445,7 +450,7 @@ void loop() {
   }
 
 
-
+  //mode for the billing process
   else if(mode == "check") {
     if(line.length() == 3) {
       
@@ -456,6 +461,7 @@ void loop() {
   }
 }
 
+//for turning on the dc depends on time
 void motor10(int tijd) {
   digitalWrite(motor1, HIGH);
   delay(tijd);
@@ -471,6 +477,8 @@ void motor50(int tijd) {
   delay(tijd);
   digitalWrite(motor3, LOW);
 }
+
+//process which dc has to be on
 void motorProcess(int tijd1, int tijd2, int tijd3) {
   motor10(tijd1);
   motor20(tijd2);

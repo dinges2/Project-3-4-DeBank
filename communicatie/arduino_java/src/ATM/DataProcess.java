@@ -33,7 +33,8 @@ public final class DataProcess {
 
         this.read();
     }
-    
+
+    //methode die de seriele poort open zet en de binnengekomen data opslaat in een variable
     public void read() {
 
         comPort = SerialPort.getCommPorts()[2];
@@ -55,7 +56,8 @@ public final class DataProcess {
         }
         });
     }
-    
+
+    //methode die de data in een buffer zet en daarna opzet naar een string
     static void storeBuffer() {
         
         for(int i = 0; i<buf.size(); i++) {
@@ -66,7 +68,9 @@ public final class DataProcess {
         s.delete(0, buf.size());
         
     }
-    
+
+    //methode die de data in een buffer stopt zolang het geen speciale char tegenkomt.
+    //regelt waar de binnengekomen data heen moet
     static void append(char c) {
 
         if(c == '\u0000') {
