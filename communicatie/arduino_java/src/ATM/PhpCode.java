@@ -42,7 +42,7 @@ public class PhpCode {
         JSONObject nummer = null;
 
         try{
-            JSONObject root = new JSONObject(fetch("https://getbank.ml/api/rekeningnummer.php?reknr="+ rekeningnummer));
+            JSONObject root = new JSONObject(fetch("http://getbank.ml/api/rekeningnummer.php?reknr="+ rekeningnummer));
             JSONArray buffer = root.getJSONArray("rekeningnummer");
             for (int i = 0; i < buffer.length(); i++) {
                 nummer = buffer.getJSONObject(i);
@@ -72,7 +72,7 @@ public class PhpCode {
         JSONObject nummer = null;
 
         try{
-            JSONObject root = new JSONObject(fetch("https://getbank.ml/api/pincode.php?reknr="+ rekeningnummer + "&pincode=" + pincode));
+            JSONObject root = new JSONObject(fetch("http://getbank.ml/api/pincode.php?reknr="+ rekeningnummer + "&pincode=" + pincode));
             JSONArray buffer = root.getJSONArray("rekeningnummer");
 
             if(buffer.isEmpty()) {
@@ -104,7 +104,7 @@ public class PhpCode {
     public static void wrongPin(String rekeningNummer) {
 
         try{
-            JSONObject root = new JSONObject(fetch("https://getbank.ml/api/wrongPin.php?reknr="+ rekeningNummer));
+            JSONObject root = new JSONObject(fetch("http://getbank.ml/api/wrongPin.php?reknr="+ rekeningNummer));
 
         }
 
@@ -118,7 +118,7 @@ public class PhpCode {
     public static void rightPin(String rekeningNummer) {
 
         try{
-            JSONObject root = new JSONObject(fetch("https://getbank.ml/api/rightPin.php?reknr="+ rekeningNummer));
+            JSONObject root = new JSONObject(fetch("http://getbank.ml/api/rightPin.php?reknr="+ rekeningNummer));
 
         }
         catch (Exception e) {
@@ -132,7 +132,7 @@ public class PhpCode {
         JSONObject nummer = null;
 
         try{
-            JSONObject root = new JSONObject(fetch("https://getbank.ml/api/saldo.php?reknr="+ rekeningnummer));
+            JSONObject root = new JSONObject(fetch("http://getbank.ml/api/saldo.php?reknr="+ rekeningnummer));
             JSONArray buffer = root.getJSONArray("saldo");
 
 
@@ -152,7 +152,7 @@ public class PhpCode {
     public static void collectMoney(String rekeningNummer, int amount) {
 
         try{
-            JSONObject root = new JSONObject(fetch("https://getbank.ml/api/collect.php?reknr="+ rekeningNummer + "&amount="+ amount));
+            JSONObject root = new JSONObject(fetch("http://getbank.ml/api/collect.php?reknr="+ rekeningNummer + "&amount="+ amount));
 
         }
         catch (Exception e) {
@@ -166,7 +166,7 @@ public class PhpCode {
         JSONObject nummer = null;
 
         try{
-            JSONObject root = new JSONObject(fetch("https://getbank.ml/api/inlogPoging.php?reknr="+ rekeningnummer));
+            JSONObject root = new JSONObject(fetch("http://getbank.ml/api/inlogPoging.php?reknr="+ rekeningnummer));
             JSONArray buffer = root.getJSONArray("inlogpoging");
 
 
