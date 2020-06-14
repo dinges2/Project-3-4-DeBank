@@ -37,7 +37,7 @@ public final class DataProcess {
     
     public void read() {
 
-        comPort = SerialPort.getCommPorts()[2];
+        comPort = SerialPort.getCommPorts()[0];
         comPort.openPort();
         comPort.addDataListener(new SerialPortDataListener() {
         
