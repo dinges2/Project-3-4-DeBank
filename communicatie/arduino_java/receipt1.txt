@@ -1,0 +1,9 @@
+GETBANK 
+BON: 
+Banknummer: 
+xxxxxxxxxxxx0002
+Opgenomen bedrag: 
+80
+Datum: 
+Sat Jun 06 19:44:50 CEST 2020
+

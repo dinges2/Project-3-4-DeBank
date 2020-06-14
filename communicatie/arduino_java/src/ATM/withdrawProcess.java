@@ -8,7 +8,7 @@ public class withdrawProcess {
     //Globale variabelen aanmaken
     static int tenCounter = 10;
     static int twentyCounter = 10;
-    static int fiftyCounter = 10;
+    static int fiftyCounter = 3;
 
     //Benodigde 'getters'
     public static int getTenCounter() {
