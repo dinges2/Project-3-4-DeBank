@@ -608,11 +608,21 @@ public final class DataProcess {
             amountBuffer = "";
         }
         else if(dataReceive.equals("A")) {
-            writeBytes("enter");
-            pinAutomaat.setAmount(Integer.valueOf(amountBuffer));
-            pinAutomaat.remove(pinAutomaat.amountPanel);
-            pinAutomaat.billChoice();
-            pinAutomaat.revalidate();
+            if(Integer.valueOf(amountBuffer) < 10) {
+                amountBuffer = "10";
+                writeBytes("enter");
+                pinAutomaat.setAmount(Integer.valueOf(amountBuffer));
+                pinAutomaat.remove(pinAutomaat.amountPanel);
+                pinAutomaat.billChoice();
+                pinAutomaat.revalidate();
+            }
+            else {
+                writeBytes("enter");
+                pinAutomaat.setAmount(Integer.valueOf(amountBuffer));
+                pinAutomaat.remove(pinAutomaat.amountPanel);
+                pinAutomaat.billChoice();
+                pinAutomaat.revalidate();
+            }
         }
         else if(dataReceive.equals("D")) {
             pinAutomaat.setAmountField(0);
