@@ -6,8 +6,10 @@ import com.fazecast.jSerialComm.*;
 import java.util.*;
 import java.io.FileWriter;
 import java.io.IOException;
-import static ATM.PinAutomaat.noOfBills;
+
 import java.lang.Integer;
+
+import static ATM.PinAutomaat.*;
 
 public final class DataProcess {
     
@@ -37,7 +39,7 @@ public final class DataProcess {
     //methode die de seriele poort open zet en de binnengekomen data opslaat in een variable
     public void read() {
 
-        comPort = SerialPort.getCommPorts()[2];
+        comPort = SerialPort.getCommPorts()[0];
         comPort.openPort();
         comPort.addDataListener(new SerialPortDataListener() {
         
@@ -630,7 +632,8 @@ public final class DataProcess {
 
         if(dataReceive.equals("A")) {
             if(moneyCheck.optionChoice("option1", saldo, Integer.parseInt(amountBuffer)).equals("ok")) {
-                String t = String.valueOf(noOfBills[0]) + String.valueOf(noOfBills[1]) + String.valueOf(noOfBills[2]);
+                String t = String.valueOf(noOfBills1[0]) + String.valueOf(noOfBills1[1]) + String.valueOf(noOfBills1[2]);
+                System.out.println("A: "+ t);
                 geldGepind = Integer.parseInt(amountBuffer);
                 writeBytes("option1");
                 delay.tijd(100, 100);
@@ -659,7 +662,8 @@ public final class DataProcess {
         }
         else if(dataReceive.equals("B")) {
             if(moneyCheck.optionChoice("option2", saldo, Integer.parseInt(amountBuffer)).equals("ok")) {
-                String t = String.valueOf(noOfBills[0]) + String.valueOf(noOfBills[1]) + String.valueOf(noOfBills[2]);
+                String t = String.valueOf(noOfBills2[0]) + String.valueOf(noOfBills2[1]) + String.valueOf(noOfBills2[2]);
+                System.out.println("B: "+ t);
                 geldGepind = Integer.parseInt(amountBuffer);
                 writeBytes("option2");
                 delay.tijd(100, 100);
@@ -701,7 +705,9 @@ public final class DataProcess {
         }
 
         for(int i = 0; i<3; i++) {
-            noOfBills[i] = 0;
+            noOfBills1[i] = 0;
+            noOfBills2[i] = 0;
+
         }
     }
 

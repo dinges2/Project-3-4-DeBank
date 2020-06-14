@@ -2,7 +2,7 @@
 package ATM;
 
 //De benodigde libraries importeren
-import static ATM.PinAutomaat.noOfBills;
+import static ATM.PinAutomaat.*;
 
 public class withdrawProcess {
     //Globale variabelen aanmaken
@@ -128,11 +128,11 @@ public class withdrawProcess {
     //en de bijbehorende boodschap teruggeeft aan de Dataprocess class
     public static String optionChoice(String option, String saldo, int amount) {
         if(option.equals("option1")) {
-            if(twentyCounter - noOfBills[1] >= 0 && tenCounter - noOfBills[2] >= 0 && fiftyCounter - noOfBills[0] >= 0) {
+            if(twentyCounter - noOfBills1[1] >= 0 && tenCounter - noOfBills1[2] >= 0 && fiftyCounter - noOfBills1[0] >= 0) {
                 if(Integer.valueOf(saldo) - amount >= 0) {
-                    fiftyCounter = fiftyCounter - noOfBills[0];
-                    twentyCounter = twentyCounter - noOfBills[1];
-                    tenCounter = tenCounter - noOfBills[2];
+                    fiftyCounter = fiftyCounter - noOfBills1[0];
+                    twentyCounter = twentyCounter - noOfBills1[1];
+                    tenCounter = tenCounter - noOfBills1[2];
                     return "ok";
                 }
                 return "saldo false";
@@ -140,11 +140,11 @@ public class withdrawProcess {
             return "biljet false";
         }
         else if(option.equals("option2")) {
-            if(twentyCounter - noOfBills[1] >= 0 && tenCounter - noOfBills[2] >= 0 && fiftyCounter - noOfBills[0] >= 0) {
+            if(twentyCounter - noOfBills2[1] >= 0 && tenCounter - noOfBills2[2] >= 0 && fiftyCounter - noOfBills2[0] >= 0) {
                 if(Integer.valueOf(saldo) - amount >= 0) {
-                    fiftyCounter = fiftyCounter - noOfBills[0];
-                    twentyCounter = twentyCounter - noOfBills[1];
-                    tenCounter = tenCounter - noOfBills[2];
+                    fiftyCounter = fiftyCounter - noOfBills2[0];
+                    twentyCounter = twentyCounter - noOfBills2[1];
+                    tenCounter = tenCounter - noOfBills2[2];
                     return "ok";
                 }
                 return "saldo false";

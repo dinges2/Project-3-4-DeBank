@@ -29,7 +29,8 @@ public class PinAutomaat{
     private int amount;
     private static int amountPressed = 0;
     private static String accountBalance;
-    static int[] noOfBills = {0, 0, 0};
+    static int[] noOfBills1 = {0, 0, 0};
+    static int[] noOfBills2 = {0, 0, 0};
 
     private JButton abortButton;
     private JButton enterButton;
@@ -457,17 +458,17 @@ public class PinAutomaat{
         amountField = new JFormattedTextField(amountFormat);
         amountField.setFont(new Font("Roboto", Font.BOLD, 25));
         amountField.setColumns(5);
-        amountField.addPropertyChangeListener("value", new PropertyChangeListener(){
-            
-            //Deze method wordt gebruikt om de waarde van de textfield aan te passen en override zodat zeker is dat deze interpretatie wordt gebruikt
-            @Override
-            public void propertyChange(PropertyChangeEvent e) {
-                Object source = e.getSource();
-                if (source == amountField) {
-                    amount = ((Number)amountField.getValue()).intValue();
-                }
-            }
-        });
+//        amountField.addPropertyChangeListener("value", new PropertyChangeListener(){
+//
+//            //Deze method wordt gebruikt om de waarde van de textfield aan te passen en override zodat zeker is dat deze interpretatie wordt gebruikt
+//            @Override
+//            public void propertyChange(PropertyChangeEvent e) {
+//                Object source = e.getSource();
+//                if (source == amountField) {
+//                    amount = ((Number)amountField.getValue()).intValue();
+//                }
+//            }
+//        });
 
         grid.gridx = 1;
         grid.gridy = 1;
@@ -759,19 +760,19 @@ public class PinAutomaat{
         
         for(int i = 0; i < 3; i++){
                 if(amount >= bills[i]){
-                    noOfBills[i] = Math.floorDiv(amount, bills[i]);
-                    amount = amount - bills[i] * noOfBills[i];
+                    noOfBills1[i] = Math.floorDiv(amount, bills[i]);
+                    amount = amount - bills[i] * noOfBills1[i];
                 }
         }
 
-        if(noOfBills[0] != 0){
-            s += Integer.toString(noOfBills[0]) + " X \u20BD 50 ";
+        if(noOfBills1[0] != 0){
+            s += Integer.toString(noOfBills1[0]) + " X \u20BD 50 ";
         }
-        if(noOfBills[1] != 0){
-            s += Integer.toString(noOfBills[1]) + " X \u20BD 20 ";
+        if(noOfBills1[1] != 0){
+            s += Integer.toString(noOfBills1[1]) + " X \u20BD 20 ";
         }
-        if(noOfBills[2] != 0){
-            s += Integer.toString(noOfBills[2]) + " X \u20BD 10 ";
+        if(noOfBills1[2] != 0){
+            s += Integer.toString(noOfBills1[2]) + " X \u20BD 10 ";
         }
 
         return s;
@@ -780,31 +781,31 @@ public class PinAutomaat{
     //Methode die bij de tweede biljetkeuze voor een zelfingevoerd bedrag d.m.v. onderstaande formule
     //bepaald wat de keuze is met de meeste biljetten
     public String optionTwo(int amount){
-        
         String s = "";
         int[] bills = {50, 20, 10};
 
+
         if(amount > 150){
-            noOfBills[0] = (int) Math.ceil((amount - 150) / bills[0]);
-            amount = amount - bills[0] * noOfBills[0];    
+            noOfBills2[0] = (int) Math.ceil((amount - 150) / bills[0]);
+            amount = amount - bills[0] * noOfBills2[0];
         }
         if(amount > 50){
-            noOfBills[1] = Math.round((amount - 50) / bills[1]);
-            amount = amount - bills[1] * noOfBills[1];
+            noOfBills2[1] = Math.round((amount - 50) / bills[1]);
+            amount = amount - bills[1] * noOfBills2[1];
         }
         if(amount >= bills[2]){
-            noOfBills[2] = amount / bills[2];
-            amount = amount - bills[2] * noOfBills[2];
+            noOfBills2[2] = amount / bills[2];
+            amount = amount - bills[2] * noOfBills2[2];
         }
 
-        if(noOfBills[0] != 0){
-            s += Integer.toString(noOfBills[0]) + " X \u20BD 50 ";
+        if(noOfBills2[0] != 0){
+            s += Integer.toString(noOfBills2[0]) + " X \u20BD 50 ";
         }
-        if(noOfBills[1] != 0){
-            s += Integer.toString(noOfBills[1]) + " X \u20Bd 20 ";
+        if(noOfBills2[1] != 0){
+            s += Integer.toString(noOfBills2[1]) + " X \u20Bd 20 ";
         }
-        if(noOfBills[2] != 0){
-            s += Integer.toString(noOfBills[2]) + " X \u20BD 10 ";
+        if(noOfBills2[2] != 0){
+            s += Integer.toString(noOfBills2[2]) + " X \u20BD 10 ";
         }
 
         return s;
