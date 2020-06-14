@@ -36,13 +36,13 @@ public class PhpCode {
         return stringBuilder.toString();
     }
 
-
+    //Methode die de rekeningnummer naar de php toestuurd
     public static String account(String rekeningnummer) {
 
         JSONObject nummer = null;
 
         try{
-            JSONObject root = new JSONObject(fetch("https://getbank.ml/api/rekeningnummer.php?reknr="+ rekeningnummer));
+            JSONObject root = new JSONObject(fetch("http://getbank.ml/api/rekeningnummer.php?reknr="+ rekeningnummer));
             JSONArray buffer = root.getJSONArray("rekeningnummer");
             for (int i = 0; i < buffer.length(); i++) {
                 nummer = buffer.getJSONObject(i);
@@ -66,12 +66,13 @@ public class PhpCode {
 
     }
 
+    //Methode die de inloggegevens naar de php stuurt
     public static String pincode(String rekeningnummer, String pincode ) {
 
         JSONObject nummer = null;
 
         try{
-            JSONObject root = new JSONObject(fetch("https://getbank.ml/api/pincode.php?reknr="+ rekeningnummer + "&pincode=" + pincode));
+            JSONObject root = new JSONObject(fetch("http://getbank.ml/api/pincode.php?reknr="+ rekeningnummer + "&pincode=" + pincode));
             JSONArray buffer = root.getJSONArray("rekeningnummer");
 
             if(buffer.isEmpty()) {
@@ -99,10 +100,11 @@ public class PhpCode {
         return nummer.getString("PINCODE");
     }
 
+    //Methode die ervoor zorg dat de inlogpoging in de database met 1 wordt verhoogd
     public static void wrongPin(String rekeningNummer) {
 
         try{
-            JSONObject root = new JSONObject(fetch("https://getbank.ml/api/wrongPin.php?reknr="+ rekeningNummer));
+            JSONObject root = new JSONObject(fetch("http://getbank.ml/api/wrongPin.php?reknr="+ rekeningNummer));
 
         }
 
@@ -112,10 +114,11 @@ public class PhpCode {
 
     }
 
+    //Methode die ervoor zorg dat de inlogpoging gereset wordt
     public static void rightPin(String rekeningNummer) {
 
         try{
-            JSONObject root = new JSONObject(fetch("https://getbank.ml/api/rightPin.php?reknr="+ rekeningNummer));
+            JSONObject root = new JSONObject(fetch("http://getbank.ml/api/rightPin.php?reknr="+ rekeningNummer));
 
         }
         catch (Exception e) {
@@ -123,12 +126,13 @@ public class PhpCode {
         }
     }
 
+    //Methode die de saldo opvraagd van de database
     public static String saldos(String rekeningnummer) {
 
         JSONObject nummer = null;
 
         try{
-            JSONObject root = new JSONObject(fetch("https://getbank.ml/api/saldo.php?reknr="+ rekeningnummer));
+            JSONObject root = new JSONObject(fetch("http://getbank.ml/api/saldo.php?reknr="+ rekeningnummer));
             JSONArray buffer = root.getJSONArray("saldo");
 
 
@@ -144,10 +148,11 @@ public class PhpCode {
         return nummer.getString("SALDO");
     }
 
+    //Methode die een bepaalde bedrag van een bepaalde rekening afschrijft
     public static void collectMoney(String rekeningNummer, int amount) {
 
         try{
-            JSONObject root = new JSONObject(fetch("https://getbank.ml/api/collect.php?reknr="+ rekeningNummer + "&amount="+ amount));
+            JSONObject root = new JSONObject(fetch("http://getbank.ml/api/collect.php?reknr="+ rekeningNummer + "&amount="+ amount));
 
         }
         catch (Exception e) {
@@ -155,12 +160,13 @@ public class PhpCode {
         }
     }
 
+    //Methode die de inlogpoging opvraagd van de database
     public static String poging(String rekeningnummer) {
         
         JSONObject nummer = null;
 
         try{
-            JSONObject root = new JSONObject(fetch("https://getbank.ml/api/inlogPoging.php?reknr="+ rekeningnummer));
+            JSONObject root = new JSONObject(fetch("http://getbank.ml/api/inlogPoging.php?reknr="+ rekeningnummer));
             JSONArray buffer = root.getJSONArray("inlogpoging");
 
 
